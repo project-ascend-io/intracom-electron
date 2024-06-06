@@ -12,13 +12,23 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 
 const Input: FC<InputProps> = ({ name }) => {
   const [text, setText] = useState("");
+  const uppercaseTitle = name
+    .split(" ")
+    .map((word) => word[0] + word.slice(1))
+    .join(" ");
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setText(e.target.value);
   return (
-    <label>
-      {name}
-      <input type="text" onChange={handleChange} value={text} />
-    </label>
+    <>
+      <label htmlFor={name}>{uppercaseTitle}</label>
+      <input
+        id={name}
+        name={name}
+        type="text"
+        onChange={handleChange}
+        value={text}
+      />
+    </>
   );
 };
 
