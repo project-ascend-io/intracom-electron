@@ -1,0 +1,99 @@
+.signup-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+  padding: 20px;
+  max-width: 400px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+}
+
+.signup-form-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.signup-form-header h1 {
+  font-size: 24px;
+  margin: 0;
+  color: black;
+}
+
+.signup-form {
+  width: 100%;
+}
+
+.form-group {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  text-align: left;
+  font-size: 14px;
+  color: #333;
+}
+
+.form-group input {
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+.form-group.terms {
+  display: flex;
+  align-items: center;
+}
+
+.form-group.terms input[type="checkbox"] {
+  margin-right: 10px; /* Space between checkbox and label */
+}
+
+.form-group.terms label {
+  margin: 0;
+  text-align: left;
+  font-weight: normal;
+  display: inline; /* Ensure the label is inline with the checkbox */
+}
+
+.signup-btn {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+  margin-top: 15px;
+}
+
+.signup-btn:hover {
+  background-color: #0056b3;
+}
+
+.terms-info {
+  margin-top: 20px;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
+}
+
+.terms-info a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.terms-info a:hover {
+  text-decoration: underline;
+}
