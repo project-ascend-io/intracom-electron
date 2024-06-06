@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import { HashRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { createRoot } from "react-dom/client";
+import { Billing } from "./billing/billing";
 import "./app.css";
 
 const CountdownTimer = () => {
@@ -49,6 +50,7 @@ const Home = () => {
         <p>Launching Soon!</p>
       </header>
       <CountdownTimer />
+      <Link to={"/billing"}>Go To Billing Page</Link>
     </div>
   );
 };
@@ -57,6 +59,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/billing" element={<Billing />} />
       </Routes>
     </Router>
   );
