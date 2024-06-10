@@ -9,10 +9,16 @@ import React, {
 interface DropdownProps extends SelectHTMLAttributes<HTMLSelectElement> {
   name: string;
   options: string[];
+  selected: string;
+  setSelected: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Dropdown: FC<DropdownProps> = ({ name, options }) => {
-  const [selected, setSelected] = useState("");
+const Dropdown: FC<DropdownProps> = ({
+  name,
+  options,
+  setSelected,
+  selected,
+}) => {
   const uppercaseTitle = name
     .split(" ")
     .map((word) => word[0].toUpperCase() + word.slice(1))

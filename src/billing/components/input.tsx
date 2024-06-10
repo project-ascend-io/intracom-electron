@@ -8,10 +8,11 @@ import React, {
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
+  text: string;
+  setText: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const Input: FC<InputProps> = ({ name }) => {
-  const [text, setText] = useState("");
+const Input: FC<InputProps> = ({ name, text, setText }) => {
   const uppercaseTitle = name
     .split(" ")
     .map((word) => word[0].toUpperCase() + word.slice(1))
