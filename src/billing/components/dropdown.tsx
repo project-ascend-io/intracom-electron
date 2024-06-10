@@ -1,24 +1,30 @@
-import React, {
-  ChangeEvent,
-  FC,
-  SelectHTMLAttributes,
-  useEffect,
-  useState,
-} from "react";
+import React, { ChangeEvent, FC, SelectHTMLAttributes } from "react";
 
+interface SelectLog {
+  value: string;
+  error: boolean;
+}
+interface BillingForm {
+  "street address": SelectLog;
+  city: SelectLog;
+  state: SelectLog;
+  "postal code": SelectLog;
+  country: SelectLog;
+  [key: string]: SelectLog; //Needed to add this index signature, Im not exactly sure why but I think it has something to do with the fact that Im dynamically indexing into the form below using the [] brackets (line 41).
+}
 interface DropdownProps extends SelectHTMLAttributes<HTMLSelectElement> {
   name: string;
   options: string[];
   placeholder?: string;
-  selected: string;
-  setSelected: React.Dispatch<React.SetStateAction<string>>;
+  fields: BillingForm;
+  setFields: React.Dispatch<React.SetStateAction<BillingForm>>;
 }
 
 const Dropdown: FC<DropdownProps> = ({
   name,
   options,
-  setSelected,
-  selected,
+  setFields,
+  fields,
   placeholder,
 }) => {
   const uppercaseTitle = name
@@ -29,11 +35,17 @@ const Dropdown: FC<DropdownProps> = ({
   return (
     <>
       <label htmlFor={name}>{uppercaseTitle}</label>
+      {fields[name].error && <span>Please enter a {name}</span>}
       <select
         name={name}
         id={name}
-        onChange={(e) => setSelected(e.target.value)}
-        value={selected}
+        onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+          setFields((prev) => ({
+            ...prev,
+            [name]: { value: e.target.value, error: false },
+          }))
+        }
+        value={fields[name].value}
       >
         <option value="" disabled>
           {placeholder}
