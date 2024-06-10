@@ -9,6 +9,7 @@ import React, {
 interface DropdownProps extends SelectHTMLAttributes<HTMLSelectElement> {
   name: string;
   options: string[];
+  placeholder?: string;
   selected: string;
   setSelected: React.Dispatch<React.SetStateAction<string>>;
 }
@@ -18,6 +19,7 @@ const Dropdown: FC<DropdownProps> = ({
   options,
   setSelected,
   selected,
+  placeholder,
 }) => {
   const uppercaseTitle = name
     .split(" ")
@@ -34,8 +36,7 @@ const Dropdown: FC<DropdownProps> = ({
         value={selected}
       >
         <option value="" disabled>
-          {" "}
-          Select An Option
+          {placeholder}
         </option>
         {options.map((item: string) => (
           <option value={item}>{item[0].toUpperCase() + item.slice(1)}</option>
