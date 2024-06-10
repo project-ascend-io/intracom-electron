@@ -51,7 +51,9 @@ const Dropdown: FC<DropdownProps> = ({
           {placeholder}
         </option>
         {options.map((item: string) => (
-          <option value={item}>{item[0].toUpperCase() + item.slice(1)}</option>
+          <option key={item} value={item}>
+            {item[0].toUpperCase() + item.slice(1)}
+          </option>
         ))}
       </select>
     </>
