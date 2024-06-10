@@ -35,20 +35,33 @@ export function Billing() {
           name={"street address"}
           text={streetAddress}
           setText={setStreetAddress}
+          placeholder="Enter street address"
         />
-        <Input name={"city"} text={city} setText={setCity} />
+        <Input
+          name={"city"}
+          text={city}
+          setText={setCity}
+          placeholder="Enter city"
+        />
         <Dropdown
           name="state"
           options={["New York", "Massachusetts", "Connecticut", "Maryland"]}
           selected={state}
           setSelected={setState}
+          placeholder="Choose a state"
         />
-        <Input name={"postal code"} text={postal} setText={setPostal} />
+        <Input
+          name={"postal code"}
+          text={postal}
+          setText={setPostal}
+          placeholder="Enter postal code"
+        />
         <Dropdown
           name="country"
           options={["United States"]}
           selected={country}
           setSelected={setCountry}
+          placeholder="Choose a country"
         />
         <button>Save</button>
       </section>
