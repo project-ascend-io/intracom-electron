@@ -14,7 +14,7 @@ const Input: FC<InputProps> = ({ name }) => {
   const [text, setText] = useState("");
   const uppercaseTitle = name
     .split(" ")
-    .map((word) => word[0] + word.slice(1))
+    .map((word) => word[0].toUpperCase() + word.slice(1))
     .join(" ");
   const handleChange = (e: ChangeEvent<HTMLInputElement>) =>
     setText(e.target.value);
