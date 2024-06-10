@@ -4,11 +4,19 @@ import Input from "./components/input";
 import Dropdown from "./components/dropdown";
 
 export function Billing() {
-  const [streetAddress, setStreetAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [postal, setPostal] = useState("");
-  const [country, setCountry] = useState("");
+  const [form, setForm] = useState({
+    "street address": { value: "", error: false },
+    city: { value: "", error: false },
+    state: { value: "", error: false },
+    "postal code": { value: "", error: false },
+    country: { value: "", error: false },
+  });
+
+  const submitForm = () => {
+    //Clear errors
+    //Validate input
+    //if input there - send
+  };
   return (
     <section>
       <header>
@@ -33,37 +41,37 @@ export function Billing() {
         <h3>Billing Address</h3>
         <Input
           name={"street address"}
-          text={streetAddress}
-          setText={setStreetAddress}
+          fields={form}
+          setFields={setForm}
           placeholder="Enter street address"
         />
         <Input
           name={"city"}
-          text={city}
-          setText={setCity}
+          fields={form}
+          setFields={setForm}
           placeholder="Enter city"
         />
         <Dropdown
           name="state"
           options={["New York", "Massachusetts", "Connecticut", "Maryland"]}
-          selected={state}
-          setSelected={setState}
+          fields={form}
+          setFields={setForm}
           placeholder="Choose a state"
         />
         <Input
           name={"postal code"}
-          text={postal}
-          setText={setPostal}
+          fields={form}
+          setFields={setForm}
           placeholder="Enter postal code"
         />
         <Dropdown
           name="country"
           options={["United States"]}
-          selected={country}
-          setSelected={setCountry}
+          fields={form}
+          setFields={setForm}
           placeholder="Choose a country"
         />
-        <button>Save</button>
+        <button onClick={submitForm}>Save</button>
       </section>
     </section>
   );
