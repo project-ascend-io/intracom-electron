@@ -1,24 +1,6 @@
-import React, { ChangeEvent, FC, SelectHTMLAttributes } from "react";
+import React, { ChangeEvent, FC } from "react";
 
-interface SelectLog {
-  value: string;
-  error: boolean;
-}
-interface BillingForm {
-  "street address": SelectLog;
-  city: SelectLog;
-  state: SelectLog;
-  "postal code": SelectLog;
-  country: SelectLog;
-  [key: string]: SelectLog; //Needed to add this index signature, Im not exactly sure why but I think it has something to do with the fact that Im dynamically indexing into the form below using the [] brackets (line 41).
-}
-interface DropdownProps extends SelectHTMLAttributes<HTMLSelectElement> {
-  name: string;
-  options: string[];
-  placeholder?: string;
-  fields: BillingForm;
-  setFields: React.Dispatch<React.SetStateAction<BillingForm>>;
-}
+import { DropdownProps } from "../types";
 
 const Dropdown: FC<DropdownProps> = ({
   name,
