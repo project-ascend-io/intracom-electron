@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { Link, redirect } from "react-router-dom";
 import Input from "./components/input";
@@ -39,6 +39,10 @@ export function Billing() {
       })
     );
   const submitForm = () => {
+    //clear out previous
+    checkErrors(true);
+
+    //check if form is filled
     const formFilled = Object.keys(form).every((field) =>
       form[field].value.trim()
     );
