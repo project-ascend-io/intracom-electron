@@ -1,6 +1,7 @@
 import React, { ChangeEvent, FC } from "react";
 
 import { DropdownProps } from "../types";
+import "../billing.css";
 
 const Dropdown: FC<DropdownProps> = ({
   name,
@@ -15,9 +16,11 @@ const Dropdown: FC<DropdownProps> = ({
     .join(" ");
 
   return (
-    <>
+    <div className="input-group">
       <label htmlFor={name}>{uppercaseTitle}</label>
-      {fields[name].error && <span>Please enter a {name}</span>}
+      {fields[name].error && (
+        <span className="error-message">Please enter a {name}</span>
+      )}
       <select
         name={name}
         id={name}
@@ -28,8 +31,9 @@ const Dropdown: FC<DropdownProps> = ({
           }))
         }
         value={fields[name].value}
+        required
       >
-        <option value="" disabled>
+        <option className="placeholder" value="" disabled hidden>
           {placeholder}
         </option>
         {options.map((item: string) => (
@@ -38,7 +42,7 @@ const Dropdown: FC<DropdownProps> = ({
           </option>
         ))}
       </select>
-    </>
+    </div>
   );
 };
 
