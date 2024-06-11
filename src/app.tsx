@@ -4,6 +4,7 @@ import { createRoot } from "react-dom/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 import { Billing } from "./billing/billing";
+import { BillingSuccess } from "./billing/billing-success";
 import "./app.css";
 
 const queryClient = new QueryClient();
@@ -64,6 +65,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/billing" element={<Billing />} />
+        <Route path="/billing-success" element={<BillingSuccess />} />
       </Routes>
     </Router>
   );
