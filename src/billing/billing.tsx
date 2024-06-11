@@ -2,9 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Input from "./components/input";
 import Dropdown from "./components/dropdown";
+import { BillingForm } from "./types";
 
 export function Billing() {
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<BillingForm>({
     "street address": { value: "", error: false },
     city: { value: "", error: false },
     state: { value: "", error: false },
@@ -12,10 +13,30 @@ export function Billing() {
     country: { value: "", error: false },
   });
 
+  const displayErrors = (clear: boolean = false) =>
+    Object.keys(form).forEach((key) =>
+      setForm((prev) => {
+        const err = clear
+          ? false
+          : prev[key].value.trim().length
+          ? false
+          : true;
+        return {
+          ...prev,
+          [key]: { value: prev[key].value, error: err },
+        };
+      })
+    );
   const submitForm = () => {
-    //Clear errors
-    //Validate input
-    //if input there - send
+    const formFilled = Object.keys(form).every((field) =>
+      form[field].value.trim()
+    );
+    if (formFilled) {
+      //send Data
+    } else {
+      // display errors for empty forms
+      displayErrors();
+    }
   };
   return (
     <section>
