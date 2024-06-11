@@ -6,7 +6,9 @@ export function BillingSuccess() {
     <section>
       <h2>Address Saved</h2>
       <p>Your billing address has been saved.</p>
-      <button>Done</button>
+      <Link to={"/billing"}>
+        <button>Done</button>
+      </Link>
     </section>
   );
 }
