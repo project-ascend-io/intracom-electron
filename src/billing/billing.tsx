@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { Link, redirect } from "react-router-dom";
 import Input from "./components/input";
 import Dropdown from "./components/dropdown";
 import { BillingForm } from "./types";
@@ -13,7 +14,7 @@ export function Billing() {
     country: { value: "", error: false },
   });
 
-  const displayErrors = (clear: boolean = false) =>
+  const checkErrors = (clear: boolean = false) =>
     Object.keys(form).forEach((key) =>
       setForm((prev) => {
         const err = clear
@@ -32,10 +33,19 @@ export function Billing() {
       form[field].value.trim()
     );
     if (formFilled) {
-      //send Data
+      //send data
+      const { isLoading, error, data } = useQuery({
+        queryKey: ["billing-form"],
+        queryFn: () => fetch("").then((res) => res.json()),
+      });
+      if (error) {
+        //if error display error message
+      } else {
+        return redirect("/billing-success");
+      }
     } else {
       // display errors for empty forms
-      displayErrors();
+      checkErrors();
     }
   };
   return (
