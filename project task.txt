@@ -1,0 +1,90 @@
+import React, { useState } from 'react';
+
+
+const UserProfileForm = () => {
+    const [ FormData, setFormData] = useState({
+        Name: ' ', 
+        Bio:  ' ',
+        Location: ' ',
+        StatusMessage: ' '
+
+
+const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+        ...FormData,
+        [name]: value
+    });
+
+};
+
+
+
+return (
+    <div>
+        <p> Add your full name so friends can find you.:</p>
+
+
+        <p>Full Name:</p>
+        <label>
+            Name:
+            <Input
+                type-"text"
+                name="name"
+                value={formData.name}
+                onchange={handleNameChange}
+                Placeholder="Nicole Johnson"
+        />
+        </label>
+
+);
+
+
+    <p>Tell us about yourself in 160 characters or less.<p>
+
+        <p> Bio:</p>
+            <label>
+                Bio:
+                <Textarea
+                name="bio"
+                value={formData.bio}
+                onChange={handleInputChange}
+                Placeholder="I like to fish and go jogging during the warm summers.I got a Phd forensic science and went to school for four years."
+                />
+                </label>
+
+
+
+
+    <p>Where are you based?<p>
+    <label>
+         location:
+            <Input
+                type="text"
+                name="location"
+                value={FormData.location}
+                onChange={handleInputChange}
+                Placeholder="New York"
+                />
+                </label>
+
+
+
+<p>Set your Status Message</p>
+    <label>
+         Status Message:
+        <textarea
+                type="text"
+                value={Status Message}
+                Placeholder="Status Message"
+         />
+    </label>
+
+
+
+</div>
+                
+)
+)
+
+export default UserProfileForm;
