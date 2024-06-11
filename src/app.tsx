@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { HashRouter as Router, Route, Routes, Link } from "react-router-dom";
 import { createRoot } from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 import { Billing } from "./billing/billing";
 import "./app.css";
+
+const queryClient = new QueryClient();
 
 const CountdownTimer = () => {
   const calculateTimeLeft = () => {
@@ -66,4 +70,8 @@ const App = () => {
 };
 
 const root = createRoot(document.body);
-root.render(<App />);
+root.render(
+  <QueryClientProvider client={queryClient}>
+    <App />
+  </QueryClientProvider>
+);
