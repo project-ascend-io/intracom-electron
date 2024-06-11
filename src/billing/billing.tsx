@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { Link, redirect } from "react-router-dom";
 import Input from "./components/input";
 import Dropdown from "./components/dropdown";
@@ -14,6 +14,16 @@ export function Billing() {
     country: { value: "", error: false },
   });
 
+  const mutation = useMutation({
+    mutationFn: (newPost: any) =>
+      fetch("", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(newPost),
+      }).then((res) => res.json()),
+  });
   const checkErrors = (clear: boolean = false) =>
     Object.keys(form).forEach((key) =>
       setForm((prev) => {
@@ -34,15 +44,15 @@ export function Billing() {
     );
     if (formFilled) {
       //send data
-      const { isLoading, error, data } = useQuery({
-        queryKey: ["billing-form"],
-        queryFn: () => fetch("").then((res) => res.json()),
+      mutation.mutate({
+        streetAddress: form["street address"].value,
+        city: form.city.value,
+        state: form.state.value,
+        postalCode: form["postal code"].value,
+        country: form.country.value,
       });
-      if (error) {
-        //if error display error message
-      } else {
-        return redirect("/billing-success");
-      }
+
+      if (mutation.isSuccess) return redirect("/billing-success");
     } else {
       // display errors for empty forms
       checkErrors();
@@ -70,6 +80,9 @@ export function Billing() {
       <section>
         <h2>Billing</h2>
         <h3>Billing Address</h3>
+        {mutation.isError && (
+          <p> Something went wrong: {mutation.error.message}</p>
+        )}
         <Input
           name={"street address"}
           fields={form}
