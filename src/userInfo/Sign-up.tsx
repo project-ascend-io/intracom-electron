@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import "./Sign-up.css";
 
@@ -11,16 +9,51 @@ const CreateAccount = () => {
     termsAccepted: false,
   });
 
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+  const [emailError, setEmailError] = useState<string | null>(null);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setForm({
       ...form,
       [name]: type === "checkbox" ? checked : value,
     });
-  };
 
+    if (name === "password") {
+      const passwordValidation =
+        /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/;
+      if (!passwordValidation.test(value)) {
+        setPasswordError(
+          "Password must be minimum eight characters, at least one letter, one number and one special character"
+        );
+        return;
+      } else {
+        setPasswordError(null);
+      }
+    }
+    if (name === "email") {
+      const emailValidation = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailValidation.test(value)) {
+        setEmailError("Please enter a valid email address");
+        return;
+      } else if (value.length < 6) {
+        setEmailError("Email should be at least 6 characters long");
+        return;
+      } else {
+        setEmailError(null);
+      }
+    }
+  };
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (form.password !== form.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    if (passwordError) {
+      alert(passwordError);
+      return;
+    }
     console.log("Form submitted", form);
   };
 
@@ -41,6 +74,7 @@ const CreateAccount = () => {
             onChange={handleChange}
             required
           />
+          {emailError && <p>{emailError}</p>}
         </div>
 
         <div className="form-group">
@@ -54,6 +88,7 @@ const CreateAccount = () => {
             onChange={handleChange}
             required
           />
+          {passwordError && <p>{passwordError}</p>}
         </div>
 
         <div className="form-group">
