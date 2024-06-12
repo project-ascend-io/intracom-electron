@@ -17,7 +17,7 @@ export function Billing() {
 
   const mutation = useMutation({
     mutationFn: (newPost: any) =>
-      fetch("", {
+      fetch("http://localhost:8080/users/billing-address", {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -58,6 +58,7 @@ export function Billing() {
       });
 
       if (mutation.isSuccess) return redirect("/billing-success");
+      console.log(mutation);
     } else {
       // display errors for empty forms
       checkErrors();
