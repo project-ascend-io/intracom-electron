@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./Sign-up.css";
 
 const CreateAccount = () => {
@@ -11,6 +12,7 @@ const CreateAccount = () => {
 
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
+  // const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -44,7 +46,7 @@ const CreateAccount = () => {
       }
     }
   };
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (form.password !== form.confirmPassword) {
       alert("Passwords do not match");
@@ -54,7 +56,24 @@ const CreateAccount = () => {
       alert(passwordError);
       return;
     }
-    console.log("Form submitted", form);
+    const response = await fetch("http://localhost:8080/api/user/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email: form.email, password: form.password }),
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data);
+      // Handle successful signup here (e.g., redirect to another page)
+      // Navigate to the success page
+      // navigate("/SignUpSuccess");
+    } else {
+      console.error("Signup failed");
+      // Handle errors here
+    }
   };
 
   return (

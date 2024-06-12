@@ -20,6 +20,10 @@
   margin: 0;
   color: black;
 }
+/* .signup-form-header p {
+  margin-bottom: 2rem;
+  color: #4a5568;
+} */
 
 .signup-form {
   width: 100%;
@@ -96,4 +100,51 @@
 
 .terms-info a:hover {
   text-decoration: underline;
+}
+
+/* >>>>successfully signed up styling */
+
+/* SignUpSuccess.css */
+/* .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: #f7fafc;
+} */
+
+.card {
+  text-align: center;
+  background-color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.message {
+  margin-bottom: 2rem;
+  color: #4a5568;
+  font-size: 1.2rem;
+}
+
+.button {
+  background-color: #4299e1;
+  color: white;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.button:hover {
+  background-color: #3182ce;
 }
