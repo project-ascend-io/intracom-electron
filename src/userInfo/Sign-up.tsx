@@ -67,8 +67,7 @@ const CreateAccount = () => {
     if (response.ok) {
       const data = await response.json();
       console.log(data);
-      // Handle successful signup here (e.g., redirect to another page)
-      // Navigate to the success page
+      // Handle successful signup here and Navigate to the success page
       return redirect("/SignUpSuccess");
       // navigate("/SignUpSuccess");
     } else {
@@ -78,8 +77,8 @@ const CreateAccount = () => {
   };
 
   return (
-    <section>
-      <header>
+    <section className="main-page">
+      <header className="main-page-header">
         <Link className="nav-link logo-group" to="/">
           <img src="" alt="" />
           <h1>Acme Co</h1>
@@ -87,7 +86,7 @@ const CreateAccount = () => {
         <nav>
           <ul>
             <Link className="nav-link" to="/SignIn">
-              Sign In
+              <button>Sign In</button>
             </Link>
           </ul>
         </nav>

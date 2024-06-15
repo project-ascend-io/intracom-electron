@@ -50,8 +50,10 @@ const HomePage = () => {
         <p>Launching Soon!</p>
       </header>
       <CountdownTimer />
-      <Link to={"/Sign-Up"}>Sign-Up right now</Link>
-      {/* <SignUpSuccess /> */}
+      <Link to={"/Sign-Up"} className="signup-link">
+        <button>Sign up right now</button>
+      </Link>
+      <SignUpSuccess />
     </div>
   );
 };
@@ -69,23 +71,3 @@ const App = () => {
 };
 const root = createRoot(document.body);
 root.render(<App />);
-
-// >>>>>> Route path="/" Approaches
-// import React, { useEffect, useState } from "react";
-// import { createRoot } from "react-dom/client";
-// import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-// import "./app.css";
-// import CreateAccount from "./userInfo/Sign-up";
-// const root = createRoot(document.body);
-// root.render(
-//   <Router>
-//     <div className="App">
-//       <header className="App-header">
-//         <p style={{ fontWeight: 800 }}>Are you ready for Project Ascend?</p>
-//         <p>Launching Soon!</p>
-//       </header>
-//       <CountdownTimer />
-//
-//     </div>
-//   </Router>
-// );
