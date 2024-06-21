@@ -19,13 +19,13 @@ const handleInputChange = (e) => {
 };
 
 
-
-return (
+const Task = () => {
+    return (
     <div>
-        <p> Add your full name so friends can find you.:</p>
+        <h1> Add your full name so friends can find you.:</h1>
 
 
-        <p>Full Name:</p>
+        <h1>Full Name:</h1>
         <label>
             Name:
             <Input
@@ -33,30 +33,30 @@ return (
                 name="name"
                 value={formData.name}
                 onchange={handleNameChange}
-                Placeholder="Nicole Johnson"
+                Placeholder="John Doe"
         />
         </label>
 
 );
 
 
-    <p>Tell us about yourself in 160 characters or less.<p>
+    <h1>Tell us about yourself in 160 characters or less.</h1>
 
-        <p> Bio:</p>
+        <h1> Bio:</h1>
             <label>
                 Bio:
                 <Textarea
                 name="bio"
                 value={formData.bio}
                 onChange={handleInputChange}
-                Placeholder="I like to fish and go jogging during the warm summers.I got a Phd forensic science and went to school for four years."
+                Placeholder=" SOftware Engineer at Project Ascend "
                 />
                 </label>
 
 
 
 
-    <p>Where are you based?<p>
+    <h1>Where are you based?</h1>
     <label>
          location:
             <Input
@@ -64,19 +64,20 @@ return (
                 name="location"
                 value={FormData.location}
                 onChange={handleInputChange}
-                Placeholder="New York"
+                Placeholder="San Francisco, CA"
                 />
                 </label>
 
 
 
-<p>Set your Status Message</p>
+
+<h1>Set your Status Message</h1>
     <label>
          Status Message:
         <textarea
                 type="text"
                 value={Status Message}
-                Placeholder="Status Message"
+                Placeholder="Excited to code!"
          />
     </label>
 
@@ -87,4 +88,9 @@ return (
 )
 )
 
-export default UserProfileForm;
+export default Task;
+
+
+                
+        
+
