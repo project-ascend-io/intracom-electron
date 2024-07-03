@@ -9,7 +9,9 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint --ext .ts,.tsx ."
+    "lint": "eslint --ext .ts,.tsx .",
+    "format": "prettier --write \"**/*.{html,css,js,jsx,ts,tsx,js,md,mdx,css,yaml}\"",
+    "test": "jest"
   },
   "devDependencies": {
     "@electron-forge/cli": "^7.4.0",
