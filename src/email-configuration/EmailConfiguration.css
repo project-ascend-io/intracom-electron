@@ -1,0 +1,11 @@
+.settings-section {
+  display: flex;
+  flex-direction: row;
+  margin: 0, auto;
+  background-color: white;
+  width: 960px;
+}
+.main-section {
+  display: flex;
+  flex-direction: column;
+}
