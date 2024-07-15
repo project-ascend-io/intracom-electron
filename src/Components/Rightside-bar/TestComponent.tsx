@@ -6,20 +6,24 @@ const TestComponent: React.FC = () => {
 
   const testApi = async () => {
     try {
-      const response = await fetch(`${api_url}/email-settings/test`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          server: "smtp.example.com",
-          port: 587,
-          username: "user@example.com",
-          password: "securepassword",
-          securityType: "TLS",
-          email: "test@example.com",
-        }),
-      });
+      // const response = await fetch(`${api_url}/email-settings/test`, {
+      const response = await fetch(
+        "http://localhost:8080/email-settings/test",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            server: "smtp.example.com",
+            port: 587,
+            username: "user@example.com",
+            password: "securepassword",
+            securityType: "TLS",
+            email: "test@example.com",
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);

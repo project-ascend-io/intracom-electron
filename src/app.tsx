@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./app.css";
-import EmailSettings from "./email-configuration/EmailConfiguration";
+import EmailSettings from "./pages/email-configuration/EmailConfiguration";
 
 import { HashRouter as Router, Link, Route, Routes } from "react-router-dom";
 
@@ -53,6 +53,7 @@ const HomePage = () => {
       <CountdownTimer />
 
       <EmailSettings />
+      {/* <TestComponent /> */}
     </div>
   );
 };
