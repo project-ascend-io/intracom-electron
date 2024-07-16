@@ -1,5 +1,11 @@
 import React, { useState } from "react";
-import "./RightsideBar.css";
+import "./rightside-bar.css";
+import {
+  testEmailSettings,
+  saveEmailSettings,
+  getEmailSettings,
+  updateEmailSettings,
+} from "../../services/email-settings-service";
 
 const RightsideBar: React.FC = () => {
   // const api_url = process.env.REACT_APP_API_URL || "";
@@ -13,6 +19,7 @@ const RightsideBar: React.FC = () => {
   const [organization, setOrganization] = useState<string>("Organization 1");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
+  const [emailSettingsResponse, setEmailSettingsResponse] = useState<any>({});
 
   const validateEmailSettings = (): boolean => {
     if (!server || !port || !username || !password || !securityType) {
@@ -30,30 +37,15 @@ const RightsideBar: React.FC = () => {
     if (!validateEmailSettings()) return;
 
     try {
-      // const response = await fetch(`${api_url}/email-settings/test`, {
-      const response = await fetch(
-        "http://localhost:8080/email-settings/test",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            server,
-            port: Number(port),
-            username,
-            password,
-            securityType,
-            email: testEmail,
-          }),
-        }
+      const data = await testEmailSettings(
+        server,
+        Number(port),
+        username,
+        password,
+        securityType,
+        testEmail
       );
 
-      if (!response.ok) {
-        throw new Error("Failed to send test email");
-      }
-
-      const data = await response.json();
       if (data.success) {
         setSuccessMessage(data.message);
         setErrorMessage("");
@@ -73,28 +65,16 @@ const RightsideBar: React.FC = () => {
     if (!validateEmailSettings()) return;
 
     try {
-      // const response = await fetch(`${api_url}/email-settings`, {
-      const response = await fetch("http://localhost:8080/email-settings", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          server,
-          port: Number(port),
-          username,
-          password,
-          securityType,
-          organizationId: Number(organizationId),
-          organization: organization,
-        }),
-      });
+      const data = await saveEmailSettings(
+        server,
+        Number(port),
+        username,
+        password,
+        securityType,
+        organizationId,
+        organization
+      );
 
-      if (!response.ok) {
-        throw new Error("Failed to save email settings");
-      }
-
-      const data = await response.json();
       if (data.success) {
         setSuccessMessage(data.message || "Email settings saved successfully.");
         setErrorMessage("");
@@ -106,6 +86,88 @@ const RightsideBar: React.FC = () => {
     } catch (error: any) {
       setErrorMessage(
         error.message || "An error occurred while saving the email settings."
+      );
+    }
+  };
+  //
+  // const handleGetEmailSettings = async (): Promise<void> => {
+  //   if (!validateEmailSettings()) return;
+  //   try {
+  //     const data = await getEmailSettings(organizationId);
+  //     if (data.success && data.data) {
+  //       setServer(data.data.server);
+  //       setPort(data.data.port.toString());
+  //       setUsername(data.data.username);
+  //       setPassword(data.data.password);
+  //       setSecurityType(data.data.securityType);
+  //       setOrganizationId(data.data.organization);
+  //       setOrganization(data.data.organization);
+  //       setSuccessMessage("Email settings fetched successfully.");
+  //       setErrorMessage("");
+  //     } else {
+  //       setErrorMessage(
+  //         data.message || "An error occurred while getting the email settings."
+  //       );
+  //     }
+  //   } catch (error: any) {
+  //     setErrorMessage(
+  //       error.message || "An error occurred while getting the email settings."
+  //     );
+  //   }
+  // };
+  const handleGetEmailSettings = async (): Promise<void> => {
+    if (!validateEmailSettings()) return;
+    try {
+      const data = await getEmailSettings(organizationId);
+      if (data.success && data.data) {
+        //setEmailSettingsResponse is a function to update the state with the desired response format
+        setEmailSettingsResponse({
+          _id: data.data._id, // Assuming _id is part of the response.
+          server: data.data.server,
+          port: data.data.port,
+          username: data.data.username,
+          password: data.data.password,
+          securityType: data.data.securityType,
+          organization: data.data.organization,
+        });
+        setSuccessMessage("Email settings fetched successfully.");
+        setErrorMessage("");
+      } else {
+        setErrorMessage(
+          data.message || "An error occurred while getting the email settings."
+        );
+      }
+    } catch (error: any) {
+      setErrorMessage(
+        error.message || "An error occurred while getting the email settings."
+      );
+    }
+  };
+  const handleUpdateEmailSettings = async (): Promise<void> => {
+    if (!validateEmailSettings()) return;
+    try {
+      const data = await updateEmailSettings(
+        emailSettingsResponse._id,
+        server,
+        Number(port),
+        username,
+        password,
+        securityType,
+        organizationId
+      );
+      if (data.success) {
+        setSuccessMessage(
+          data.message || "Email settings updated successfully."
+        );
+        setErrorMessage("");
+      } else {
+        setErrorMessage(
+          data.message || "An error occurred while updating the email settings."
+        );
+      }
+    } catch (error: any) {
+      setErrorMessage(
+        error.message || "An error occurred while updating the email settings."
       );
     }
   };

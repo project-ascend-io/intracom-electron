@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./app.css";
-import EmailSettings from "./pages/email-configuration/EmailConfiguration";
+import EmailSettings from "./pages/email-configuration/email-configuration";
 
 import { HashRouter as Router, Link, Route, Routes } from "react-router-dom";
 
@@ -50,7 +50,7 @@ const HomePage = () => {
         <p style={{ fontWeight: 800 }}>Are you ready for Project Ascend?</p>
         <p>Launching Soon!</p>
       </header>
-      <CountdownTimer />
+      {/* <CountdownTimer /> */}
 
       <EmailSettings />
       {/* <TestComponent /> */}

@@ -1,5 +1,5 @@
 import React from "react";
-import "./Navbar.css";
+import "./navbar.css";
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 

@@ -1,8 +1,8 @@
 import React from "react";
 
-import "./EmailConfiguration.css";
-import LeftsideBar from "../../components/Leftside-bar/LeftsideBar";
-import Navbar from "../../components/Navbar/Navbar";
+import "./email-configuration.css";
+import LeftsideBar from "../../components/leftside-bar/leftside-bar";
+import Navbar from "../../components/navbar/navbar";
 
 const EmailConfiguration = () => {
   return (

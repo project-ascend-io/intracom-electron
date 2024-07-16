@@ -1,0 +1,66 @@
+.sidebar-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.left-sidebar {
+  width: 200px;
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-right: 1px solid #ccc;
+  height: 100vh;
+}
+
+.left-sidebar ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.left-sidebar li {
+  padding: 10px 0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.left-sidebar li:hover {
+  background-color: #e0e0e0;
+}
+
+.left-sidebar li span {
+  margin-right: 10px;
+}
+
+.nested {
+  margin-left: 20px;
+
+  font-size: 16px;
+}
+
+/* Adjustments for mobile phones */
+@media (max-width: 480px) {
+  .sidebar-container {
+    flex-direction: column; /* Stack elements vertically on smaller screens */
+  }
+
+  .left-sidebar {
+    width: 100%; /* Use full width for very small devices */
+    height: auto; /* Adjust height to content */
+    border-right: none; /* Remove border for a cleaner look */
+    border-bottom: 1px solid #ccc; /* Add a bottom border instead */
+  }
+
+  .left-sidebar ul {
+    /* display: flex;  */
+    overflow-x: auto; /* Enable horizontal scrolling */
+  }
+
+  .left-sidebar li {
+    padding: 10px; /* Adjust padding for a compact look */
+  }
+
+  .nested {
+    margin-left: 10px; /* Reduce margin for nested items */
+    font-size: 14px; /* Ensure font size remains readable */
+  }
+}

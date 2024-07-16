@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./LeftsideBar.css";
-import RightsideBar from "../Rightside-bar/RightsideBar"; // Adjust the import path as necessary
+import "./leftside-bar.css";
+import RightsideBar from "../rightside-bar/rightside-bar"; // Adjust the import path as necessary
 
 const LeftsideBar: React.FC = () => {
   const [showEmailConfig, setShowEmailConfig] = useState<boolean>(false);
