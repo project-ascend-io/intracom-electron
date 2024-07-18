@@ -1,19 +1,31 @@
 import React, { useState } from "react";
 import "./leftside-bar.css";
-import RightsideBar from "../rightside-bar/rightside-bar"; // Adjust the import path as necessary
+import RightsideBar from "../settings-dropdown/email-configuration"; // Adjust the import path as necessary
+import SettingIndex from "../settings-dropdown/setting-index";
 
 const LeftsideBar: React.FC = () => {
-  const [showEmailConfig, setShowEmailConfig] = useState<boolean>(false);
   const [showRightsideBar, setShowRightsideBar] = useState<boolean>(false);
+  const [showSettingIndex, setShowSettingIndex] = useState<boolean>(false);
+  const [showSettingsList, setShowSettingsList] = useState<boolean>(false); // New state to control visibility of the settings list
 
-  const toggleEmailConfigVisibility = (): void => {
-    const newVisibility = !showEmailConfig;
-    setShowEmailConfig(newVisibility);
-    setShowRightsideBar(newVisibility); // Show RightsideBar only when Email Config is visible
+  const handleEmailConfigClick = (): void => {
+    setShowSettingIndex(false);
+    setShowRightsideBar(true);
+  };
+  const handleCurrentConfigClick = (): void => {
+    setShowSettingIndex(true);
+    setShowRightsideBar(false);
+  };
+
+  const handleSettingsClick = (): void => {
+    setShowSettingsList(!showSettingsList); // Toggle visibility of the settings list
+    // setShowSettingIndex(true);
+    // setShowRightsideBar(false);
   };
 
   const handleOtherComponentClick = (): void => {
-    setShowRightsideBar(false); // Hide RightsideBar when other components are selected
+    setShowRightsideBar(false);
+    setShowSettingIndex(false);
   };
 
   return (
@@ -32,21 +44,36 @@ const LeftsideBar: React.FC = () => {
             </span>{" "}
             Channels
           </li>
-          <li onClick={toggleEmailConfigVisibility}>
-            <span role="img" aria-label="settings">
-              ⚙️
-            </span>{" "}
-            Settings
-          </li>
-          {/* Conditionally render Email Configuration based on showEmailConfig */}
-          {showEmailConfig && (
-            <li className="nested">
-              <span role="img" aria-label="email">
-                📧
+
+          <div onClick={handleSettingsClick} style={{ cursor: "pointer" }}>
+            <li>
+              <span role="img" aria-label="settings">
+                ⚙️
               </span>{" "}
-              Email Configuration
+              Settings
             </li>
-          )}
+            <ul
+              style={{
+                display: showSettingsList ? "block" : "none",
+                listStyleType: "none",
+                paddingLeft: "10px",
+              }}
+            >
+              <li className="nested" onClick={handleCurrentConfigClick}>
+                <span role="img" aria-label="email">
+                  📧
+                </span>{" "}
+                View Current Configuration
+              </li>
+              <li className="nested" onClick={handleEmailConfigClick}>
+                <span role="img" aria-label="email">
+                  📧
+                </span>{" "}
+                Email Configuration
+              </li>
+            </ul>
+          </div>
+
           <li onClick={handleOtherComponentClick}>
             <span role="img" aria-label="logout">
               🔓
@@ -55,6 +82,7 @@ const LeftsideBar: React.FC = () => {
           </li>
         </ul>
       </div>
+      {showSettingIndex && <SettingIndex />}
       {showRightsideBar && <RightsideBar />}
     </div>
   );

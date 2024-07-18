@@ -1,10 +1,10 @@
 import React from "react";
 
-import "./email-configuration.css";
+import "./settings.css";
 import LeftsideBar from "../../components/leftside-bar/leftside-bar";
 import Navbar from "../../components/navbar/navbar";
 
-const EmailConfiguration = () => {
+const Settings = () => {
   return (
     <div className="main-section">
       <Navbar />
@@ -15,4 +15,4 @@ const EmailConfiguration = () => {
   );
 };
 
-export default EmailConfiguration;
+export default Settings;

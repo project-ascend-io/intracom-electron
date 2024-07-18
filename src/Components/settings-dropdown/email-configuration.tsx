@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./rightside-bar.css";
+import { BsQuestionCircle } from "react-icons/bs";
+import "./settings.css";
 import {
   testEmailSettings,
   saveEmailSettings,
@@ -7,7 +8,7 @@ import {
   updateEmailSettings,
 } from "../../services/email-settings-service";
 
-const RightsideBar: React.FC = () => {
+const EmailConfiguration: React.FC = () => {
   // const api_url = process.env.REACT_APP_API_URL || "";
   const [server, setServer] = useState<string>("");
   const [port, setPort] = useState<string>("");
@@ -32,7 +33,7 @@ const RightsideBar: React.FC = () => {
     }
     return true;
   };
-
+  // TEST EMAIL SETTINGS>>>>>>>
   const handleSendTestEmail = async (): Promise<void> => {
     if (!validateEmailSettings()) return;
 
@@ -61,6 +62,7 @@ const RightsideBar: React.FC = () => {
     }
   };
 
+  // SAVE EMAIL SETTINGS AFTER SUCCESS>>>>>>>
   const handleSave = async (): Promise<void> => {
     if (!validateEmailSettings()) return;
 
@@ -71,8 +73,8 @@ const RightsideBar: React.FC = () => {
         username,
         password,
         securityType,
-        organizationId,
-        organization
+        organizationId
+        // organization
       );
 
       if (data.success) {
@@ -89,32 +91,7 @@ const RightsideBar: React.FC = () => {
       );
     }
   };
-  //
-  // const handleGetEmailSettings = async (): Promise<void> => {
-  //   if (!validateEmailSettings()) return;
-  //   try {
-  //     const data = await getEmailSettings(organizationId);
-  //     if (data.success && data.data) {
-  //       setServer(data.data.server);
-  //       setPort(data.data.port.toString());
-  //       setUsername(data.data.username);
-  //       setPassword(data.data.password);
-  //       setSecurityType(data.data.securityType);
-  //       setOrganizationId(data.data.organization);
-  //       setOrganization(data.data.organization);
-  //       setSuccessMessage("Email settings fetched successfully.");
-  //       setErrorMessage("");
-  //     } else {
-  //       setErrorMessage(
-  //         data.message || "An error occurred while getting the email settings."
-  //       );
-  //     }
-  //   } catch (error: any) {
-  //     setErrorMessage(
-  //       error.message || "An error occurred while getting the email settings."
-  //     );
-  //   }
-  // };
+  // FETCHING EMAIL SETTINGS>>>>>>>
   const handleGetEmailSettings = async (): Promise<void> => {
     if (!validateEmailSettings()) return;
     try {
@@ -128,7 +105,7 @@ const RightsideBar: React.FC = () => {
           username: data.data.username,
           password: data.data.password,
           securityType: data.data.securityType,
-          organization: data.data.organization,
+          // organization: data.data.organization,
         });
         setSuccessMessage("Email settings fetched successfully.");
         setErrorMessage("");
@@ -143,34 +120,34 @@ const RightsideBar: React.FC = () => {
       );
     }
   };
-  const handleUpdateEmailSettings = async (): Promise<void> => {
-    if (!validateEmailSettings()) return;
-    try {
-      const data = await updateEmailSettings(
-        emailSettingsResponse._id,
-        server,
-        Number(port),
-        username,
-        password,
-        securityType,
-        organizationId
-      );
-      if (data.success) {
-        setSuccessMessage(
-          data.message || "Email settings updated successfully."
-        );
-        setErrorMessage("");
-      } else {
-        setErrorMessage(
-          data.message || "An error occurred while updating the email settings."
-        );
-      }
-    } catch (error: any) {
-      setErrorMessage(
-        error.message || "An error occurred while updating the email settings."
-      );
-    }
-  };
+  // UPDATE EMAIL SETTINGS>>>>>>>>
+  // const handleUpdateEmailSettings = async (): Promise<void> => {
+  //   if (!validateEmailSettings()) return;
+  //   try {
+  //     const data = await updateEmailSettings(
+  //       server,
+  //       Number(port),
+  //       username,
+  //       password,
+  //       securityType,
+  //       organizationId
+  //     );
+  //     if (data.success) {
+  //       setSuccessMessage(
+  //         data.message || "Email settings updated successfully."
+  //       );
+  //       setErrorMessage("");
+  //     } else {
+  //       setErrorMessage(
+  //         data.message || "An error occurred while updating the email settings."
+  //       );
+  //     }
+  //   } catch (error: any) {
+  //     setErrorMessage(
+  //       error.message || "An error occurred while updating the email settings."
+  //     );
+  //   }
+  // };
 
   return (
     <div className="email-settings">
@@ -182,65 +159,82 @@ const RightsideBar: React.FC = () => {
           <p>{errorMessage}</p>
         </div>
       )}
-      <div className="form-group">
-        <label>SMTP server</label>
-        <input
-          type="text"
-          value={server}
-          onChange={(e) => setServer(e.target.value)}
-          placeholder="Server"
-        />
-      </div>
-      <div className="form-group">
-        <label>Port</label>
-        <input
-          type="text"
-          value={port}
-          onChange={(e) => setPort(e.target.value)}
-          placeholder="Port"
-        />
-      </div>
-      <div className="form-group">
-        <label>Username</label>
-        <input
-          type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          placeholder="Username"
-        />
-      </div>
-      <div className="form-group">
-        <label>Password</label>
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-        />
-      </div>
-      <div className="form-group">
-        <label>Security type</label>
-        <select
-          value={securityType}
-          onChange={(e) => setSecurityType(e.target.value)}
-        >
-          <option value="">Select security type</option>
-          <option value="SSL">SSL</option>
-          <option value="TLS">TLS</option>
-        </select>
-      </div>
-      <div className="form-group">
-        <label>Send test email</label>
-        <input
-          type="email"
-          value={testEmail}
-          onChange={(e) => setTestEmail(e.target.value)}
-          placeholder="test@example.com"
-        />
-        <button onClick={handleSendTestEmail}>Send Test Email</button>
-      </div>
-      {/* >>>>>>>newly added organization field */}
-      <div className="form-group">
+      <form action="">
+        <div className="form-group">
+          <label>SMTP server</label>
+          <label>server</label>
+          <input
+            type="text"
+            value={server}
+            onChange={(e) => setServer(e.target.value)}
+          />
+
+          {/* <div style={{ position: "relative", display: "inline-block" }}>
+            <input
+              type="text"
+              value={server}
+              onChange={(e) => setServer(e.target.value)}
+              style={{ paddingRight: "30px" }} // Add padding to prevent text from being hidden by the icon
+            />
+            <BsQuestionCircle
+              style={{
+                position: "absolute",
+                right: "10px",
+                top: "50%",
+                transform: "translateY(-50%)",
+                pointerEvents: "none", // Makes the icon non-interactive
+              }}
+            />
+          </div> */}
+        </div>
+        <div className="form-group">
+          <label>Port</label>
+          <input
+            type="text"
+            value={port}
+            onChange={(e) => setPort(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Username</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Password</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Security type</label>
+          <select
+            className="security-type"
+            value={securityType}
+            onChange={(e) => setSecurityType(e.target.value)}
+          >
+            <option value=""></option>
+            <option value="SSL">SSL</option>
+            <option value="TLS">TLS</option>
+          </select>
+        </div>
+        <div className="form-group">
+          <label>Send test email</label>
+          <input
+            type="email"
+            value={testEmail}
+            onChange={(e) => setTestEmail(e.target.value)}
+            placeholder="test@acme.com"
+          />
+          <button onClick={handleSendTestEmail}>Send Test Email</button>
+        </div>
+        {/* >>>>>>>newly added organization field */}
+        {/* <div className="form-group">
         <label>Organization</label>
         <select
           value={organizationId}
@@ -250,20 +244,23 @@ const RightsideBar: React.FC = () => {
           <option value="2">Organization 2</option>
           <option value="3">Organization 3</option>
         </select>
-      </div>
+      </div> */}
+      </form>
 
-      {successMessage && (
-        <div className="success-message">
-          <p>Success</p>
-          <p>{successMessage}</p>
+      <div className="success-from">
+        {successMessage && (
+          <div className="success-message">
+            <p>Success</p>
+            <p>{successMessage}</p>
+          </div>
+        )}
+        <div className="buttons">
+          <button onClick={() => window.close()}>Cancel</button>
+          <button onClick={handleSave}>Save</button>
         </div>
-      )}
-      <div className="buttons">
-        <button onClick={handleSave}>Save</button>
-        <button onClick={() => window.close()}>Cancel</button>
       </div>
     </div>
   );
 };
 
-export default RightsideBar;
+export default EmailConfiguration;

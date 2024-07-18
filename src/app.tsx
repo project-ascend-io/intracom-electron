@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./app.css";
-import EmailSettings from "./pages/email-configuration/email-configuration";
+// import EmailSettings from "./pages/email-configuration/email-configuration";
 
 import { HashRouter as Router, Link, Route, Routes } from "react-router-dom";
+import Settings from "./pages/settings/settings";
 
 const CountdownTimer = () => {
   const calculateTimeLeft = () => {
@@ -52,8 +53,7 @@ const HomePage = () => {
       </header>
       {/* <CountdownTimer /> */}
 
-      <EmailSettings />
-      {/* <TestComponent /> */}
+      <Settings />
     </div>
   );
 };
@@ -63,7 +63,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/EmailSettings" element={<EmailSettings />} />
+        <Route path="/Settings" element={<Settings />} />
       </Routes>
     </Router>
   );

@@ -1,38 +1,5 @@
 const BASE_URL = "http://localhost:8080/email-settings";
 
-// // Get the email settings for the given organization.
-//  interface EmailSettings {
-//   _id: string;
-//   server: string;
-//   port: number;
-//   username: string;
-//   password: string;
-//   securityType: string;
-//   organization: string;
-// }
-
-// export const getEmailSettings = async (
-//   organizationId: string
-// ): Promise<EmailSettings> => {
-//   try {
-//     const response = await fetch(`${BASE_URL}/${organizationId}`, {
-//       method: "GET",
-//       headers: { "Content-Type": "application/json" },
-//     });
-
-//     if (!response.ok) {
-//       const errorBody = await response.text();
-//       throw new Error(`Failed to get email settings: ${response.status} ${errorBody}`);
-//     }
-
-//     const data: EmailSettings = await response.json();
-//     return data;
-//   } catch (error) {
-//     console.error("getEmailSettings error:", error);
-//     throw error;
-//   }
-// };
-
 /**
  * Get the email settings for the given organization.
  * @param {string} organizationId - The ID of the organization to get email settings for.
@@ -116,7 +83,7 @@ export const testEmailSettings = async (
  * @param {string} password - The email server password.
  * @param {string} securityType - The email server security type.
  * @param {string} organizationId - The ID of the organization to save email settings for.
- * @param {string} organization - The name of the organization.
+//  * @param {string} organization - The name of the organization.
  * @returns {Promise<any>} The response from the server.
  */
 export const saveEmailSettings = async (
@@ -125,8 +92,8 @@ export const saveEmailSettings = async (
   username: string,
   password: string,
   securityType: string,
-  organizationId: string,
-  organization: string
+  organizationId: string
+  // organization: string
 ): Promise<any> => {
   try {
     const response = await fetch(BASE_URL, {
@@ -141,7 +108,7 @@ export const saveEmailSettings = async (
         password,
         securityType,
         organizationId,
-        organization,
+        // organization,
       }),
     });
 
@@ -165,7 +132,7 @@ export const saveEmailSettings = async (
  * @param {string} password - The email server password.
  * @param {string} securityType - The email server security type.
  * @param {string} organizationId - The ID of the organization to update email settings for.
- * @param {string} organization - The name of the organization.
+//  * @param {string} organization - The name of the organization.
  * @returns {Promise<any>} The response from the server.
  */
 export const updateEmailSettings = async (
@@ -174,8 +141,8 @@ export const updateEmailSettings = async (
   username: string,
   password: string,
   securityType: string,
-  organizationId: string,
-  organization: string
+  organizationId: string
+  // organization: string
 ): Promise<any> => {
   try {
     const response = await fetch(`${BASE_URL}/${organizationId}`, {
@@ -190,7 +157,7 @@ export const updateEmailSettings = async (
         password,
         securityType,
         organizationId,
-        organization,
+        // organization,
       }),
     });
 
