@@ -36,12 +36,18 @@ const LeftsideBar: React.FC = () => {
             <span role="img" aria-label="messages">
               💬
             </span>{" "}
+            <img src="../../assets/images/messages.png" alt="" />
             Messages
           </li>
           <li onClick={handleOtherComponentClick}>
             <span role="img" aria-label="channels">
               #️⃣
             </span>{" "}
+            {/* <img
+              src="../../assets/images/messages.png"
+              alt="channels"
+              style={{ width: "100px", height: "auto", display: "block" }}
+            /> */}
             Channels
           </li>
 

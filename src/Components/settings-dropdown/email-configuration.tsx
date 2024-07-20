@@ -17,7 +17,7 @@ const EmailConfiguration: React.FC = () => {
   const [securityType, setSecurityType] = useState<string>("");
   const [testEmail, setTestEmail] = useState<string>("");
   const [organizationId, setOrganizationId] = useState<string>("1");
-  const [organization, setOrganization] = useState<string>("Organization 1");
+  // const [organization, setOrganization] = useState<string>("Organization 1");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [emailSettingsResponse, setEmailSettingsResponse] = useState<any>({});
@@ -121,33 +121,33 @@ const EmailConfiguration: React.FC = () => {
     }
   };
   // UPDATE EMAIL SETTINGS>>>>>>>>
-  // const handleUpdateEmailSettings = async (): Promise<void> => {
-  //   if (!validateEmailSettings()) return;
-  //   try {
-  //     const data = await updateEmailSettings(
-  //       server,
-  //       Number(port),
-  //       username,
-  //       password,
-  //       securityType,
-  //       organizationId
-  //     );
-  //     if (data.success) {
-  //       setSuccessMessage(
-  //         data.message || "Email settings updated successfully."
-  //       );
-  //       setErrorMessage("");
-  //     } else {
-  //       setErrorMessage(
-  //         data.message || "An error occurred while updating the email settings."
-  //       );
-  //     }
-  //   } catch (error: any) {
-  //     setErrorMessage(
-  //       error.message || "An error occurred while updating the email settings."
-  //     );
-  //   }
-  // };
+  const handleUpdateEmailSettings = async (): Promise<void> => {
+    if (!validateEmailSettings()) return;
+    try {
+      const data = await updateEmailSettings(
+        server,
+        Number(port),
+        username,
+        password,
+        securityType,
+        organizationId
+      );
+      if (data.success) {
+        setSuccessMessage(
+          data.message || "Email settings updated successfully."
+        );
+        setErrorMessage("");
+      } else {
+        setErrorMessage(
+          data.message || "An error occurred while updating the email settings."
+        );
+      }
+    } catch (error: any) {
+      setErrorMessage(
+        error.message || "An error occurred while updating the email settings."
+      );
+    }
+  };
 
   return (
     <div className="email-settings">
