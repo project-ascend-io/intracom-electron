@@ -7,9 +7,9 @@ type AuthContextType = {
 type AuthProviderType = {
   children: React.ReactNode;
 };
+// TODO: Update this with expected values sent from backend
 type AuthUserType = {
-  name: string;
-  email: string;
+  [key: string]: any;
 };
 
 // stores auth context values
