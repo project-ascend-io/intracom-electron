@@ -7,6 +7,7 @@ import { HashRouter as Router, Link, Route, Routes } from "react-router-dom";
 import Settings from "./pages/settings/settings";
 import SettingsIndex from "./components/settings-dropdown/setting-index";
 import { AuthProvider } from "./context/auth-context";
+import Login from "./pages/login/login";
 
 const CountdownTimer = () => {
   const calculateTimeLeft = () => {
@@ -55,7 +56,8 @@ const HomePage = () => {
       </header>
       {/* <CountdownTimer /> */}
 
-      <Settings />
+      {/* <Settings /> */}
+      <Login />
     </div>
   );
 };
@@ -65,6 +67,7 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/Settings" element={<Settings />} />
         <Route path="/organizations/:id/settings" element={<SettingsIndex />} />
       </Routes>
