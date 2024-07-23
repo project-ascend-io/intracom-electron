@@ -1,7 +1,56 @@
 import React from "react";
+import Input from "../../components/input/input";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 const Login = () => {
-  return <div>This is the login page!</div>;
+  const loginSchema = z.object({
+    email: z
+      .string({ required_error: "Please enter a email address" })
+      .email("Invalid email address"),
+    password: z
+      .string({ required_error: "Please enter a password" })
+      .min(8, { message: "Password must be at least 8 characters" })
+      .refine((value) => /[A-Z]/.test(value), {
+        message: "Password must contain at least one uppercase letter",
+      })
+      .refine((value) => /[^a-zA-Z0-9]/.test(value), {
+        message: "Password must contain at least one non-letter character",
+      }),
+  });
+
+  //convert zod schema into typescript type
+  type LoginFormType = z.infer<typeof loginSchema>;
+  const onSubmit = (data: any) => console.log(data);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormType>({
+    resolver: zodResolver(loginSchema),
+  });
+  return (
+    <section>
+      <h1>Login</h1>
+      <Input
+        name="email"
+        type="email"
+        placeholder="Enter your email"
+        register={register}
+        errors={errors}
+      />
+      <Input
+        name="password"
+        type="password"
+        placeholder="Enter your password"
+        register={register}
+        errors={errors}
+      />
+      <button onClick={handleSubmit(onSubmit)}>Login</button>
+    </section>
+  );
 };
 
 export default Login;
