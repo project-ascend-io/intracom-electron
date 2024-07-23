@@ -6,6 +6,7 @@ import "./app.css";
 import { HashRouter as Router, Link, Route, Routes } from "react-router-dom";
 import Settings from "./pages/settings/settings";
 import SettingsIndex from "./components/settings-dropdown/setting-index";
+import { AuthProvider } from "./context/auth-context";
 
 const CountdownTimer = () => {
   const calculateTimeLeft = () => {
@@ -71,4 +72,8 @@ const App = () => {
   );
 };
 const root = createRoot(document.body);
-root.render(<App />);
+root.render(
+  <AuthProvider>
+    <App />
+  </AuthProvider>
+);
