@@ -2,7 +2,7 @@ import React from "react";
 import Input from "../../components/input/input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginFormType, loginSchema } from "./types/login-types";
+import { LoginFormType, loginSchema } from "./types/login";
 
 export const Login = () => {
   const onSubmit: SubmitHandler<LoginFormType> = (data: any) => {
