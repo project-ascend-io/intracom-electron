@@ -1,16 +1,8 @@
-import React, { FC, InputHTMLAttributes } from "react";
+import React, { FC } from "react";
 import toTitleCase from "../../utils/titlecase/titlecase";
+import { InputProps } from "../../types/input";
 import "./input.css";
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
-  placeholder?: string;
-  type: string;
-  helperText?: string;
-  // these props are used in conjunction with react-hook-form
-  register: any;
-  errors: any;
-}
 const Input: FC<InputProps> = ({
   name,
   register,
