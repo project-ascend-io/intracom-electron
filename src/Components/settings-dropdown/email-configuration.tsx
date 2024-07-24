@@ -14,11 +14,12 @@ const EmailConfiguration: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [securityType, setSecurityType] = useState<string>("");
   const [testEmail, setTestEmail] = useState<string>("");
-  const [organizationId, setOrganizationId] = useState<string>("");
+  const [organizationId, setOrganizationId] = useState<string>(
+    "669f03102a97b116272c2085"
+  );
   const [organization, setOrganization] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  // const [emailSettingsResponse, setEmailSettingsResponse] = useState<any>({});
 
   const validateEmailSettings = (): boolean => {
     if (!server || !port || !username || !password || !securityType) {
