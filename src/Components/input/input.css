@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 7px;
 }
-.error-message {
+.input-error-message {
   color: rgb(216, 54, 54);
   font-size: small;
 }

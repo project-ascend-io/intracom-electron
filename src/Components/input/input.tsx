@@ -25,7 +25,7 @@ const Input: FC<InputProps> = ({
         {toTitleCase(name)}
       </label>
       {errors[name] && (
-        <span className="error-message">{errors[name]?.message}</span>
+        <span className="input-error-message">{errors[name]?.message}</span>
       )}
       <input
         className="input"
