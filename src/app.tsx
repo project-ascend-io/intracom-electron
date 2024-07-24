@@ -9,11 +9,18 @@ import SettingsIndex from "./components/settings-dropdown/setting-index";
 import { AuthProvider } from "./context/auth-context";
 import Login from "./pages/login/login";
 import AuthRequired from "./components/auth-required/auth-required";
+//TODO: Remove this later
+import { useAuth } from "./context/auth-context";
 
 const HomePage = () => {
+  const { setUser } = useAuth();
+  const logout = () => {
+    setUser(null);
+  };
   return (
     <div className="App">
       <Link to="/settings">Go to settings</Link>
+      <button onClick={logout}>Log out</button>
     </div>
   );
 };
