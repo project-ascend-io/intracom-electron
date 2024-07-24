@@ -1,0 +1,36 @@
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.error-message {
+  color: rgb(216, 54, 54);
+  font-size: small;
+}
+.label {
+  font-size: medium;
+  font-weight: 600;
+  color: rgba(61, 71, 88, 1);
+}
+.input {
+  padding: 12px;
+  outline: none;
+  border-style: solid;
+  border-color: rgba(210, 214, 221, 1);
+  border-radius: 7px;
+  border-width: 1px;
+  box-shadow: 0 2px 2px rgba(129, 129, 129, 0.1);
+}
+.input:focus {
+  border-color: rgba(98, 5, 232, 1);
+  box-shadow: none;
+}
+
+.input::placeholder {
+  color: rgb(172, 172, 173);
+}
+.helper-text {
+  font-size: small;
+  font-weight: 500;
+  color: rgba(116, 122, 137, 1);
+}
