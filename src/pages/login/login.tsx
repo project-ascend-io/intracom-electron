@@ -3,11 +3,16 @@ import Input from "../../components/input/input";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormType, loginSchema } from "../../types/login";
+import { loginUser } from "../../services/auth";
+import { useAuth } from "../../context/auth-context";
 
-export const Login = () => {
-  const onSubmit: SubmitHandler<LoginFormType> = (data: any) => {
-    //TODO: add fetch function
+const Login = () => {
+  const { user, setUser } = useAuth();
+  const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
     console.log(data);
+    //TODO: Validate result from backend
+    // const userData = await loginUser(data);
+    setUser({ email: "test@gmail.com", password: "helloWordl12!" });
     reset();
   };
 
@@ -21,7 +26,8 @@ export const Login = () => {
   });
   return (
     <section>
-      <h1>Login</h1>
+      {/* TODO: Remove later */}
+      <h1>Login {user ? `${user.email}` : `no user`}</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Input
           name="email"
@@ -37,8 +43,10 @@ export const Login = () => {
           register={register}
           errors={errors}
         />
-        <button onClick={handleSubmit(onSubmit)}>Login</button>
+        <button>Login</button>
       </form>
     </section>
   );
 };
+
+export default Login;
