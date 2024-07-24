@@ -1,11 +1,13 @@
 import React from "react";
 import Input from "../../components/input/input";
+import { Link } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
 import { LoginFormType, loginSchema } from "../../types/login";
 import { loginUser } from "../../services/auth";
 import { useAuth } from "../../context/auth-context";
+import "./login.css";
 
 const Login = () => {
   const { user, setUser } = useAuth();
@@ -28,10 +30,10 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
   return (
-    <section>
+    <section className="page-container">
       {/* TODO: Remove later */}
-      <h1>Login {user ? `${user.email}` : `no user`}</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <h1 className="title">Login {user ? `${user.email}` : `no user`}</h1>
+      <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
         <Input
           name="email"
           type="email"
@@ -45,8 +47,12 @@ const Login = () => {
           placeholder="Enter your password"
           register={register}
           errors={errors}
+          helperText="Password must be at least 8 characters long and include one uppercase letter and one number"
         />
-        <button>Login</button>
+        <Link className="link" to="">
+          Forgot Password?
+        </Link>
+        <button className="form-button">Login</button>
       </form>
     </section>
   );

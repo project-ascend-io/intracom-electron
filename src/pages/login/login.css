@@ -1,0 +1,38 @@
+.page-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.title {
+  text-align: center;
+}
+.form-container {
+  width: 50%;
+  max-width: 400px;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.form-button {
+  border: solid 1px rgba(98, 5, 232, 1);
+  background-color: rgba(98, 5, 232, 1);
+  color: white;
+  font-weight: 800;
+  padding: 10px 20px;
+  border-radius: 7px;
+}
+.form-button:hover {
+  border: solid 1px rgba(98, 5, 232, 0.75);
+  background-color: rgba(98, 5, 232, 0.75);
+}
+.link {
+  color: rgba(98, 5, 232, 1);
+  text-decoration: none;
+  font-size: medium;
+  font-weight: 600;
+  width: fit-content;
+}
+.link:hover {
+  text-decoration: underline;
+}
