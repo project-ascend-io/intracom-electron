@@ -16,17 +16,24 @@ const Login = () => {
         message: "Password must contain at least one uppercase letter",
       })
       .refine((value) => /[^a-zA-Z0-9]/.test(value), {
-        message: "Password must contain at least one non-letter character",
+        message:
+          "Password must contain at least one non-alphanumeric character",
       }),
   });
 
   //convert zod schema into typescript type
   type LoginFormType = z.infer<typeof loginSchema>;
-  const onSubmit = (data: any) => console.log(data);
+
+  const onSubmit: SubmitHandler<LoginFormType> = (data: any) => {
+    //TODO: add fetch function
+    console.log(data);
+    reset();
+  };
 
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<LoginFormType>({
     resolver: zodResolver(loginSchema),
@@ -34,21 +41,23 @@ const Login = () => {
   return (
     <section>
       <h1>Login</h1>
-      <Input
-        name="email"
-        type="email"
-        placeholder="Enter your email"
-        register={register}
-        errors={errors}
-      />
-      <Input
-        name="password"
-        type="password"
-        placeholder="Enter your password"
-        register={register}
-        errors={errors}
-      />
-      <button onClick={handleSubmit(onSubmit)}>Login</button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Input
+          name="email"
+          type="email"
+          placeholder="Enter your email"
+          register={register}
+          errors={errors}
+        />
+        <Input
+          name="password"
+          type="password"
+          placeholder="Enter your password"
+          register={register}
+          errors={errors}
+        />
+        <button onClick={handleSubmit(onSubmit)}>Login</button>
+      </form>
     </section>
   );
 };
