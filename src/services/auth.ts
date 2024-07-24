@@ -1,4 +1,4 @@
-import { LoginFormType } from "../pages/login/types/login";
+import { LoginFormType } from "../types/login";
 
 //TODO: update base url with backend route
 const BASE_URL = "http://localhost:8080/";
