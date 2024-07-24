@@ -10,8 +10,8 @@ export const loginSchema = z.object({
     .refine((value) => /[A-Z]/.test(value), {
       message: "Password must contain at least one uppercase letter",
     })
-    .refine((value) => /[^a-zA-Z0-9]/.test(value), {
-      message: "Password must contain at least one non-alphanumeric character",
+    .refine((value) => /\d/.test(value), {
+      message: "Password must contain at least one number",
     }),
 });
 
