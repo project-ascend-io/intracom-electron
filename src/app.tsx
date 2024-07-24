@@ -8,12 +8,12 @@ import Settings from "./pages/settings/settings";
 import SettingsIndex from "./components/settings-dropdown/setting-index";
 import { AuthProvider } from "./context/auth-context";
 import Login from "./pages/login/login";
+import AuthRequired from "./components/auth-required/auth-required";
 
 const HomePage = () => {
   return (
     <div className="App">
-      {/* <Settings /> */}
-      <Login />
+      <Link to="/settings">Go to settings</Link>
     </div>
   );
 };
@@ -22,10 +22,15 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route element={<AuthRequired />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route
+            path="/organizations/:id/settings"
+            element={<SettingsIndex />}
+          />
+        </Route>
         <Route path="/login" element={<Login />} />
-        <Route path="/Settings" element={<Settings />} />
-        <Route path="/organizations/:id/settings" element={<SettingsIndex />} />
       </Routes>
     </Router>
   );
