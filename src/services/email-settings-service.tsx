@@ -1,33 +1,4 @@
-const BASE_URL = "http://localhost:8080/email-settings";
-
-/**
- * Get the email settings for the given organization.
- * @param {string} organizationId - The ID of the organization to get email settings for.
- * @returns {Promise<any>} The response from the server.
- */
-export const getEmailSettings = async (
-  organizationId: string
-): Promise<any> => {
-  try {
-    const response = await fetch(`${BASE_URL}/${organizationId}`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
-    });
-
-    if (!response.ok) {
-      const errorBody = await response.text();
-      throw new Error(
-        `Failed to get email settings: ${response.status} ${errorBody}`
-      );
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("getEmailSettings error:", error);
-    throw error;
-  }
-};
+const ORG_URL = "http://localhost:8080/organizations"; // Define the BASE_URL
 
 /**
  * Send a test email using the provided email settings.
@@ -37,9 +8,12 @@ export const getEmailSettings = async (
  * @param {string} password - The email server password.
  * @param {string} securityType - The email server security type.
  * @param {string} email - The email address to send the test email to.
+
+ 
  * @returns {Promise<any>} The response from the server.
  */
 export const testEmailSettings = async (
+  organizationId: string, // Add organizationId as a parameter
   server: string,
   port: number,
   username: string,
@@ -48,23 +22,28 @@ export const testEmailSettings = async (
   email: string
 ): Promise<any> => {
   try {
-    const response = await fetch(`${BASE_URL}/test`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        server,
-        port,
-        username,
-        password,
-        securityType,
-        email,
-      }),
-    });
+    const response = await fetch(
+      `${ORG_URL}/${organizationId}/email-settings/test`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          server,
+          port,
+          username,
+          password,
+          securityType,
+          email,
+        }),
+      }
+    );
 
     if (!response.ok) {
-      throw new Error("Failed to send test email");
+      // If the response is not OK, log the status and statusText
+      console.error("Error response:", response.status, response.statusText);
+      throw new Error(`Error: ${response.status} ${response.statusText}`);
     }
 
     const data = await response.json();
@@ -82,7 +61,7 @@ export const testEmailSettings = async (
  * @param {string} username - The email server username.
  * @param {string} password - The email server password.
  * @param {string} securityType - The email server security type.
- * @param {string} organizationId - The ID of the organization to save email settings for.
+ * @param {string} organization - The ID of the organization to save email settings for.
 //  * @param {string} organization - The name of the organization.
  * @returns {Promise<any>} The response from the server.
  */
@@ -92,11 +71,11 @@ export const saveEmailSettings = async (
   username: string,
   password: string,
   securityType: string,
-  organizationId: string
-  // organization: string
+  // organizationId: string
+  organization: string
 ): Promise<any> => {
   try {
-    const response = await fetch(BASE_URL, {
+    const response = await fetch(`${ORG_URL}/${organization}/email-settings`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -107,8 +86,8 @@ export const saveEmailSettings = async (
         username,
         password,
         securityType,
-        organizationId,
-        // organization,
+        // organizationId,
+        organization,
       }),
     });
 
@@ -120,55 +99,6 @@ export const saveEmailSettings = async (
     return data;
   } catch (error) {
     console.error("saveEmailSettings error:", error);
-    throw error;
-  }
-};
-//updateEmailSettings
-/**
- * Update the email settings for the given organization.
- * @param {string} server - The email server.
- * @param {number} port - The email server port.
- * @param {string} username - The email server username.
- * @param {string} password - The email server password.
- * @param {string} securityType - The email server security type.
- * @param {string} organizationId - The ID of the organization to update email settings for.
-//  * @param {string} organization - The name of the organization.
- * @returns {Promise<any>} The response from the server.
- */
-export const updateEmailSettings = async (
-  server: string,
-  port: number,
-  username: string,
-  password: string,
-  securityType: string,
-  organizationId: string
-  // organization: string
-): Promise<any> => {
-  try {
-    const response = await fetch(`${BASE_URL}/${organizationId}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        server,
-        port,
-        username,
-        password,
-        securityType,
-        organizationId,
-        // organization,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error("Failed to update email settings");
-    }
-
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error("updateEmailSettings error:", error);
     throw error;
   }
 };

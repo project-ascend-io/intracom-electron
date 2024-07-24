@@ -1,11 +1,9 @@
 import React, { useState } from "react";
-import { BsQuestionCircle } from "react-icons/bs";
+
 import "./settings.css";
 import {
   testEmailSettings,
   saveEmailSettings,
-  getEmailSettings,
-  updateEmailSettings,
 } from "../../services/email-settings-service";
 
 const EmailConfiguration: React.FC = () => {
@@ -16,11 +14,11 @@ const EmailConfiguration: React.FC = () => {
   const [password, setPassword] = useState<string>("");
   const [securityType, setSecurityType] = useState<string>("");
   const [testEmail, setTestEmail] = useState<string>("");
-  const [organizationId, setOrganizationId] = useState<string>("1");
-  // const [organization, setOrganization] = useState<string>("Organization 1");
+  const [organizationId, setOrganizationId] = useState<string>("");
+  const [organization, setOrganization] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
-  const [emailSettingsResponse, setEmailSettingsResponse] = useState<any>({});
+  // const [emailSettingsResponse, setEmailSettingsResponse] = useState<any>({});
 
   const validateEmailSettings = (): boolean => {
     if (!server || !port || !username || !password || !securityType) {
@@ -34,11 +32,24 @@ const EmailConfiguration: React.FC = () => {
     return true;
   };
   // TEST EMAIL SETTINGS>>>>>>>
-  const handleSendTestEmail = async (): Promise<void> => {
+  const handleSendTestEmail = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
+    event.preventDefault(); // Prevent form submission
     if (!validateEmailSettings()) return;
 
     try {
+      console.log("Sending test email with settings:", {
+        organizationId,
+        server,
+        port,
+        username,
+        password,
+        securityType,
+        testEmail,
+      });
       const data = await testEmailSettings(
+        organizationId,
         server,
         Number(port),
         username,
@@ -63,7 +74,10 @@ const EmailConfiguration: React.FC = () => {
   };
 
   // SAVE EMAIL SETTINGS AFTER SUCCESS>>>>>>>
-  const handleSave = async (): Promise<void> => {
+  const handleSave = async (
+    event: React.MouseEvent<HTMLButtonElement>
+  ): Promise<void> => {
+    event.preventDefault(); // Prevent form submission
     if (!validateEmailSettings()) return;
 
     try {
@@ -73,8 +87,8 @@ const EmailConfiguration: React.FC = () => {
         username,
         password,
         securityType,
-        organizationId
-        // organization
+        // organizationId
+        organization
       );
 
       if (data.success) {
@@ -88,63 +102,6 @@ const EmailConfiguration: React.FC = () => {
     } catch (error: any) {
       setErrorMessage(
         error.message || "An error occurred while saving the email settings."
-      );
-    }
-  };
-  // FETCHING EMAIL SETTINGS>>>>>>>
-  const handleGetEmailSettings = async (): Promise<void> => {
-    if (!validateEmailSettings()) return;
-    try {
-      const data = await getEmailSettings(organizationId);
-      if (data.success && data.data) {
-        //setEmailSettingsResponse is a function to update the state with the desired response format
-        setEmailSettingsResponse({
-          _id: data.data._id, // Assuming _id is part of the response.
-          server: data.data.server,
-          port: data.data.port,
-          username: data.data.username,
-          password: data.data.password,
-          securityType: data.data.securityType,
-          // organization: data.data.organization,
-        });
-        setSuccessMessage("Email settings fetched successfully.");
-        setErrorMessage("");
-      } else {
-        setErrorMessage(
-          data.message || "An error occurred while getting the email settings."
-        );
-      }
-    } catch (error: any) {
-      setErrorMessage(
-        error.message || "An error occurred while getting the email settings."
-      );
-    }
-  };
-  // UPDATE EMAIL SETTINGS>>>>>>>>
-  const handleUpdateEmailSettings = async (): Promise<void> => {
-    if (!validateEmailSettings()) return;
-    try {
-      const data = await updateEmailSettings(
-        server,
-        Number(port),
-        username,
-        password,
-        securityType,
-        organizationId
-      );
-      if (data.success) {
-        setSuccessMessage(
-          data.message || "Email settings updated successfully."
-        );
-        setErrorMessage("");
-      } else {
-        setErrorMessage(
-          data.message || "An error occurred while updating the email settings."
-        );
-      }
-    } catch (error: any) {
-      setErrorMessage(
-        error.message || "An error occurred while updating the email settings."
       );
     }
   };
@@ -168,24 +125,6 @@ const EmailConfiguration: React.FC = () => {
             value={server}
             onChange={(e) => setServer(e.target.value)}
           />
-
-          {/* <div style={{ position: "relative", display: "inline-block" }}>
-            <input
-              type="text"
-              value={server}
-              onChange={(e) => setServer(e.target.value)}
-              style={{ paddingRight: "30px" }} // Add padding to prevent text from being hidden by the icon
-            />
-            <BsQuestionCircle
-              style={{
-                position: "absolute",
-                right: "10px",
-                top: "50%",
-                transform: "translateY(-50%)",
-                pointerEvents: "none", // Makes the icon non-interactive
-              }}
-            />
-          </div> */}
         </div>
         <div className="form-group">
           <label>Port</label>
@@ -233,18 +172,15 @@ const EmailConfiguration: React.FC = () => {
           />
           <button onClick={handleSendTestEmail}>Send Test Email</button>
         </div>
-        {/* >>>>>>>newly added organization field */}
-        {/* <div className="form-group">
-        <label>Organization</label>
-        <select
-          value={organizationId}
-          onChange={(e) => setOrganization(e.target.value)}
-        >
-          <option value="1">Organization 1</option>
-          <option value="2">Organization 2</option>
-          <option value="3">Organization 3</option>
-        </select>
-      </div> */}
+        {/* >>>>>>>added organization field to save the email-settings*/}
+        <div className="form-group">
+          <label>Organization</label>
+          <input
+            type="text"
+            value={organization}
+            onChange={(e) => setOrganization(e.target.value)}
+          />
+        </div>
       </form>
 
       <div className="success-from">
