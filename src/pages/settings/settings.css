@@ -3,6 +3,7 @@
   flex-direction: row;
   margin: 0 auto;
   background-color: white;
+
   width: 960px;
 }
 .main-section {
@@ -25,6 +26,6 @@
   }
 
   /* .main-section { */
-  /* Additional styling adjustments for mobile can be added here */
+  /* Additional styling adjustments for small devices can be added here */
   /* } */
 }

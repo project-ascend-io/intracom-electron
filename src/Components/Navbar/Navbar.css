@@ -6,21 +6,24 @@
   padding: 10px 20px;
   background-color: #f9f9f9;
   border-bottom: 1px solid #ccc;
- 
 }
 
 .navbar-left {
   display: flex;
   align-items: center;
-  font-size: 20px;
+  font-size: 22px;
 }
 
-.navbar-left span {
-  margin-right: 10px;
-}
 .logo-link {
   text-decoration: none;
   color: black;
+  font-size: 22px;
+}
+.logo-icon {
+  margin-right: 10px;
+  padding-top: 5px;
+  width: 25px;
+  height: 25px;
 }
 
 .navbar-right {

@@ -27,8 +27,9 @@
   background-color: #e0e0e0;
 }
 
-.left-sidebar li span {
+.icons {
   margin-right: 10px;
+  margin-top: 5px;
 }
 
 .nested {
@@ -37,7 +38,7 @@
   font-size: 16px;
 }
 
-/* Adjustments for mobile phones */
+/* Adjustments for small devices */
 @media (max-width: 480px) {
   .sidebar-container {
     flex-direction: column; /* Stack elements vertically on smaller screens */
