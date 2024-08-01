@@ -1,12 +1,14 @@
 import { LoginFormType } from "../types/login";
+import { ResponseObject } from "../types/auth";
 
 //TODO: update base url with backend route
-const BASE_URL = "http://localhost:8080/";
+const BASE_URL = "http://localhost:8080";
 
+//TODO: update returns type with response object typescript schema
 /**
  * Login user
  * @param {object} loginInfo - An object containing the user email and password
- * @returns {Promise<any>} The response from the server
+ * @returns {ResponseObject} The response from the server
  */
 export const loginUser = async (loginInfo: LoginFormType): Promise<any> => {
   try {
@@ -18,12 +20,13 @@ export const loginUser = async (loginInfo: LoginFormType): Promise<any> => {
 
     if (!response.ok) {
       const errorBody = await response.text();
-      //TODO: Would be good to display this error within the form, this is fine for now
-      throw new Error(`Failed to login user: ${response.status} ${errorBody}`);
-    }
 
-    const data = await response.json();
-    return data;
+      console.error(`Failed to login user ${response.status}:`, errorBody);
+      return errorBody;
+    } else {
+      const data = await response.json();
+      return data;
+    }
   } catch (error) {
     console.error("loginUser error:", error);
 
@@ -32,9 +35,36 @@ export const loginUser = async (loginInfo: LoginFormType): Promise<any> => {
 };
 
 /**
+ * Check user session
+ * @returns {ResponseObject} Response from the server containing user object
+ */
+export const checkUser = async (): Promise<any> => {
+  try {
+    const response = await fetch(`${BASE_URL}/auth/check`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+
+      console.error(`Failed to get user ${response.status}:`, errorBody);
+      return errorBody;
+    } else {
+      const data = await response.json();
+      return data;
+    }
+  } catch (error) {
+    console.error("checkUser error:", error);
+
+    throw error;
+  }
+};
+
+/**
  * Logout user
  * @param {string} userId - A string containing user's unique ID
- * @returns {Promise<any>} The response from the server
+ * @returns {ResponseObject} The response from the server
  */
 export const logoutUser = async (userId: string): Promise<any> => {
   try {
@@ -46,12 +76,13 @@ export const logoutUser = async (userId: string): Promise<any> => {
 
     if (!response.ok) {
       const errorBody = await response.text();
-      //TODO: Would be good to display this error within the form, this is fine for now
-      throw new Error(`Failed to logout user: ${response.status} ${errorBody}`);
-    }
 
-    const data = await response.json();
-    return data;
+      console.error(`Failed to logout user ${response.status}:`, errorBody);
+      return errorBody;
+    } else {
+      const data = await response.json();
+      return data;
+    }
   } catch (error) {
     console.error("logoutUser error:", error);
 
