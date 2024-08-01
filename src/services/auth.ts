@@ -19,7 +19,8 @@ export const loginUser = async (loginInfo: LoginFormType): Promise<any> => {
     });
 
     if (!response.ok) {
-      const errorBody = await response.text();
+      //convert string to object
+      const errorBody = JSON.parse(await response.text());
 
       console.error(`Failed to login user ${response.status}:`, errorBody);
       return errorBody;
@@ -46,7 +47,7 @@ export const checkUser = async (): Promise<any> => {
     });
 
     if (!response.ok) {
-      const errorBody = await response.text();
+      const errorBody = JSON.parse(await response.text());
 
       console.error(`Failed to get user ${response.status}:`, errorBody);
       return errorBody;
@@ -75,7 +76,7 @@ export const logoutUser = async (userId: string): Promise<any> => {
     });
 
     if (!response.ok) {
-      const errorBody = await response.text();
+      const errorBody = JSON.parse(await response.text());
 
       console.error(`Failed to logout user ${response.status}:`, errorBody);
       return errorBody;
