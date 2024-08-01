@@ -7,7 +7,6 @@ import {
 } from "../../services/email-settings-service";
 
 const EmailConfiguration: React.FC = () => {
-  // const api_url = process.env.REACT_APP_API_URL || "";
   const [server, setServer] = useState<string>("");
   const [port, setPort] = useState<string>("");
   const [username, setUsername] = useState<string>("");
@@ -16,7 +15,8 @@ const EmailConfiguration: React.FC = () => {
   const [testEmail, setTestEmail] = useState<string>("");
   const [organizationId, setOrganizationId] = useState<string>(
     "669f03102a97b116272c2085"
-  );
+  ); // Hardcoded organization id because we're wrapping up the auth process. For testing purposes: replace value with you org id.
+  // @todo Replace hardcoded orgId during/after auth integration.
   const [organization, setOrganization] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -88,7 +88,6 @@ const EmailConfiguration: React.FC = () => {
         username,
         password,
         securityType,
-        // organizationId
         organization
       );
 
@@ -173,7 +172,7 @@ const EmailConfiguration: React.FC = () => {
           />
           <button onClick={handleSendTestEmail}>Send Test Email</button>
         </div>
-        {/* >>>>>>>added organization field to save the email-settings*/}
+        {/* >>>>>added organization field to save the email-settings*/}
         <div className="form-group">
           <label>Organization</label>
           <input

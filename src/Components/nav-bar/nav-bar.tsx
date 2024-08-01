@@ -1,5 +1,5 @@
 import React from "react";
-import "./navbar.css";
+import "./nav-bar.css";
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { FaFlag } from "react-icons/fa";
@@ -18,6 +18,8 @@ const Navbar: React.FC = () => {
           New Chat
         </Link>
         <Link to="/profile">
+          {/* We are using user-avatar for now until image handling configuration in electron app is done. */}
+          {/* @todo: replace the image with user profile picture once image handling is done. */}
           <FaUser className="user-avatar" />
         </Link>
       </div>

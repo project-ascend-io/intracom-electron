@@ -1,4 +1,6 @@
-const ORG_URL = "http://localhost:8080/organizations"; // Define the BASE_URL
+const Base_URL = "http://localhost:8080";
+// we are using the URL directly for now, but we have to configure the BASE_URL variable to make it more dynamic using the environment variables.
+//@todo: replace the URL with the BASE_URL variable once the dotenv configuration is done.
 
 /**
  * Send a test email using the provided email settings.
@@ -23,7 +25,7 @@ export const testEmailSettings = async (
 ): Promise<any> => {
   try {
     const response = await fetch(
-      `${ORG_URL}/${organizationId}/email-settings/test`,
+      `${Base_URL}/organizations/${organizationId}/email-settings/test`,
       {
         method: "POST",
         headers: {
@@ -75,21 +77,24 @@ export const saveEmailSettings = async (
   organization: string
 ): Promise<any> => {
   try {
-    const response = await fetch(`${ORG_URL}/${organization}/email-settings`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        server,
-        port,
-        username,
-        password,
-        securityType,
-        // organizationId,
-        organization,
-      }),
-    });
+    const response = await fetch(
+      `${Base_URL}/organizations/${organization}/email-settings`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          server,
+          port,
+          username,
+          password,
+          securityType,
+
+          organization,
+        }),
+      }
+    );
 
     if (!response.ok) {
       throw new Error("Failed to save email settings");

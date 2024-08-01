@@ -1,5 +1,7 @@
 const ORG_URL = "http://localhost:8080/organizations";
 const USR_URL = "http://localhost:8080/users";
+const Base_URL = "http://localhost:8080";
+//  const Base_URL = process.env.REACT_APP_API_URL;
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -16,8 +18,9 @@ const SettingsIndex: React.FC = () => {
     const fetchEmailSettings = async () => {
       try {
         const response = await fetch(
-          // `${ORG_URL}/${id}/email-settings`
-          `${ORG_URL}/669f03102a97b116272c2085/email-settings` // Hardcoded organization ID for now
+          // `${Base_URL}/organizations/${id}/email-settings`
+          `${Base_URL}/organizations/669f03102a97b116272c2085/email-settings` // Hardcoded organization id because we're wrapping up the auth process. For testing purposes: replace value with you org id.
+          // @todo Replace hardcoded orgId during/after auth integration.
         );
         const data = await response.json();
         if (data.success) {
@@ -28,8 +31,9 @@ const SettingsIndex: React.FC = () => {
           const fetchOrganizationDetails = async () => {
             try {
               const orgResponse = await fetch(
-                // ${USR_URL}/${id}`
-                `${USR_URL}/669f03102a97b116272c2087` // Hardcoded user ID for now
+                // ${Base_URL}/users/${id}`
+                `${Base_URL}/users/669f03102a97b116272c2087` // Hardcoded User id because we're wrapping up the auth process. For testing purposes: replace value with you User id.
+                // @todo Replace hardcoded userId during/after auth integration.
               );
               const orgData = await orgResponse.json();
               if (orgData.success) {

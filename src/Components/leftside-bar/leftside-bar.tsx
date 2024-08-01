@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./leftside-bar.css";
-import RightsideBar from "../settings-dropdown/email-configuration"; // Adjust the import path as necessary
+import EmailConfiguration from "../settings-dropdown/email-configuration"; // Adjust the import path as necessary
 import SettingIndex from "../settings-dropdown/setting-index";
 import { FaMessage } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -39,16 +39,22 @@ const LeftsideBar: React.FC = () => {
       <div className="left-sidebar">
         <ul>
           <li onClick={handleOtherComponentClick}>
+            {/* We are using react-icons for now until image handling configuration in electron app is done. */}
+            {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
             <FaMessage className="icons" />
             Messages
           </li>
           <li onClick={handleOtherComponentClick}>
+            {/* We are using react-icons for now until image handling configuration in electron app is done. */}
+            {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
             <MdNumbers className="icons" />
             Channels
           </li>
 
           <div onClick={handleSettingsClick} style={{ cursor: "pointer" }}>
             <li>
+              {/* We are using react-icons for now until image handling configuration in electron app is done. */}
+              {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
               <IoSettingsOutline className="icons" />
               Settings
             </li>
@@ -60,10 +66,14 @@ const LeftsideBar: React.FC = () => {
               }}
             >
               <li className="nested" onClick={handleCurrentConfigClick}>
+                {/* We are using react-icons for now until image handling configuration in electron app is done. */}
+                {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
                 <LuBringToFront />
                 View Current Configuration
               </li>
               <li className="nested" onClick={handleEmailConfigClick}>
+                {/* We are using react-icons for now until image handling configuration in electron app is done. */}
+                {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
                 <MdOutlineEmail className="icons" />
                 Email Configuration
               </li>
@@ -71,13 +81,15 @@ const LeftsideBar: React.FC = () => {
           </div>
 
           <li onClick={handleOtherComponentClick}>
+            {/* We are using react-icons for now until image handling configuration in electron app is done. */}
+            {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
             <FiLogOut className="icons" />
             Logout
           </li>
         </ul>
       </div>
       {showSettingIndex && <SettingIndex />}
-      {showRightsideBar && <RightsideBar />}
+      {showRightsideBar && <EmailConfiguration />}
     </div>
   );
 };

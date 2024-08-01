@@ -9,23 +9,30 @@
 .main-section {
   display: flex;
   flex-direction: column;
+  margin-top: 40px;
 }
 
 /* Adjustments for tablets */
 @media (max-width: 768px) {
+  .main-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+  }
   .settings-section {
-    flex-direction: column; /* Stack elements vertically on smaller screens */
-    width: 90%; /* Adjust width for smaller devices */
+    flex-direction: column;
+    width: 90%;
   }
 }
 
 /* Adjustments for mobile phones */
 @media (max-width: 480px) {
-  .settings-section {
-    width: 95%; /* Use almost full width for very small devices */
+  .main-section {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
   }
-
-  /* .main-section { */
-  /* Additional styling adjustments for small devices can be added here */
-  /* } */
+  .settings-section {
+    width: 95%;
+  }
 }
