@@ -15,10 +15,16 @@ const Login = () => {
   const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
     console.log(data);
     //TODO: Validate result from backend
-    // const userData = await loginUser(data);
-    setUser({ email: "test@gmail.com", password: "helloWordl12!" });
-    reset();
-    navigate("/");
+    const userData = await loginUser(data);
+
+    if (userData.success) {
+      setUser(userData.responseObject);
+      console.log(userData);
+      reset();
+      navigate("/");
+    } else {
+      //TODO: display error
+    }
   };
 
   const {
