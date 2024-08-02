@@ -46,15 +46,14 @@
     "fork-ts-checker-webpack-plugin": "^7.2.13",
     "husky": "^9.0.11",
     "node-loader": "^2.0.0",
-    "prettier": "^3.3.2",
+    "prettier": "^3.3.3",
     "style-loader": "^3.0.0",
     "ts-loader": "^9.2.2",
     "ts-node": "^10.0.0",
     "typescript": "~4.5.4"
   },
   "lint-staged": {
-    "**/*": "npm run format",
-    "**/*.{js,ts,tsx,jsx,html,css}": "npm run lint:fix"
+    "**/*": "npm run format"
   },
   "keywords": [],
   "author": {
@@ -64,8 +63,11 @@
   "license": "MIT",
   "dependencies": {
     "@kayahr/jest-electron-runner": "^29.14.0",
+    "dotenv": "^16.4.5",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.2.1",
+    "react-router-dom": "^6.24.1"
   }
 }

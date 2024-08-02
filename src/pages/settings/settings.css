@@ -1,0 +1,29 @@
+/* For desktops */
+.settings-section {
+  display: flex;
+  flex-direction: row;
+  margin: 0 auto;
+  background-color: white;
+  width: 960px;
+}
+
+.main-section {
+  display: flex;
+  flex-direction: column;
+  margin-top: 40px;
+}
+
+/* Adjustments for tablets */
+@media (max-width: 768px) {
+  .settings-section {
+    flex-direction: column;
+    width: 90%;
+  }
+}
+
+/* Adjustments for mobile phones */
+@media (max-width: 480px) {
+  .settings-section {
+    width: 95%;
+  }
+}
