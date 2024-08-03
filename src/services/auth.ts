@@ -66,15 +66,13 @@ export const checkUser = async (): Promise<any> => {
 
 /**
  * Logout user
- * @param {string} userId - A string containing user's unique ID
  * @returns {ResponseObject} The response from the server
  */
-export const logoutUser = async (userId: string): Promise<any> => {
+export const logoutUser = async (): Promise<any> => {
   try {
     const response = await fetch(`${BASE_URL}/auth/logout`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ userId }),
       credentials: "include",
     });
 
