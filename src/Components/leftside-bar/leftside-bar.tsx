@@ -6,8 +6,7 @@ import { FaMessage } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
 import { LuBringToFront } from "react-icons/lu";
-import { MdNumbers } from "react-icons/md";
-import { MdOutlineEmail } from "react-icons/md";
+import { MdNumbers, MdOutlineEmail } from "react-icons/md";
 
 const LeftsideBar: React.FC = () => {
   const [showRightsideBar, setShowRightsideBar] = useState<boolean>(false);
@@ -25,8 +24,6 @@ const LeftsideBar: React.FC = () => {
 
   const handleSettingsClick = (): void => {
     setShowSettingsList(!showSettingsList); // Toggle visibility of the settings list
-    // setShowSettingIndex(true);
-    // setShowRightsideBar(false);
   };
 
   const handleOtherComponentClick = (): void => {

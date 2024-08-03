@@ -18,8 +18,8 @@ const SettingsIndex: React.FC = () => {
     const fetchEmailSettings = async () => {
       try {
         const response = await fetch(
-          // `${Base_URL}/organizations/${id}/email-settings`
-          `${Base_URL}/organizations/669f03102a97b116272c2085/email-settings`, // Hardcoded organization id because we're wrapping up the auth process. For testing purposes: replace value with you org id.
+          `${Base_URL}/organizations/${id}/email-settings`,
+          // `${Base_URL}/organizations/669f03102a97b116272c2085/email-settings`, // Hardcoded organization id because we're wrapping up the auth process. For testing purposes: replace value with you org id.
           // @todo Replace hardcoded orgId during/after auth integration.
         );
         const data = await response.json();
