@@ -16,6 +16,7 @@ export const loginUser = async (loginInfo: LoginFormType): Promise<any> => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(loginInfo),
+      credentials: "include",
     });
 
     if (!response.ok) {
@@ -44,6 +45,7 @@ export const checkUser = async (): Promise<any> => {
     const response = await fetch(`${BASE_URL}/auth/check`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
+      credentials: "include",
     });
 
     if (!response.ok) {
@@ -73,6 +75,7 @@ export const logoutUser = async (userId: string): Promise<any> => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ userId }),
+      credentials: "include",
     });
 
     if (!response.ok) {
