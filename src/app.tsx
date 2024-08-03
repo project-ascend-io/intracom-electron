@@ -11,16 +11,20 @@ import Login from "./pages/login/login";
 import AuthRequired from "./components/auth-required/auth-required";
 //TODO: Remove this later
 import { useAuth } from "./context/auth-context";
+import { checkUser, logoutUser } from "./services/auth";
 
 const HomePage = () => {
   const { setUser } = useAuth();
-  const logout = () => {
-    setUser(null);
+  const logout = async () => {
+    const res = await logoutUser();
+    //TODO: add error handling
+    if (res.success) setUser(null);
   };
   return (
-    <div className="App">
+    <div className="">
       <Link to="/settings">Go to settings</Link>
       <button onClick={logout}>Log out</button>
+      <button onClick={checkUser}>Check User</button>
     </div>
   );
 };
