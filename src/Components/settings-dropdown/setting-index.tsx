@@ -1,7 +1,4 @@
-const ORG_URL = "http://localhost:8080/organizations";
-const USR_URL = "http://localhost:8080/users";
-const Base_URL = "http://localhost:8080";
-//  const Base_URL = process.env.REACT_APP_API_URL;
+const Base_URL = process.env.API_URL;
 
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";

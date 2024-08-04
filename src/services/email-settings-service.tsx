@@ -1,4 +1,4 @@
-const Base_URL = "http://localhost:8080";
+const Base_URL = process.env.API_URL;
 // we are using the URL directly for now, but we have to configure the BASE_URL variable to make it more dynamic using the environment variables.
 //@todo: replace the URL with the BASE_URL variable once the dotenv configuration is done.
 
