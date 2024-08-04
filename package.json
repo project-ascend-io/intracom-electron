@@ -6,7 +6,7 @@
   "main": ".webpack/main",
   "scripts": {
     "start": "dotenvx run -- electron-forge start",
-    "package": "electron-forge package",
+    "package": "dotenvx run -- electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "prepare": "husky",
