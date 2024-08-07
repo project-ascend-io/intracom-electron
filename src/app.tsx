@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./app.css";
-// import EmailSettings from "./pages/email-configuration/email-configuration";
 
 import { HashRouter as Router, Link, Route, Routes } from "react-router-dom";
 import Settings from "./pages/settings/settings";

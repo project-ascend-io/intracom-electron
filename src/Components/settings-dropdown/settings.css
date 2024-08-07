@@ -1,33 +1,6 @@
-/* .container {
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  margin: 0 auto;
-} */
-
-.section {
-  margin-bottom: 20px;
-}
-
+/* For desktop */
 .formGroup {
   margin-bottom: 15px;
-}
-.fetched {
-  width: 100%;
-  height: 30px;
-  /* background-color: #f1f1f1; */
-  border: 1px dashed #ccc;
-  font-size: 16px;
-  color: #333;
-  text-align: center;
-  margin: 10px;
-  padding: 5px;
-}
-
-.testEmailSection {
-  margin-bottom: 20px;
 }
 
 .actionButtons {
@@ -54,7 +27,6 @@
   width: 400px;
   margin: 0 auto;
   padding: 20px;
-  /* border: 1px solid #ccc; */
   text-align: left;
 }
 
@@ -67,6 +39,7 @@
   font-size: 14px;
   margin-bottom: 20px;
 }
+
 .error-message {
   margin-top: 20px;
   padding: 10px;
@@ -83,7 +56,6 @@
   display: block;
   font-weight: bold;
   margin-bottom: 10px;
-
   padding-left: 1px;
   font-size: 14px;
 }
@@ -94,6 +66,7 @@
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 .security-type {
   width: 95%;
   padding: 8px;
@@ -119,9 +92,6 @@
 .form-group button:hover {
   background-color: #c5dbf3;
 }
-/* .success-from{
-  width: 100%;
-} */
 
 .success-message {
   margin-top: 20px;
@@ -168,69 +138,28 @@
   background-color: #c5dbf3;
 }
 
-/* Adjustments for tablets */
-@media (max-width: 768px) {
-  .email-settings {
-    width: 90%; /* More width for smaller devices */
-  }
-
-  .email-settings h1 {
-    font-size: 20px; /* Slightly smaller font size */
-  }
-
-  .email-settings p,
-  .form-group label,
-  .success-message p {
-    font-size: 13px; /* Adjust font size for readability */
-  }
+.section {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Adjustments for mobile phones */
-@media (max-width: 480px) {
-  .email-settings {
-    width: 95%; /* Use almost full width for very small devices */
-    padding: 15px; /* Slightly reduce padding */
-  }
-
-  .email-settings h1 {
-    font-size: 18px; /* Further reduce font size for small screens */
-  }
-
-  .form-group button,
-  .buttons button {
-    padding: 8px 10px; /* Adjust button padding for smaller screens */
-  }
-
-  .buttons {
-    flex-direction: column; /* Stack buttons vertically on small screens */
-    gap: 10px; /* Add space between stacked buttons */
-  }
-}
-
-/* New approach >>>>>>>>>>>*/
-.container {
-  /* padding-left: 5px; */
-  background-color: #fff;
-
-  max-width: 800px;
-  width: 100%;
-  margin: 0 auto;
-  font-family: Arial, sans-serif;
-}
 .heading {
   font-size: 22px;
   font-weight: bold;
   margin-bottom: 10px;
   padding-left: 0;
 }
+
 .subHeading {
   color: #666;
-  margin-bottom: 20px;
   font-size: 18px;
 }
-.section {
+
+.section-2 {
   margin-bottom: 20px;
+  width: 600px;
 }
+
 .infoRow {
   display: flex;
   gap: 10px;
@@ -240,7 +169,6 @@
   width: 100%;
   height: 30px;
   padding: 10px;
-  margin-left: 15px;
   text-align: center;
 }
 
@@ -256,18 +184,116 @@
   margin-top: 20px;
 }
 
-.editButton {
+.actionButtons {
   display: inline-block;
-
   margin-right: 1px;
   padding: 10px 20px;
-  background-color: #007bff;
   color: #fff;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
 .editButton:hover {
   background-color: #0056b3;
+}
+
+.theTwo {
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Adjustments for tablets */
+@media (max-width: 768px) {
+  .email-settings {
+    width: 90%;
+  }
+
+  .email-settings h1 {
+    font-size: 20px;
+  }
+
+  .email-settings p,
+  .form-group label,
+  .success-message p {
+    font-size: 13px;
+  }
+
+  .section {
+    width: 90%;
+  }
+
+  .section-2 {
+    width: 400px;
+  }
+
+  .heading {
+    font-size: 18px;
+  }
+
+  .subHeading {
+    font-size: 14px;
+  }
+
+  .infoRow {
+    font-size: 12px;
+    width: 90%;
+  }
+
+  .actionButtons {
+    padding: 6px 12px;
+  }
+}
+
+/* Adjustments for smaller devices */
+@media (max-width: 480px) {
+  .email-settings {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .email-settings h1 {
+    font-size: 18px;
+  }
+
+  .form-group button,
+  .buttons button {
+    padding: 8px 10px;
+  }
+
+  .buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .section {
+    width: 95%;
+    padding: 15px;
+  }
+
+  .section-2 {
+    width: 300px;
+    padding: 15px;
+  }
+
+  .heading {
+    font-size: 16px;
+  }
+
+  .subHeading {
+    font-size: 12px;
+  }
+
+  .infoRow {
+    font-size: 10px;
+    width: 90%;
+  }
+
+  .actionButtons {
+    padding: 4px 8px;
+  }
+
+  .theTwo {
+    flex-direction: column;
+  }
 }

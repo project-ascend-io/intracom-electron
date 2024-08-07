@@ -1,8 +1,10 @@
+/* Left-side bar CSS for Desktop */
 .sidebar-container {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
 }
+
 .left-sidebar {
   width: 200px;
   padding: 10px;
@@ -27,40 +29,39 @@
   background-color: #e0e0e0;
 }
 
-.left-sidebar li span {
+.icons {
   margin-right: 10px;
+  margin-top: 5px;
 }
 
 .nested {
   margin-left: 20px;
-
   font-size: 16px;
 }
 
-/* Adjustments for mobile phones */
+/* Adjustments for small devices */
 @media (max-width: 480px) {
   .sidebar-container {
-    flex-direction: column; /* Stack elements vertically on smaller screens */
+    flex-direction: column;
   }
 
   .left-sidebar {
-    width: 100%; /* Use full width for very small devices */
-    height: auto; /* Adjust height to content */
-    border-right: none; /* Remove border for a cleaner look */
-    border-bottom: 1px solid #ccc; /* Add a bottom border instead */
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid #ccc;
   }
 
   .left-sidebar ul {
-    /* display: flex;  */
-    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-x: auto;
   }
 
   .left-sidebar li {
-    padding: 10px; /* Adjust padding for a compact look */
+    padding: 10px;
   }
 
   .nested {
-    margin-left: 10px; /* Reduce margin for nested items */
-    font-size: 14px; /* Ensure font size remains readable */
+    margin-left: 10px;
+    font-size: 14px;
   }
 }

@@ -1,3 +1,4 @@
+/* For desktops */
 .settings-section {
   display: flex;
   flex-direction: row;
@@ -5,26 +6,24 @@
   background-color: white;
   width: 960px;
 }
+
 .main-section {
   display: flex;
   flex-direction: column;
+  margin-top: 40px;
 }
 
 /* Adjustments for tablets */
 @media (max-width: 768px) {
   .settings-section {
-    flex-direction: column; /* Stack elements vertically on smaller screens */
-    width: 90%; /* Adjust width for smaller devices */
+    flex-direction: column;
+    width: 90%;
   }
 }
 
 /* Adjustments for mobile phones */
 @media (max-width: 480px) {
   .settings-section {
-    width: 95%; /* Use almost full width for very small devices */
+    width: 95%;
   }
-
-  /* .main-section { */
-  /* Additional styling adjustments for mobile can be added here */
-  /* } */
 }
