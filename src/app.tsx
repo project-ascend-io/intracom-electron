@@ -49,5 +49,5 @@ const root = createRoot(document.body);
 root.render(
   <AuthProvider>
     <App />
-  </AuthProvider>
+  </AuthProvider>,
 );
