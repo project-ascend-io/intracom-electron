@@ -5,8 +5,8 @@
   "description": "My Electron application description",
   "main": ".webpack/main",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
+    "start": "dotenvx run -- electron-forge start",
+    "package": "dotenvx run -- electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "prepare": "husky",
@@ -35,26 +35,31 @@
     "@types/jest": "^29.5.12",
     "@types/react": "^18.2.79",
     "@types/react-dom": "^18.2.25",
+    "@types/webpack": "^5.28.5",
     "@typescript-eslint/eslint-plugin": "^5.0.0",
     "@typescript-eslint/parser": "^5.0.0",
     "@vercel/webpack-asset-relocator-loader": "1.7.3",
+    "autoprefixer": "^10.4.20",
     "babel-jest": "^29.7.0",
     "css-loader": "^6.0.0",
+    "daisyui": "^4.12.10",
     "electron": "30.0.1",
-    "eslint": "^8.0.1",
+    "eslint": "^8.57.0",
     "eslint-plugin-import": "^2.25.0",
-    "fork-ts-checker-webpack-plugin": "^7.2.13",
+    "fork-ts-checker-webpack-plugin": "^7.3.0",
     "husky": "^9.0.11",
     "node-loader": "^2.0.0",
-    "prettier": "^3.3.2",
+    "postcss-loader": "^8.1.1",
+    "prettier": "^3.3.3",
     "style-loader": "^3.0.0",
+    "tailwindcss": "^3.4.9",
     "ts-loader": "^9.2.2",
     "ts-node": "^10.0.0",
     "typescript": "~4.5.4"
   },
   "lint-staged": {
     "**/*": "npm run format",
-    "**/*.{js,ts,tsx,jsx,html,css}": "npm run lint:fix"
+    "**/*.{js,ts,tsx,jsx}": "npm run lint:fix"
   },
   "keywords": [],
   "author": {
@@ -63,9 +68,12 @@
   },
   "license": "MIT",
   "dependencies": {
+    "@dotenvx/dotenvx": "^1.6.4",
     "@kayahr/jest-electron-runner": "^29.14.0",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-icons": "^5.2.1",
+    "react-router-dom": "^6.24.1"
   }
 }
