@@ -5,7 +5,18 @@ import { AuthContextType, AuthUserType, AuthProviderType } from "../types/auth";
 const AuthContext = createContext({} as AuthContextType);
 
 export const AuthProvider = ({ children }: AuthProviderType) => {
-  const [user, setUser] = useState<AuthUserType | null>(null);
+  const [user, setUser] = useState<AuthUserType | null>(
+    JSON.parse(localStorage.getItem("user")) || null,
+  );
+
+  const expires = JSON.parse(localStorage.getItem("session"))?.expires;
+
+  // if current date surpases the expire date clear user and local storage
+  if (expires && Date.parse(expires) < Date.parse(new Date().toISOString())) {
+    setUser(null);
+    localStorage.removeItem("session");
+    localStorage.removeItem("user");
+  }
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>

@@ -27,6 +27,9 @@ export const loginUser = async (loginInfo: LoginFormType): Promise<any> => {
       return errorBody;
     } else {
       const data = await response.json();
+      console.log(data);
+      localStorage.setItem("session", JSON.stringify(data.cookie));
+      localStorage.setItem("user", JSON.stringify(data.responseObject));
       return data;
     }
   } catch (error) {
@@ -55,6 +58,9 @@ export const checkUser = async (): Promise<any> => {
       return errorBody;
     } else {
       const data = await response.json();
+      console.log(data);
+      localStorage.setItem("session", JSON.stringify(data.cookie));
+      localStorage.setItem("user", JSON.stringify(data.responseObject));
       return data;
     }
   } catch (error) {
@@ -83,6 +89,8 @@ export const logoutUser = async (): Promise<any> => {
       return errorBody;
     } else {
       const data = await response.json();
+      localStorage.removeItem("session");
+      localStorage.removeItem("user");
       return data;
     }
   } catch (error) {
