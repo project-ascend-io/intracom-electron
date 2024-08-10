@@ -65,8 +65,9 @@
   "license": "MIT",
   "dependencies": {
     "@dotenvx/dotenvx": "^1.6.4",
-    "@kayahr/jest-electron-runner": "^29.14.0",
     "@hookform/resolvers": "^3.9.0",
+    "@kayahr/jest-electron-runner": "^29.14.0",
+    "commander": "^12.1.0",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
