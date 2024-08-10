@@ -3,6 +3,12 @@ import type { Configuration } from "webpack";
 import { rules } from "./webpack.rules";
 import { plugins } from "./webpack.plugins";
 
+export enum EnvEnum {
+  Development = "development",
+  Staging = "staging",
+  Production = "production",
+}
+
 export const mainConfig: Configuration = {
   /**
    * This is the main entry point for your application, it's the first file

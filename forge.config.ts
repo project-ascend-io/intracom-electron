@@ -6,10 +6,19 @@ import { MakerRpm } from "@electron-forge/maker-rpm";
 import { AutoUnpackNativesPlugin } from "@electron-forge/plugin-auto-unpack-natives";
 import { WebpackPlugin } from "@electron-forge/plugin-webpack";
 import { FusesPlugin } from "@electron-forge/plugin-fuses";
-import { FuseV1Options, FuseVersion } from "@electron/fuses";
 
-import { mainConfig } from "./webpack.main.config";
+import { EnvEnum, mainConfig } from "./webpack.main.config";
 import { rendererConfig } from "./webpack.renderer.config";
+import { selectedFuseConfig } from "./fuse.config";
+
+const APP_ENV: EnvEnum = process.env.APP_ENV as EnvEnum;
+const API_URL: EnvEnum = process.env.API_URL as EnvEnum;
+
+const csPolicyConfig: Record<EnvEnum, string> = {
+  [EnvEnum.Development]: `default-src 'self' 'unsafe-inline' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline' data:; connect-src 'self' ${API_URL}`,
+  [EnvEnum.Staging]: `default-src 'self'; script-src 'self'; connect-src 'self' ws://localhost:3000 ${API_URL}`,
+  [EnvEnum.Production]: `default-src 'self'; script-src 'self'; connect-src 'self' ws://localhost:3000 ${API_URL}`,
+};
 
 const config: ForgeConfig = {
   publishers: [
@@ -20,8 +29,8 @@ const config: ForgeConfig = {
           owner: "project-ascend-io",
           name: "intracom-electron",
         },
-        prerelease: false,
-        draft: true,
+        prerelease: APP_ENV !== EnvEnum.Production,
+        draft: APP_ENV === EnvEnum.Development,
       },
     },
   ],
@@ -38,8 +47,7 @@ const config: ForgeConfig = {
   plugins: [
     new AutoUnpackNativesPlugin({}),
     new WebpackPlugin({
-      devContentSecurityPolicy:
-        "default-src 'self' 'unsafe-inline' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline' data:; connect-src 'self' http://localhost:8080",
+      devContentSecurityPolicy: csPolicyConfig[APP_ENV],
       mainConfig,
       renderer: {
         config: rendererConfig,
@@ -57,15 +65,7 @@ const config: ForgeConfig = {
     }),
     // Fuses are used to enable/disable various Electron functionality
     // at package time, before code signing the application
-    new FusesPlugin({
-      version: FuseVersion.V1,
-      [FuseV1Options.RunAsNode]: false,
-      [FuseV1Options.EnableCookieEncryption]: true,
-      [FuseV1Options.EnableNodeOptionsEnvironmentVariable]: false,
-      [FuseV1Options.EnableNodeCliInspectArguments]: false,
-      [FuseV1Options.EnableEmbeddedAsarIntegrityValidation]: true,
-      [FuseV1Options.OnlyLoadAppFromAsar]: true,
-    }),
+    new FusesPlugin(selectedFuseConfig),
   ],
 };
 

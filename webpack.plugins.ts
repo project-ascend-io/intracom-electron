@@ -1,8 +1,9 @@
-import type IForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin";
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore
 import webpack from "webpack";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const ForkTsCheckerWebpackPlugin: typeof IForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
+import ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 export const plugins = [
   new ForkTsCheckerWebpackPlugin({
