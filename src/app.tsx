@@ -16,7 +16,6 @@ const HomePage = () => {
   const { setUser } = useAuth();
   const logout = async () => {
     const res = await logoutUser();
-    //TODO: add error handling
     if (res.success) setUser(null);
   };
   return (

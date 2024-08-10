@@ -9,12 +9,11 @@ export const AuthProvider = ({ children }: AuthProviderType) => {
     JSON.parse(localStorage.getItem("user")) || null,
   );
 
-  const expires = JSON.parse(localStorage.getItem("session"))?.expires;
+  const expires = JSON.parse(localStorage.getItem("user"))?.expires;
 
   // if current date surpases the expire date clear user and local storage
   if (expires && Date.parse(expires) < Date.parse(new Date().toISOString())) {
     setUser(null);
-    localStorage.removeItem("session");
     localStorage.removeItem("user");
   }
 

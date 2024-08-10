@@ -1,29 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "../../components/input/input";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
 import { LoginFormType, loginSchema } from "../../types/login";
 import { loginUser } from "../../services/auth";
 import { useAuth } from "../../context/auth-context";
 import "./login.css";
 
 const Login = () => {
-  const { user, setUser } = useAuth();
+  const [authError, setAuthError] = useState("");
+  const { setUser } = useAuth();
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
-    console.log(data);
-    //TODO: Validate result from backend
+    setAuthError("");
     const userData = await loginUser(data);
 
     if (userData.success) {
       setUser(userData.responseObject);
-      console.log(userData);
       reset();
       navigate("/");
     } else {
-      //TODO: display error
+      setAuthError(userData.message);
     }
   };
 
@@ -37,8 +35,8 @@ const Login = () => {
   });
   return (
     <section className="page-container">
-      {/* TODO: Remove later */}
-      <h1 className="title">Login {user ? `${user.email}` : `no user`}</h1>
+      <h1 className="title">Login</h1>
+      {authError && <p className="error">{authError}</p>}
       <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
         <Input
           name="email"

@@ -1,10 +1,8 @@
 import { LoginFormType } from "../types/login";
 import { ResponseObject } from "../types/auth";
 
-//TODO: update base url with backend route
-const BASE_URL = "http://localhost:8080";
+const BASE_URL = process.env.API_URL;
 
-//TODO: update returns type with response object typescript schema
 /**
  * Login user
  * @param {object} loginInfo - An object containing the user email and password
@@ -20,15 +18,16 @@ export const loginUser = async (loginInfo: LoginFormType): Promise<any> => {
     });
 
     if (!response.ok) {
-      //convert string to object
-      const errorBody = JSON.parse(await response.text());
+      //convert string to object - for status 429 (Too many resquests) a string is returned as the body instead of an object, so we'll need to create an object here.
+      const errorBody =
+        response.status === 429
+          ? { message: response.statusText }
+          : JSON.parse(await response.text());
 
       console.error(`Failed to login user ${response.status}:`, errorBody);
       return errorBody;
     } else {
       const data = await response.json();
-      console.log(data);
-      localStorage.setItem("session", JSON.stringify(data.cookie));
       localStorage.setItem("user", JSON.stringify(data.responseObject));
       return data;
     }
@@ -46,20 +45,21 @@ export const loginUser = async (loginInfo: LoginFormType): Promise<any> => {
 export const checkUser = async (): Promise<any> => {
   try {
     const response = await fetch(`${BASE_URL}/auth/check`, {
-      method: "POST",
+      method: "GET",
       headers: { "Content-Type": "application/json" },
       credentials: "include",
     });
 
     if (!response.ok) {
-      const errorBody = JSON.parse(await response.text());
+      const errorBody =
+        response.status === 429
+          ? { message: response.statusText }
+          : JSON.parse(await response.text());
 
       console.error(`Failed to get user ${response.status}:`, errorBody);
       return errorBody;
     } else {
       const data = await response.json();
-      console.log(data);
-      localStorage.setItem("session", JSON.stringify(data.cookie));
       localStorage.setItem("user", JSON.stringify(data.responseObject));
       return data;
     }
@@ -83,13 +83,15 @@ export const logoutUser = async (): Promise<any> => {
     });
 
     if (!response.ok) {
-      const errorBody = JSON.parse(await response.text());
+      const errorBody =
+        response.status === 429
+          ? { message: response.statusText }
+          : JSON.parse(await response.text());
 
       console.error(`Failed to logout user ${response.status}:`, errorBody);
       return errorBody;
     } else {
       const data = await response.json();
-      localStorage.removeItem("session");
       localStorage.removeItem("user");
       return data;
     }
