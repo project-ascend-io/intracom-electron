@@ -1,7 +1,7 @@
 import React from "react";
 import "./settings.css";
-import LeftsideBar from "../../components/leftside-bar/leftside-bar";
-import Navbar from "../../components/nav-bar/nav-bar";
+import LeftsideBar from "../../Components/leftside-bar/leftside-bar";
+import Navbar from "../../Components/nav-bar/nav-bar";
 
 const Settings = () => {
   return (

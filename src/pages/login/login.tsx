@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Input from "../../components/input/input";
-import { Link , useNavigate } from "react-router-dom";
+import Input from "../../Components/input/input";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormType, loginSchema } from "../../types/login";
