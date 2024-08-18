@@ -34,30 +34,31 @@ const Login = () => {
     resolver: zodResolver(loginSchema),
   });
   return (
-    <section className="page-container">
-      <h1 className="title">Login</h1>
-      {authError && <p className="error">{authError}</p>}
-      <form className="form-container" onSubmit={handleSubmit(onSubmit)}>
-        <Input
-          name="email"
-          type="email"
-          placeholder="Enter your email"
-          register={register}
-          errors={errors}
-        />
-        <Input
-          name="password"
-          type="password"
-          placeholder="Enter your password"
-          register={register}
-          errors={errors}
-          helperText="Password must be at least 8 characters long and include one uppercase letter and one number"
-        />
-        <Link className="link" to="">
-          Forgot Password?
-        </Link>
-        <button className="form-button">Login</button>
-      </form>
+    <section className="grid h-[55vh] place-items-center pt-16">
+      <div className="min-w-96">
+        <h1 className="text-xl text-center font-bold">Login</h1>
+        {authError && <p className="error">{authError}</p>}
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <Input
+            name="email"
+            type="email"
+            placeholder="Enter your email"
+            register={register}
+            errors={errors}
+          />
+          <Input
+            name="password"
+            type="password"
+            placeholder="Enter your password"
+            register={register}
+            errors={errors}
+          />
+          <Link className="link block my-4" to="">
+            Forgot Password?
+          </Link>
+          <button className="form-button block w-full">Login</button>
+        </form>
+      </div>
     </section>
   );
 };
