@@ -73,7 +73,6 @@ export const saveEmailSettings = async (
   username: string,
   password: string,
   securityType: string,
-  // organizationId: string
   organization: string,
 ): Promise<any> => {
   try {
@@ -84,13 +83,13 @@ export const saveEmailSettings = async (
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify({
           server,
           port,
           username,
           password,
           securityType,
-
           organization,
         }),
       },

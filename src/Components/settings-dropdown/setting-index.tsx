@@ -3,9 +3,12 @@ const Base_URL = process.env.API_URL;
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import "./settings.css";
+import { useAuth } from "../../context/auth-context";
 
 const SettingsIndex: React.FC = () => {
-  const { id } = useParams<{ id: string }>(); // Get the organization ID from the route params
+  const { user } = useAuth();
+  const userId = user._id;
+  const organiztionId = user.organization._id;
   const [emailSettings, setEmailSettings] = useState<any>({});
   const [organizationName, setOrganizationName] = useState<string>("");
   const [adminEmail, setAdminEmail] = useState<string>("");
@@ -15,9 +18,8 @@ const SettingsIndex: React.FC = () => {
     const fetchEmailSettings = async () => {
       try {
         const response = await fetch(
-          `${Base_URL}/organizations/${id}/email-settings`,
-          // `${Base_URL}/organizations/669f03102a97b116272c2085/email-settings`, // Hardcoded organization id because we're wrapping up the auth process. For testing purposes: replace value with you org id.
-          // @todo Replace hardcoded orgId during/after auth integration.
+          `${Base_URL}/organizations/${organiztionId}/email-settings`,
+          { credentials: "include" },
         );
         const data = await response.json();
         if (data.success) {
@@ -27,11 +29,9 @@ const SettingsIndex: React.FC = () => {
           // Fetch organization details using user ID
           const fetchOrganizationDetails = async () => {
             try {
-              const orgResponse = await fetch(
-                // ${Base_URL}/users/${id}`
-                `${Base_URL}/users/669f03102a97b116272c2087`, // Hardcoded User id because we're wrapping up the auth process. For testing purposes: replace value with you User id.
-                // @todo Replace hardcoded userId during/after auth integration.
-              );
+              const orgResponse = await fetch(`${Base_URL}/users/${userId}`, {
+                credentials: "include",
+              });
               const orgData = await orgResponse.json();
               if (orgData.success) {
                 console.log("Organization details:", orgData.responseObject);
@@ -51,7 +51,7 @@ const SettingsIndex: React.FC = () => {
     };
 
     fetchEmailSettings();
-  }, [id]); // Depend on the organization ID
+  }, [organiztionId]); // Depend on the organization ID
 
   const handleEdit = () => {
     // Logic to edit the configuration will go here

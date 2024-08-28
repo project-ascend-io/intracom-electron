@@ -5,17 +5,18 @@ import {
   testEmailSettings,
   saveEmailSettings,
 } from "../../services/email-settings-service";
+import { useAuth } from "../../context/auth-context";
 
 const EmailConfiguration: React.FC = () => {
+  const { user } = useAuth();
   const [server, setServer] = useState<string>("");
+  const [senderEmail, setSenderEmail] = useState<string>("");
   const [port, setPort] = useState<string>("");
   const [username, setUsername] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [securityType, setSecurityType] = useState<string>("");
   const [testEmail, setTestEmail] = useState<string>("");
-  const [organizationId, setOrganizationId] = useState<string>(
-    "669f03102a97b116272c2085",
-  ); // Hardcoded organization id because we're wrapping up the auth process. For testing purposes: replace value with you org id.
+  const [organizationId] = useState<string>(user.organization._id);
   // @todo Replace hardcoded orgId during/after auth integration.
   const [organization, setOrganization] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
@@ -88,7 +89,7 @@ const EmailConfiguration: React.FC = () => {
         username,
         password,
         securityType,
-        organization,
+        organizationId,
       );
 
       if (data.success) {
@@ -118,12 +119,20 @@ const EmailConfiguration: React.FC = () => {
       )}
       <form action="">
         <div className="form-group">
-          <label>SMTP server</label>
-          <label>server</label>
+          <label>SMTP Configurations</label>
+          <label>Server</label>
           <input
             type="text"
             value={server}
             onChange={(e) => setServer(e.target.value)}
+          />
+        </div>
+        <div className="form-group">
+          <label>Verified Sender Email</label>
+          <input
+            type="text"
+            value={senderEmail}
+            onChange={(e) => setSenderEmail(e.target.value)}
           />
         </div>
         <div className="form-group">
@@ -171,15 +180,6 @@ const EmailConfiguration: React.FC = () => {
             placeholder="test@acme.com"
           />
           <button onClick={handleSendTestEmail}>Send Test Email</button>
-        </div>
-        {/* >>>>>added organization field to save the email-settings*/}
-        <div className="form-group">
-          <label>Organization</label>
-          <input
-            type="text"
-            value={organization}
-            onChange={(e) => setOrganization(e.target.value)}
-          />
         </div>
       </form>
 
