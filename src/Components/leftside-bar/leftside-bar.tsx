@@ -23,6 +23,7 @@ const LeftsideBar: React.FC = () => {
   };
 
   const handleSettingsClick = (): void => {
+    // setShowSettingIndex(true);
     setShowSettingsList(!showSettingsList); // Toggle visibility of the settings list
   };
 
@@ -68,12 +69,11 @@ const LeftsideBar: React.FC = () => {
                 <LuBringToFront />
                 View Current Configuration
               </li>
-              <li className="nested" onClick={handleEmailConfigClick}>
-                {/* We are using react-icons for now until image handling configuration in electron app is done. */}
-                {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
+              {/* <li className="nested" onClick={handleEmailConfigClick}>
                 <MdOutlineEmail className="icons" />
                 Email Configuration
-              </li>
+              </li> */}
+              {/* The email-configuration page linked to edit button */}
             </ul>
           </div>
 
@@ -86,7 +86,7 @@ const LeftsideBar: React.FC = () => {
         </ul>
       </div>
       {showSettingIndex && <SettingIndex />}
-      {showRightsideBar && <EmailConfiguration />}
+      {/* {showRightsideBar && <EmailConfiguration />} */}
     </div>
   );
 };

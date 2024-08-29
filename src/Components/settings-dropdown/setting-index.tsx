@@ -1,26 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth-context";
-import { z } from "zod";
+import { organizationSchema } from "../../types/email-configuration";
+
 import "./settings.css";
-
-// Define Zod schema for validation
-const emailSettingsSchema = z.object({
-  server: z.string().optional(),
-  senderEmail: z.string().optional(),
-  port: z.string().optional(),
-  username: z.string().optional(),
-  password: z.string().optional(),
-  securityType: z.enum(["SSL", "TLS"]).optional(),
-});
-
-const organizationSchema = z.object({
-  organization: z.object({
-    name: z.string().min(1, { message: "Organization name is required." }),
-  }),
-  email: z.string().email({ message: "Invalid email format." }),
-});
+import { useNavigate } from "react-router-dom";
 
 const SettingsIndex: React.FC = () => {
+  const navigate = useNavigate();
   const { user } = useAuth();
   const userId = user._id;
   const organizationId = user.organization._id;
@@ -38,19 +24,8 @@ const SettingsIndex: React.FC = () => {
         const data = await response.json();
 
         if (data.success) {
-          const parsedEmailSettings = emailSettingsSchema.safeParse(
-            data.responseObject,
-          );
-
-          if (parsedEmailSettings.success) {
-            console.log("Valid email settings:", parsedEmailSettings.data);
-            setEmailSettings(parsedEmailSettings.data);
-          } else {
-            console.error(
-              "Invalid email settings data:",
-              parsedEmailSettings.error.errors,
-            );
-          }
+          console.log("Valid email settings:", data.responseObject);
+          setEmailSettings(data.responseObject);
 
           // Fetch organization details using user ID
           const fetchOrganizationDetails = async () => {
@@ -89,6 +64,8 @@ const SettingsIndex: React.FC = () => {
           };
 
           fetchOrganizationDetails();
+        } else {
+          throw Error(data.message);
         }
       } catch (error) {
         console.error("Error fetching email settings:", error);
@@ -99,63 +76,84 @@ const SettingsIndex: React.FC = () => {
   }, [organizationId, userId]);
 
   const handleEdit = () => {
-    // Logic to edit the configuration will go here
+    // navigate to the email configuration page
+    navigate("/email-configuration");
+
     console.log("Editing configuration...");
   };
 
   return (
-    <div className="email-settings">
-      <h2 className="heading">Organization Settings</h2>
-      <p className="subHeading">View your current settings.</p>
-      <div className="section">
-        <h3>General</h3>
-        <div className="infoRow">
-          <span className="label">Organization Name:</span>
-          <span className="value">{organizationName}</span>
+    <div className="email-settings w-[600px] mx-auto p-5 text-left">
+      <h2 className="heading text-2xl font-bold mb-2.5">
+        Organization Settings
+      </h2>
+      <p className="subHeading text-lg text-gray-600">
+        View your current settings.
+      </p>
+      <div className="section flex flex-col mt-5">
+        <h3 className="text-lg font-semibold">General</h3>
+        <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
+          <span className="label font-bold">Organization Name:</span>
+          <span className="value text-gray-800">{organizationName}</span>
         </div>
-        <div className="infoRow">
-          <span className="label">Admin:</span>
-          <span className="value">{adminEmail}</span>
+        <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
+          <span className="label font-bold">Admin:</span>
+          <span className="value text-gray-800">{adminEmail}</span>
         </div>
       </div>
 
-      <div className="section-2">
-        <div className="theTwo">
-          <h3>Email Settings</h3>
+      <div className="section-2 w-[600px] mb-5">
+        <div className="theTwo flex justify-between">
+          <h3 className="text-lg font-semibold">Email Settings</h3>
           <div className="actionButtons">
-            <button onClick={handleEdit}>Edit</button>
+            <button
+              onClick={handleEdit}
+              className="bg-gray-700 text-white px-4 py-1 rounded-md hover:bg-blue-600"
+            >
+              Edit
+            </button>
           </div>
         </div>
-        <div className="emailSettings">
-          <div className="theTwo">
-            <div className="infoRow">
-              <span className="label">Server:</span>
-              <span className="value">{emailSettings.server}</span>
+        <div className="emailSettings mt-5">
+          <div className="theTwo flex justify-between mb-2.5">
+            <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
+              <span className="label font-bold">Server:</span>
+              <span className="value text-gray-800">
+                {emailSettings.server}
+              </span>
             </div>
-            <div className="infoRow">
-              <span className="label">Verified Sender Email:</span>
-              <span className="value">{emailSettings.senderEmail}</span>
+            <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
+              <span className="label font-bold">Verified Sender Email:</span>
+              <span className="value text-gray-800">
+                {emailSettings.senderEmail}
+              </span>
             </div>
           </div>
-          <div className="theTwo">
-            <div className="infoRow">
-              <span className="label">Username:</span>
-              <span className="value">{emailSettings.username}</span>
+          <div className="theTwo flex justify-between mb-2.5">
+            <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
+              <span className="label font-bold">Username:</span>
+              <span className="value text-gray-800">
+                {emailSettings.username}
+              </span>
             </div>
-            <div className="infoRow">
-              <span className="label">Password:</span>
-              <span className="value">{emailSettings.password}</span>
+            <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
+              <span className="label font-bold">Password:</span>
+              <span className="value text-gray-800">
+                {emailSettings.password}
+              </span>
             </div>
           </div>
 
-          <div className="theTwo">
-            <div className="infoRow">
-              <span className="label">Security Type:</span>
-              <span className="value">{emailSettings.securityType}</span>
+          <div className="theTwo flex justify-between mb-2.5">
+            <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
+              <span className="label font-bold">Security Type:</span>
+              <span className="value text-gray-800">
+                {emailSettings.securityType}
+              </span>
             </div>
-            <div className="infoRow">
-              <span className="label">Port:</span>
-              <span className="value">{emailSettings.port}</span>
+            <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
+              <span className="label font-bold">Port:</span>
+              <span className="value text-gray-800">{emailSettings.port}</span>
             </div>
           </div>
         </div>
