@@ -1,42 +1,87 @@
-const Base_URL = process.env.API_URL;
-
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import "./settings.css";
 import { useAuth } from "../../context/auth-context";
+import { z } from "zod";
+import "./settings.css";
+
+// Define Zod schema for validation
+const emailSettingsSchema = z.object({
+  server: z.string().optional(),
+  senderEmail: z.string().optional(),
+  port: z.string().optional(),
+  username: z.string().optional(),
+  password: z.string().optional(),
+  securityType: z.enum(["SSL", "TLS"]).optional(),
+});
+
+const organizationSchema = z.object({
+  organization: z.object({
+    name: z.string().min(1, { message: "Organization name is required." }),
+  }),
+  email: z.string().email({ message: "Invalid email format." }),
+});
 
 const SettingsIndex: React.FC = () => {
   const { user } = useAuth();
   const userId = user._id;
-  const organiztionId = user.organization._id;
+  const organizationId = user.organization._id;
   const [emailSettings, setEmailSettings] = useState<any>({});
   const [organizationName, setOrganizationName] = useState<string>("");
   const [adminEmail, setAdminEmail] = useState<string>("");
 
   useEffect(() => {
-    // Fetch email settings from the API
     const fetchEmailSettings = async () => {
       try {
         const response = await fetch(
-          `${Base_URL}/organizations/${organiztionId}/email-settings`,
+          `${process.env.API_URL}/organizations/${organizationId}/email-settings`,
           { credentials: "include" },
         );
         const data = await response.json();
+
         if (data.success) {
-          console.log("Email settings:", data.responseObject);
-          setEmailSettings(data.responseObject);
+          const parsedEmailSettings = emailSettingsSchema.safeParse(
+            data.responseObject,
+          );
+
+          if (parsedEmailSettings.success) {
+            console.log("Valid email settings:", parsedEmailSettings.data);
+            setEmailSettings(parsedEmailSettings.data);
+          } else {
+            console.error(
+              "Invalid email settings data:",
+              parsedEmailSettings.error.errors,
+            );
+          }
 
           // Fetch organization details using user ID
           const fetchOrganizationDetails = async () => {
             try {
-              const orgResponse = await fetch(`${Base_URL}/users/${userId}`, {
-                credentials: "include",
-              });
+              const orgResponse = await fetch(
+                `${process.env.API_URL}/users/${userId}`,
+                {
+                  credentials: "include",
+                },
+              );
               const orgData = await orgResponse.json();
+
               if (orgData.success) {
-                console.log("Organization details:", orgData.responseObject);
-                setOrganizationName(orgData.responseObject.organization.name);
-                setAdminEmail(orgData.responseObject.email);
+                const parsedOrganizationData = organizationSchema.safeParse(
+                  orgData.responseObject,
+                );
+                if (parsedOrganizationData.success) {
+                  console.log(
+                    "Organization details:",
+                    parsedOrganizationData.data,
+                  );
+                  setOrganizationName(
+                    parsedOrganizationData.data.organization.name,
+                  );
+                  setAdminEmail(parsedOrganizationData.data.email);
+                } else {
+                  console.error(
+                    "Invalid organization data:",
+                    parsedOrganizationData.error.errors,
+                  );
+                }
               }
             } catch (error) {
               console.error("Error fetching organization details:", error);
@@ -51,7 +96,7 @@ const SettingsIndex: React.FC = () => {
     };
 
     fetchEmailSettings();
-  }, [organiztionId]); // Depend on the organization ID
+  }, [organizationId, userId]);
 
   const handleEdit = () => {
     // Logic to edit the configuration will go here
@@ -66,7 +111,6 @@ const SettingsIndex: React.FC = () => {
         <h3>General</h3>
         <div className="infoRow">
           <span className="label">Organization Name:</span>
-
           <span className="value">{organizationName}</span>
         </div>
         <div className="infoRow">
@@ -89,8 +133,8 @@ const SettingsIndex: React.FC = () => {
               <span className="value">{emailSettings.server}</span>
             </div>
             <div className="infoRow">
-              <span className="label">Port:</span>
-              <span className="value">{emailSettings.port}</span>
+              <span className="label">Verified Sender Email:</span>
+              <span className="value">{emailSettings.senderEmail}</span>
             </div>
           </div>
           <div className="theTwo">
@@ -103,9 +147,16 @@ const SettingsIndex: React.FC = () => {
               <span className="value">{emailSettings.password}</span>
             </div>
           </div>
-          <div className="infoRow">
-            <span className="label">Security Type:</span>
-            <span className="value">{emailSettings.securityType}</span>
+
+          <div className="theTwo">
+            <div className="infoRow">
+              <span className="label">Security Type:</span>
+              <span className="value">{emailSettings.securityType}</span>
+            </div>
+            <div className="infoRow">
+              <span className="label">Port:</span>
+              <span className="value">{emailSettings.port}</span>
+            </div>
           </div>
         </div>
       </div>
