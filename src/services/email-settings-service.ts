@@ -1,6 +1,4 @@
 const Base_URL = process.env.API_URL;
-// we are using the URL directly for now, but we have to configure the BASE_URL variable to make it more dynamic using the environment variables.
-//@todo: replace the URL with the BASE_URL variable once the dotenv configuration is done.
 
 /**
  * Send a test email using the provided email settings.
@@ -17,6 +15,7 @@ const Base_URL = process.env.API_URL;
 export const testEmailSettings = async (
   organizationId: string, // Add organizationId as a parameter
   server: string,
+  senderEmail: string,
   port: number,
   username: string,
   password: string,
@@ -33,6 +32,7 @@ export const testEmailSettings = async (
         },
         body: JSON.stringify({
           server,
+          senderEmail,
           port,
           username,
           password,
@@ -59,16 +59,18 @@ export const testEmailSettings = async (
 /**
  * Save the email settings for the given organization.
  * @param {string} server - The email server.
+ * @param {string} senderEmail - The email address of the sender.
  * @param {number} port - The email server port.
  * @param {string} username - The email server username.
  * @param {string} password - The email server password.
  * @param {string} securityType - The email server security type.
  * @param {string} organization - The ID of the organization to save email settings for.
-//  * @param {string} organization - The name of the organization.
+
  * @returns {Promise<any>} The response from the server.
  */
 export const saveEmailSettings = async (
   server: string,
+  senderEmail: string,
   port: number,
   username: string,
   password: string,
@@ -86,6 +88,7 @@ export const saveEmailSettings = async (
         credentials: "include",
         body: JSON.stringify({
           server,
+          senderEmail,
           port,
           username,
           password,
@@ -105,26 +108,4 @@ export const saveEmailSettings = async (
     console.error("saveEmailSettings error:", error);
     throw error;
   }
-};
-
-/**
- * Validate the email settings.
- * @param {string} server - The email server.
- * @param {number} port - The email server port.
- * @param {string} username - The email server username.
- * @param {string} password - The email server password.
- * @param {string} securityType - The email server security type.
- * @returns {boolean} True if the email settings are valid, false otherwise.
- */
-export const validateEmailSettings = (
-  server: string,
-  port: number,
-  username: string,
-  password: string,
-  securityType: string,
-): boolean => {
-  if (!server || !port || !username || !password || !securityType) {
-    return false;
-  }
-  return true;
 };

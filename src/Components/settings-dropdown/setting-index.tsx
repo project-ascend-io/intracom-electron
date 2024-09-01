@@ -83,77 +83,71 @@ const SettingsIndex: React.FC = () => {
   };
 
   return (
-    <div className="email-settings w-[600px] mx-auto p-5 text-left">
-      <h2 className="heading text-2xl font-bold mb-2.5">
+    <div className="w-[600px] mx-auto p-5 text-left md:p-4 md:w-[95%]">
+      <h2 className="text-2xl font-bold mb-2.5 md:md:text-base">
         Organization Settings
       </h2>
-      <p className="subHeading text-lg text-gray-600">
+      <p className="text-sm text-gray-600 md:text-xs">
         View your current settings.
       </p>
-      <div className="section flex flex-col mt-5">
+      <div className="flex flex-col mt-5 w-[90%] md:p-4 md:w-[95%]">
         <h3 className="text-lg font-semibold">General</h3>
-        <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
-          <span className="label font-bold">Organization Name:</span>
-          <span className="value text-gray-800">{organizationName}</span>
+        <div className=" text-xs flex gap-2.5 border-b border-gray-300 md:text-base py-2.5 text-center">
+          <span className="text-sm font-bold">Organization Name:</span>
+          <span className=" text-gray-800">{organizationName}</span>
         </div>
-        <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
-          <span className="label font-bold">Admin:</span>
-          <span className="value text-gray-800">{adminEmail}</span>
+        <div className=" text-xs flex gap-2.5  border-b border-gray-300 md:text-base py-2.5 text-center">
+          <span className="text-sm font-bold">Admin:</span>
+          <span className=" text-gray-800">{adminEmail}</span>
         </div>
       </div>
 
-      <div className="section-2 w-[600px] mb-5">
+      <div className="lg:w-[600px] md:w-[400px] w-[300px] mb-5 p-3">
         <div className="theTwo flex justify-between">
           <h3 className="text-lg font-semibold">Email Settings</h3>
           <div className="actionButtons">
             <button
               onClick={handleEdit}
-              className="bg-gray-700 text-white px-4 py-1 rounded-md hover:bg-blue-600"
+              className="bg-gray-600 text-white px-4 py-1 rounded-md hover:bg-blue-600"
             >
               Edit
             </button>
           </div>
         </div>
-        <div className="emailSettings mt-5">
-          <div className="theTwo flex justify-between mb-2.5">
-            <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
-              <span className="label font-bold">Server:</span>
-              <span className="value text-gray-800">
-                {emailSettings.server}
-              </span>
+        <div className=" mt-5">
+          <div className=" border-b border-gray-300 flex justify-between mb-2.5">
+            <div className=" text-xs flex gap-2.5   md:text-base py-2.5 text-center">
+              <span className="text-sm font-bold">Server:</span>
+              <span className=" text-gray-800">{emailSettings.server}</span>
             </div>
-            <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
-              <span className="label font-bold">Verified Sender Email:</span>
-              <span className="value text-gray-800">
+            <div className=" text-xs flex gap-2.5   md:text-base py-2.5 text-center">
+              <span className="text-sm font-bold">Verified Sender Email:</span>
+              <span className=" text-gray-800">
                 {emailSettings.senderEmail}
               </span>
             </div>
           </div>
-          <div className="theTwo flex justify-between mb-2.5">
-            <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
-              <span className="label font-bold">Username:</span>
-              <span className="value text-gray-800">
-                {emailSettings.username}
-              </span>
+          <div className="theTwo border-b border-gray-300 flex justify-between mb-2.5">
+            <div className=" text-xs flex gap-2.5  md:text-base py-2.5 text-center">
+              <span className="text-sm font-bold">Username:</span>
+              <span className=" text-gray-800">{emailSettings.username}</span>
             </div>
-            <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
-              <span className="label font-bold">Password:</span>
-              <span className="value text-gray-800">
-                {emailSettings.password}
-              </span>
+            <div className=" text-xs flex gap-2.5   md:text-base py-2.5 text-center">
+              <span className="text-sm font-bold">Password:</span>
+              <span className=" text-gray-800">{emailSettings.password}</span>
             </div>
           </div>
 
-          <div className="theTwo flex justify-between mb-2.5">
-            <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
-              <span className="label font-bold">Security Type:</span>
-              <span className="value text-gray-800">
+          <div className="theTwo border-b border-gray-300 flex justify-between mb-2.5">
+            <div className=" text-xs flex gap-2.5   md:text-base py-2.5 text-center">
+              <span className="text-sm font-bold">Security Type:</span>
+              <span className=" text-gray-800">
                 {emailSettings.securityType}
               </span>
             </div>
-            <div className="infoRow flex gap-2.5 border-t border-b border-gray-300 text-base py-2.5 text-center">
-              <span className="label font-bold">Port:</span>
-              <span className="value text-gray-800">{emailSettings.port}</span>
+            <div className=" text-xs flex gap-2.5   md:text-base py-2.5 text-center">
+              <span className="text-sm font-bold">Port:</span>
+              <span className=" text-gray-800">{emailSettings.port}</span>
             </div>
           </div>
         </div>

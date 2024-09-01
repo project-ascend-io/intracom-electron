@@ -36,6 +36,7 @@ const EmailConfiguration: React.FC = () => {
     try {
       const saveData = await saveEmailSettings(
         data.server,
+        data.senderEmail,
         Number(data.port),
         data.username,
         data.password,
@@ -69,6 +70,7 @@ const EmailConfiguration: React.FC = () => {
       const testData = await testEmailSettings(
         organizationId,
         data.server,
+        data.senderEmail,
         Number(data.port),
         data.username,
         data.password,
@@ -98,17 +100,17 @@ const EmailConfiguration: React.FC = () => {
   };
 
   return (
-    <div className="email-settings w-[400px] mx-auto p-5 text-left">
+    <div className="w-[400px] mx-auto p-5 text-left">
       <h1 className="text-2xl mb-2.5">Email Settings</h1>
       <p className="text-sm mb-5">Configure your email settings.</p>
       {errorMessage && (
-        <div className="error-message mt-5 p-2.5 border border-red-500 rounded-md bg-red-100">
+        <div className=" mt-5 p-2.5 border border-red-500 rounded-md bg-red-100">
           <p className="font-bold">Error</p>
           <p>{errorMessage}</p>
         </div>
       )}
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group mb-4">
+        <div className="mb-4">
           <label className="block font-bold mb-2.5 text-sm">
             SMTP Configurations
           </label>
@@ -122,7 +124,7 @@ const EmailConfiguration: React.FC = () => {
             <p className="text-red-500">{errors.server.message}</p>
           )}
         </div>
-        <div className="form-group mb-4">
+        <div className="mb-4">
           <label className="block font-bold mb-2.5 text-sm">
             Verified Sender Email
           </label>
@@ -135,7 +137,7 @@ const EmailConfiguration: React.FC = () => {
             <p className="text-red-500">{errors.senderEmail.message}</p>
           )}
         </div>
-        <div className="form-group mb-4">
+        <div className="mb-4">
           <label className="block font-bold mb-2.5 text-sm">Port</label>
           <input
             type="text"
@@ -144,7 +146,7 @@ const EmailConfiguration: React.FC = () => {
           />
           {errors.port && <p className="text-red-500">{errors.port.message}</p>}
         </div>
-        <div className="form-group mb-4">
+        <div className="mb-4">
           <label className="block font-bold mb-2.5 text-sm">Username</label>
           <input
             type="text"
@@ -155,7 +157,7 @@ const EmailConfiguration: React.FC = () => {
             <p className="text-red-500">{errors.username.message}</p>
           )}
         </div>
-        <div className="form-group mb-4">
+        <div className="mb-4">
           <label className="block font-bold mb-2.5 text-sm">Password</label>
           <input
             type="password"
@@ -166,12 +168,12 @@ const EmailConfiguration: React.FC = () => {
             <p className="text-red-500">{errors.password.message}</p>
           )}
         </div>
-        <div className="form-group mb-4">
+        <div className="mb-4">
           <label className="block font-bold mb-2.5 text-sm">
             Security type
           </label>
           <select
-            className="security-type w-[95%] p-2 border border-gray-300 rounded-md"
+            className="w-[90%] p-2 border border-gray-300 rounded-md"
             {...register("securityType")}
           >
             <option value=""></option>
@@ -182,7 +184,7 @@ const EmailConfiguration: React.FC = () => {
             <p className="text-red-500">{errors.securityType.message}</p>
           )}
         </div>
-        <div className="form-group mb-4">
+        <div className="mb-4">
           <label className="block font-bold mb-2.5 text-sm">
             Send test email
           </label>
@@ -206,7 +208,7 @@ const EmailConfiguration: React.FC = () => {
         <div className="buttons flex justify-end mt-5 gap-2.5">
           <button
             type="button"
-            onClick={() => window.close()}
+            onClick={handleGoBack}
             className="px-5 py-2 bg-gray-100 text-black font-bold border border-gray-300 rounded-lg hover:opacity-90"
           >
             Cancel
@@ -218,9 +220,6 @@ const EmailConfiguration: React.FC = () => {
             Save
           </button>
         </div>
-        <button onClick={handleGoBack}>
-          Click here to go Back to settings
-        </button>
       </form>
       {successMessage && (
         <div className="success-message mt-5 p-2.5 border border-green-500 rounded-md bg-green-100">
