@@ -7,28 +7,34 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
 import { LuBringToFront } from "react-icons/lu";
 import { MdNumbers, MdOutlineEmail } from "react-icons/md";
+import { set } from "@dotenvx/dotenvx";
 
 const LeftsideBar: React.FC = () => {
-  const [showRightsideBar, setShowRightsideBar] = useState<boolean>(false);
+  // const [showRightsideBar, setShowRightsideBar] = useState<boolean>(false);
+  const [activeItem, setActiveItem] = useState<string | null>(null);
   const [showSettingIndex, setShowSettingIndex] = useState<boolean>(false);
   const [showSettingsList, setShowSettingsList] = useState<boolean>(false); // New state to control visibility of the settings list
 
-  const handleEmailConfigClick = (): void => {
-    setShowSettingIndex(false);
-    setShowRightsideBar(true);
-  };
   const handleCurrentConfigClick = (): void => {
     setShowSettingIndex(true);
-    setShowRightsideBar(false);
+    // setShowRightsideBar(false);
   };
 
   const handleSettingsClick = (): void => {
-    // setShowSettingIndex(true);
+    setActiveItem("settings");
     setShowSettingsList(!showSettingsList); // Toggle visibility of the settings list
   };
+  const handleMessagesClick = (): void => {
+    setActiveItem("messages");
+    setShowSettingIndex(false);
+  };
+  const handleChannelsClick = (): void => {
+    setActiveItem("channels");
+    setShowSettingIndex(false);
+  };
 
-  const handleOtherComponentClick = (): void => {
-    setShowRightsideBar(false);
+  const handleLogoutClick = (): void => {
+    setActiveItem("logout");
     setShowSettingIndex(false);
   };
 
@@ -36,20 +42,32 @@ const LeftsideBar: React.FC = () => {
     <div className="sidebar-container">
       <div className="left-sidebar">
         <ul>
-          <li onClick={handleOtherComponentClick}>
+          <li
+            onClick={handleMessagesClick}
+            className={`${activeItem === "messages" ? "bg-gray-300" : ""}`}
+            style={{ cursor: "pointer" }}
+          >
             {/* We are using react-icons for now until image handling configuration in electron app is done. */}
             {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
             <FaMessage className="icons" />
             Messages
           </li>
-          <li onClick={handleOtherComponentClick}>
+          <li
+            onClick={handleChannelsClick}
+            className={`${activeItem === "channels" ? "bg-gray-300" : ""}`}
+            style={{ cursor: "pointer" }}
+          >
             {/* We are using react-icons for now until image handling configuration in electron app is done. */}
             {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
             <MdNumbers className="icons" />
             Channels
           </li>
 
-          <div onClick={handleSettingsClick} style={{ cursor: "pointer" }}>
+          <div
+            className={`${activeItem === "settings" ? "bg-gray-300" : ""}`}
+            onClick={handleSettingsClick}
+            style={{ cursor: "pointer" }}
+          >
             <li>
               {/* We are using react-icons for now until image handling configuration in electron app is done. */}
               {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
@@ -66,8 +84,8 @@ const LeftsideBar: React.FC = () => {
               <li className="nested" onClick={handleCurrentConfigClick}>
                 {/* We are using react-icons for now until image handling configuration in electron app is done. */}
                 {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
-                <LuBringToFront />
-                View Current Configuration
+                <MdOutlineEmail className="icons" />
+                Email Configuration
               </li>
               {/* <li className="nested" onClick={handleEmailConfigClick}>
                 <MdOutlineEmail className="icons" />
@@ -77,7 +95,11 @@ const LeftsideBar: React.FC = () => {
             </ul>
           </div>
 
-          <li onClick={handleOtherComponentClick}>
+          <li
+            onClick={handleLogoutClick}
+            className={`${activeItem === "logout" ? "bg-gray-300" : ""}`}
+            style={{ cursor: "pointer" }}
+          >
             {/* We are using react-icons for now until image handling configuration in electron app is done. */}
             {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
             <FiLogOut className="icons" />

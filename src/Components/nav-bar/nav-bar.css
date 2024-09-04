@@ -4,7 +4,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: #f9f9f9;
+  background-color: #ffffff;
   border-bottom: 1px solid #ccc;
 }
 
@@ -15,6 +15,7 @@
 }
 
 .logo-link {
+  display: flex;
   text-decoration: none;
   color: black;
   font-size: 22px;
@@ -55,27 +56,27 @@
 
 /* Adjustments for tablets */
 @media (max-width: 768px) {
-  .navbar {
+  /* .navbar {
     flex-direction: column;
     align-items: flex-start;
-  }
+  } */
 
-  .navbar-left,
+  /* .navbar-left,
   .navbar-right {
     width: 100%;
     justify-content: space-between;
     margin-bottom: 10px;
-  }
+  } */
 }
 
 /* Adjustments for mobile phones */
 @media (max-width: 480px) {
-  .navbar {
+  /* .navbar {
     flex-direction: column;
     align-items: flex-start;
-  }
+  } */
 
-  .navbar-left,
+  /* .navbar-left,
   .navbar-right {
     width: 100%;
     justify-content: space-between;
@@ -90,5 +91,5 @@
   .user-avatar {
     width: 25px;
     height: 25px;
-  }
+  } */
 }

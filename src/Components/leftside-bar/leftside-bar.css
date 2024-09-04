@@ -6,10 +6,10 @@
 }
 
 .left-sidebar {
-  width: 200px;
+  width: 30%;
   padding: 10px;
-  background-color: #f9f9f9;
-  border-right: 1px solid #ccc;
+  background-color: #ffffff;
+
   height: 100vh;
 }
 
@@ -25,7 +25,13 @@
   align-items: center;
 }
 
-.left-sidebar li:hover {
+/* .left-sidebar li:hover {
+  background-color: #e0e0e0;
+} */
+.left-sidebar li:hover,
+.left-sidebar li:active,
+.left-sidebar li:focus,
+.left-sidebar li.active {
   background-color: #e0e0e0;
 }
 

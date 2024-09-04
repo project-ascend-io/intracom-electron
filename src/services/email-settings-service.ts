@@ -15,7 +15,7 @@ const Base_URL = process.env.API_URL;
 export const testEmailSettings = async (
   organizationId: string, // Add organizationId as a parameter
   server: string,
-  senderEmail: string,
+  verified_sender_email: string,
   port: number,
   username: string,
   password: string,
@@ -32,7 +32,7 @@ export const testEmailSettings = async (
         },
         body: JSON.stringify({
           server,
-          senderEmail,
+          verified_sender_email,
           port,
           username,
           password,
@@ -70,7 +70,7 @@ export const testEmailSettings = async (
  */
 export const saveEmailSettings = async (
   server: string,
-  senderEmail: string,
+  verified_sender_email: string,
   port: number,
   username: string,
   password: string,
@@ -88,7 +88,7 @@ export const saveEmailSettings = async (
         credentials: "include",
         body: JSON.stringify({
           server,
-          senderEmail,
+          verified_sender_email,
           port,
           username,
           password,

@@ -115,40 +115,40 @@ const SettingsIndex: React.FC = () => {
           </div>
         </div>
         <div className=" mt-5">
-          <div className=" border-b py-2.5 border-gray-300 flex justify-between mb-2.5">
-            <div className=" text-xs flex flex-col    md:text-base ">
-              <span className="text-sm text-gray-700">Server:</span>
+          <div className=" border-b py-2.5 border-gray-300 grid grid-cols-2 mb-2.5">
+            <div className="text-xs md:text-base">
+              <p className="text-sm text-gray-700">Server:</p>
               <span className="font-semibold">{emailSettings.server}</span>
             </div>
-            <div className=" text-xs flex flex-col    md:text-base">
-              <span className="text-sm text-gray-800">
-                Verified Sender Email:
-              </span>
+            <div className="text-xs md:text-base">
+              <p className="text-sm text-gray-800">Verified Sender Email:</p>
               <span className=" font-semibold">
-                {emailSettings.senderEmail}
+                {emailSettings.verified_sender_email}
               </span>
             </div>
           </div>
-          <div className=" border-b py-2.5 border-gray-300 flex justify-between mb-2.5">
-            <div className=" text-xs flex flex-col   md:text-base  ">
-              <span className="text-sm text-gray-800">Username:</span>
+          <div className=" border-b py-2.5 border-gray-300 grid grid-cols-2 mb-2.5">
+            <div className="text-xs md:text-base">
+              <p className="text-sm text-gray-800">Username:</p>
               <span className=" font-semibold">{emailSettings.username}</span>
             </div>
-            <div className=" text-xs flex flex-col    md:text-base  ">
-              <span className="text-sm text-gray-800">Password:</span>
-              <span className=" font-semibold">{emailSettings.password}</span>
+            <div className=" text-xs md:text-base">
+              <p className="text-sm text-gray-800">Password:</p>
+              <span className=" font-semibold">
+                {emailSettings.password ? "***********" : ""}
+              </span>
             </div>
           </div>
 
-          <div className=" border-b py-2.5 border-gray-300 flex  justify-between mb-2.5">
-            <div className=" text-xs flex flex-col    md:text-base  ">
-              <span className="text-sm text-gray-800">Security Type:</span>
+          <div className=" border-b py-2.5 border-gray-300 grid grid-cols-2 mb-2.5">
+            <div className="text-xs md:text-base">
+              <p className="text-sm text-gray-800">Security Type:</p>
               <span className="font-semibold">
                 {emailSettings.securityType}
               </span>
             </div>
-            <div className=" text-xs flex flex-col    md:text-base ">
-              <span className="text-sm text-gray-800">Port:</span>
+            <div className="text-xs md:text-base ">
+              <p className="text-sm text-gray-800">Port:</p>
               <span className=" font-semibold">{emailSettings.port}</span>
             </div>
           </div>
