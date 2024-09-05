@@ -21,6 +21,7 @@ const LeftsideBar: React.FC = () => {
   };
 
   const handleSettingsClick = (): void => {
+    setShowSettingIndex(true);
     setActiveItem("settings");
     setShowSettingsList(!showSettingsList); // Toggle visibility of the settings list
   };
@@ -39,39 +40,36 @@ const LeftsideBar: React.FC = () => {
   };
 
   return (
-    <div className="sidebar-container">
-      <div className="left-sidebar">
+    <div className="sidebar-container flex">
+      <div className="left-sidebar flex-grow p-2.5 ml-4 bg-white h-screen min-w-[200px] max-w-[400px]">
         <ul>
           <li
             onClick={handleMessagesClick}
-            className={`${activeItem === "messages" ? "bg-gray-300" : ""}`}
-            style={{ cursor: "pointer" }}
+            className={`cursor-pointer rounded-lg ${activeItem === "messages" ? "bg-gray-300" : ""}`}
           >
             {/* We are using react-icons for now until image handling configuration in electron app is done. */}
             {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
-            <FaMessage className="icons" />
+            <FaMessage className="icons ml-2" />
             Messages
           </li>
           <li
             onClick={handleChannelsClick}
-            className={`${activeItem === "channels" ? "bg-gray-300" : ""}`}
-            style={{ cursor: "pointer" }}
+            className={`cursor-pointer rounded-lg ${activeItem === "channels" ? "bg-gray-300" : ""}`}
           >
             {/* We are using react-icons for now until image handling configuration in electron app is done. */}
             {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
-            <MdNumbers className="icons" />
+            <MdNumbers className="icons ml-2" />
             Channels
           </li>
 
           <div
-            className={`${activeItem === "settings" ? "bg-gray-300" : ""}`}
             onClick={handleSettingsClick}
-            style={{ cursor: "pointer" }}
+            className={`cursor-pointer rounded-lg ${activeItem === "settings" ? "bg-gray-300" : ""}`}
           >
             <li>
               {/* We are using react-icons for now until image handling configuration in electron app is done. */}
               {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
-              <IoSettingsOutline className="icons" />
+              <IoSettingsOutline className="icons ml-2" />
               Settings
             </li>
             <ul
@@ -97,12 +95,11 @@ const LeftsideBar: React.FC = () => {
 
           <li
             onClick={handleLogoutClick}
-            className={`${activeItem === "logout" ? "bg-gray-300" : ""}`}
-            style={{ cursor: "pointer" }}
+            className={`cursor-pointer rounded-lg ${activeItem === "logout" ? "bg-gray-300" : ""}`}
           >
             {/* We are using react-icons for now until image handling configuration in electron app is done. */}
             {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
-            <FiLogOut className="icons" />
+            <FiLogOut className="icons ml-2" />
             Logout
           </li>
         </ul>
