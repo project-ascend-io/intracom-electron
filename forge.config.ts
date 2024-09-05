@@ -13,11 +13,12 @@ import { selectedFuseConfig } from "./fuse.config";
 
 const APP_ENV: EnvEnum = process.env.APP_ENV as EnvEnum;
 const API_URL: EnvEnum = process.env.API_URL as EnvEnum;
+const WS_API_URL: EnvEnum = process.env.WS_API_URL as EnvEnum;
 
 const csPolicyConfig: Record<EnvEnum, string> = {
-  [EnvEnum.Development]: `default-src 'self' 'unsafe-inline' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline' data:; connect-src 'self' ${API_URL}`,
-  [EnvEnum.Staging]: `default-src 'self'; script-src 'self'; connect-src 'self' ws://localhost:3000 ${API_URL}`,
-  [EnvEnum.Production]: `default-src 'self'; script-src 'self'; connect-src 'self' ws://localhost:3000 ${API_URL}`,
+  [EnvEnum.Development]: `default-src 'self' 'unsafe-inline' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline' data:; connect-src 'self' ${API_URL} ${WS_API_URL}`,
+  [EnvEnum.Staging]: `default-src 'self'; script-src 'self'; connect-src 'self' ws://localhost:3000 ${API_URL} ${WS_API_URL}`,
+  [EnvEnum.Production]: `default-src 'self'; script-src 'self'; connect-src 'self' ws://localhost:3000 ${API_URL} ${WS_API_URL}`,
 };
 
 const config: ForgeConfig = {
