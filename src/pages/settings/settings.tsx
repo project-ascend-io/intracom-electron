@@ -5,8 +5,8 @@ import Navbar from "../../Components/nav-bar/nav-bar";
 
 const Settings = () => {
   return (
-    <div className="flex">
-      <div className="flex-grow ">
+    <div>
+      <div>
         <Navbar />
         <div className="flex-grow">
           <LeftsideBar />

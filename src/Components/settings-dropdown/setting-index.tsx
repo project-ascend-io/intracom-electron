@@ -83,15 +83,11 @@ const SettingsIndex: React.FC = () => {
   };
 
   return (
-    <div className="w-[95%] mx-auto align-middle text-left md:p-4">
-      <h2 className="text-2xl font-bold mb-2.5 md:text-base">
-        Organization Settings
-      </h2>
-      <p className=" text-gray-600 text-base">View your current settings.</p>
-      <div className="flex flex-col mt-5 w-[90%] md:p-4 md:w-[95%] ">
-        <h3 className="text-lg font-semibold border-b border-gray-300">
-          General
-        </h3>
+    <div className="flex-grow mx-auto align-middle text-left p-4 pr-8">
+      <h2 className="text-2xl font-bold mb-2.5">Organization Settings</h2>
+      <p className="text-gray-600 text-sm">View your current settings.</p>
+      <div className="flex flex-col mt-5">
+        <h3 className="text-lg font-semibold">General</h3>
         <div className="  flex flex-col gap-2.5 border-b py-2.5 border-gray-300 text-base">
           <span className="text-[#96ACC1]">Organization Name:</span>
           <span className=" text-gray-700">{organizationName}</span>
@@ -102,8 +98,8 @@ const SettingsIndex: React.FC = () => {
         </div>
       </div>
 
-      <div className="w-[95%] mt-8 p-3">
-        <div className=" flex justify-between border-b border-gray-300 py-2.5">
+      <div className="mt-8">
+        <div className="flex justify-between">
           <h3 className="text-lg font-semibold">Email Settings</h3>
           <div className="actionButtons">
             <button
@@ -114,8 +110,8 @@ const SettingsIndex: React.FC = () => {
             </button>
           </div>
         </div>
-        <div className=" mt-5">
-          <div className=" border-b py-2.5 border-gray-300 grid grid-cols-2 mb-2.5">
+        <div className="mt-5">
+          <div className="border-b border-gray-300 grid grid-cols-2 mb-2.5">
             <div className=" text-base">
               <p className=" text-[#96ACC1]">Server:</p>
               <span className="text-gray-700">{emailSettings.server}</span>

@@ -41,7 +41,7 @@ const LeftsideBar: React.FC = () => {
 
   return (
     <div className="sidebar-container flex">
-      <div className="left-sidebar flex-grow p-2.5 ml-4 bg-white h-screen min-w-[200px] max-w-[400px]">
+      <div className="left-sidebar p-2.5 ml-4 bg-white h-screen min-w-[200px] max-w-[400px]">
         <ul>
           <li
             onClick={handleMessagesClick}
