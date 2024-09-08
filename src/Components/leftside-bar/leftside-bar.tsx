@@ -1,42 +1,38 @@
 import React, { useState } from "react";
 import "./leftside-bar.css";
-import EmailConfiguration from "../settings-dropdown/email-configuration"; // Adjust the import path as necessary
 import SettingIndex from "../settings-dropdown/setting-index";
 import { FaMessage } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
-import { LuBringToFront } from "react-icons/lu";
 import { MdNumbers, MdOutlineEmail } from "react-icons/md";
-import { set } from "@dotenvx/dotenvx";
-
+import { useNavigate } from "react-router-dom";
 const LeftsideBar: React.FC = () => {
-  // const [showRightsideBar, setShowRightsideBar] = useState<boolean>(false);
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [showSettingIndex, setShowSettingIndex] = useState<boolean>(false);
   const [showSettingsList, setShowSettingsList] = useState<boolean>(false); // New state to control visibility of the settings list
+  const Navigate = useNavigate();
 
   const handleCurrentConfigClick = (): void => {
-    setShowSettingIndex(true);
-    // setShowRightsideBar(false);
+    setActiveItem("settings");
+    Navigate("/setting-index");
   };
 
   const handleSettingsClick = (): void => {
-    setShowSettingIndex(true);
     setActiveItem("settings");
     setShowSettingsList(!showSettingsList); // Toggle visibility of the settings list
   };
   const handleMessagesClick = (): void => {
     setActiveItem("messages");
-    setShowSettingIndex(false);
+    Navigate("/");
   };
   const handleChannelsClick = (): void => {
     setActiveItem("channels");
-    setShowSettingIndex(false);
+    Navigate("/");
   };
 
   const handleLogoutClick = (): void => {
     setActiveItem("logout");
-    setShowSettingIndex(false);
+    Navigate("/");
   };
 
   return (
@@ -85,11 +81,6 @@ const LeftsideBar: React.FC = () => {
                 <MdOutlineEmail className="icons" />
                 Email Configuration
               </li>
-              {/* <li className="nested" onClick={handleEmailConfigClick}>
-                <MdOutlineEmail className="icons" />
-                Email Configuration
-              </li> */}
-              {/* The email-configuration page linked to edit button */}
             </ul>
           </div>
 
@@ -105,7 +96,6 @@ const LeftsideBar: React.FC = () => {
         </ul>
       </div>
       {showSettingIndex && <SettingIndex />}
-      {/* {showRightsideBar && <EmailConfiguration />} */}
     </div>
   );
 };

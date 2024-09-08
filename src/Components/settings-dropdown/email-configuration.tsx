@@ -20,6 +20,8 @@ const EmailConfiguration: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
+  const [isSaved, setIsSaved] = useState(false);
+  const [isTested, setIsTested] = useState(false);
   const organizationId = user.organization._id;
 
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -36,6 +38,11 @@ const EmailConfiguration: React.FC = () => {
   });
 
   const onSubmit = async (data: EmailSettingsFormValues) => {
+    if (isSaved) {
+      alert("This email has already been saved.");
+      return;
+    }
+
     setIsLoading(true);
     try {
       const saveData = await saveEmailSettings(
@@ -54,6 +61,7 @@ const EmailConfiguration: React.FC = () => {
         );
         setErrorMessage("");
         clearErrors();
+        setIsSaved(true);
       } else {
         setErrorMessage(
           saveData.message ||
@@ -71,6 +79,11 @@ const EmailConfiguration: React.FC = () => {
   };
 
   const handleSendTestEmail = async (data: EmailSettingsFormValues) => {
+    if (isTested) {
+      alert("This email has already been successfully tested.");
+      return;
+    }
+
     setIsLoading(true);
     try {
       const testData = await testEmailSettings(
@@ -88,6 +101,7 @@ const EmailConfiguration: React.FC = () => {
         setSuccessMessage(testData.message);
         setErrorMessage("");
         clearErrors();
+        setIsTested(true);
       } else {
         setErrorMessage(
           testData.message || "An error occurred while sending the test email.",
@@ -102,6 +116,7 @@ const EmailConfiguration: React.FC = () => {
     }
     setIsLoading(false);
   };
+
   const handleGoBack = () => {
     navigate("/settings");
   };
@@ -112,7 +127,7 @@ const EmailConfiguration: React.FC = () => {
 
       <div className="flex flex-row">
         <LeftsideBar />
-        <div className="w-[400px] mx-auto p-5 text-left">
+        <div className="w-[60%] mx-auto p-5 text-left">
           <h1 className="text-2xl mb-2.5">Email Settings</h1>
           <p className="text-sm mb-5">Configure your email settings.</p>
           {errorMessage && (
@@ -214,12 +229,13 @@ const EmailConfiguration: React.FC = () => {
               <button
                 type="button"
                 onClick={handleSubmit(handleSendTestEmail)}
-                className={`mt-2.5 px-3 py-2 bg-blue-200 text-black font-bold rounded-md hover:bg-blue-300 ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
-                disabled={isLoading}
+                className={`mt-2.5 px-3 py-2 bg-blue-200 text-black font-bold rounded-md hover:bg-blue-300 ${isLoading || isTested ? "opacity-50 cursor-not-allowed" : ""}`}
+                disabled={isLoading || isTested}
               >
                 {isLoading ? "Sending..." : "Send Test Email"}
               </button>
             </div>
+
             <div className="buttons flex justify-end mt-5 gap-2.5">
               <button
                 type="button"
@@ -231,12 +247,13 @@ const EmailConfiguration: React.FC = () => {
               <button
                 type="submit"
                 className={`px-5 py-2 bg-blue-600 text-white font-bold rounded-lg hover:opacity-90 ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
-                disabled={isLoading}
+                disabled={isLoading || isSaved}
               >
-                {isLoading ? "Saving..." : "save"}
+                {isLoading ? "Saving..." : "Save"}
               </button>
             </div>
           </form>
+
           {successMessage && (
             <div className="success-message mt-5 p-2.5 border border-green-500 rounded-md bg-green-100">
               <p className="font-bold">Success</p>
