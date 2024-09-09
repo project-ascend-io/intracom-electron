@@ -17,6 +17,9 @@ const SettingsIndex: React.FC = () => {
   const [adminEmail, setAdminEmail] = useState<string>("");
 
   useEffect(() => {
+    console.log(user);
+    setOrganizationName(user.organization.name);
+
     const fetchEmailSettings = async () => {
       try {
         const response = await fetch(

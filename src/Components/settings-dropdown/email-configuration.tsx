@@ -27,6 +27,9 @@ const EmailConfiguration: React.FC = () => {
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
 
+  // Fetch the organization settings (bonus points: use custom hook to encapsulate http request)
+  // if settings exist prepopulate form using defaultValues in useForm();
+
   // Use React Hook Form with Zod resolver
   const {
     register,
@@ -35,6 +38,10 @@ const EmailConfiguration: React.FC = () => {
     clearErrors,
   } = useForm<EmailSettingsFormValues>({
     resolver: zodResolver(emailSettingsSchema),
+    defaultValues: {
+      port: "8080",
+      senderEmail: "test21123@gmail.com",
+    },
   });
 
   const onSubmit = async (data: EmailSettingsFormValues) => {
