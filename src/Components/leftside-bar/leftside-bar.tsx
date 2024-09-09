@@ -6,6 +6,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
 import { MdNumbers, MdOutlineEmail } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../../services/auth";
 const LeftsideBar: React.FC = () => {
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [showSettingIndex, setShowSettingIndex] = useState<boolean>(false);
@@ -30,9 +31,10 @@ const LeftsideBar: React.FC = () => {
     Navigate("/");
   };
 
-  const handleLogoutClick = (): void => {
+  const handleLogoutClick = async (): Promise<void> => {
     setActiveItem("logout");
-    Navigate("/");
+    await logoutUser();
+    Navigate("/login");
   };
 
   return (
