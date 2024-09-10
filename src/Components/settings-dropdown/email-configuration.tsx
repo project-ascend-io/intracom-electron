@@ -1,11 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   emailSettingsSchema,
   EmailSettingsFormValues,
 } from "../../types/email-configuration";
 import { zodResolver } from "@hookform/resolvers/zod";
-
 import "./settings.css";
 import {
   testEmailSettings,
@@ -15,20 +14,18 @@ import { useAuth } from "../../context/auth-context";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../nav-bar/nav-bar";
 import LeftsideBar from "../leftside-bar/leftside-bar";
+import { useEmailSettings } from "../../utils/custom-hooks/useEmailSettings"; // Import the custom hook
 
 const EmailConfiguration: React.FC = () => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [isLoading, setIsLoading] = useState(false);
-  const [isSaved, setIsSaved] = useState(false);
-  const [isTested, setIsTested] = useState(false);
   const organizationId = user.organization._id;
 
+  const { emailSettings, loading, error } = useEmailSettings(organizationId); // Use the custom hook
+  const [isLoading, setIsLoading] = useState(false);
+  const [isTested, setIsTested] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
-
-  // Fetch the organization settings (bonus points: use custom hook to encapsulate http request)
-  // if settings exist prepopulate form using defaultValues in useForm();
 
   // Use React Hook Form with Zod resolver
   const {
@@ -36,25 +33,25 @@ const EmailConfiguration: React.FC = () => {
     handleSubmit,
     formState: { errors },
     clearErrors,
+    reset, // Add reset function
   } = useForm<EmailSettingsFormValues>({
     resolver: zodResolver(emailSettingsSchema),
-    defaultValues: {
-      port: "8080",
-      senderEmail: "test21123@gmail.com",
-    },
+    defaultValues: emailSettings || {}, // Set default values to an empty object initially
   });
 
-  const onSubmit = async (data: EmailSettingsFormValues) => {
-    if (isSaved) {
-      alert("This email has already been saved.");
-      return;
+  // Prepopulate the form when emailSettings are fetched
+  useEffect(() => {
+    if (emailSettings) {
+      reset(emailSettings); // Reset the form with fetched data
     }
+  }, [emailSettings, reset]);
 
+  const onSubmit = async (data: EmailSettingsFormValues) => {
     setIsLoading(true);
     try {
       const saveData = await saveEmailSettings(
         data.server,
-        data.senderEmail,
+        data.verified_sender_email,
         Number(data.port),
         data.username,
         data.password,
@@ -68,7 +65,6 @@ const EmailConfiguration: React.FC = () => {
         );
         setErrorMessage("");
         clearErrors();
-        setIsSaved(true);
       } else {
         setErrorMessage(
           saveData.message ||
@@ -96,7 +92,7 @@ const EmailConfiguration: React.FC = () => {
       const testData = await testEmailSettings(
         organizationId,
         data.server,
-        data.senderEmail,
+        data.verified_sender_email,
         Number(data.port),
         data.username,
         data.password,
@@ -143,124 +139,136 @@ const EmailConfiguration: React.FC = () => {
               <p>{errorMessage}</p>
             </div>
           )}
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="mb-4">
-              <label className="block font-bold mb-2.5 text-sm">
-                SMTP Configurations
-              </label>
-              <label className="block font-bold mb-2.5 text-sm">Server</label>
-              <input
-                type="text"
-                {...register("server")}
-                className="w-[90%] p-2 border border-gray-300 rounded-md"
-              />
-              {errors.server && (
-                <p className="text-red-500">{errors.server.message}</p>
-              )}
-            </div>
-            <div className="mb-4">
-              <label className="block font-bold mb-2.5 text-sm">
-                Verified Sender Email
-              </label>
-              <input
-                type="text"
-                {...register("senderEmail")}
-                className="w-[90%] p-2 border border-gray-300 rounded-md"
-              />
-              {errors.senderEmail && (
-                <p className="text-red-500">{errors.senderEmail.message}</p>
-              )}
-            </div>
-            <div className="mb-4">
-              <label className="block font-bold mb-2.5 text-sm">Port</label>
-              <input
-                type="text"
-                {...register("port")}
-                className="w-[90%] p-2 border border-gray-300 rounded-md"
-              />
-              {errors.port && (
-                <p className="text-red-500">{errors.port.message}</p>
-              )}
-            </div>
-            <div className="mb-4">
-              <label className="block font-bold mb-2.5 text-sm">Username</label>
-              <input
-                type="text"
-                {...register("username")}
-                className="w-[90%] p-2 border border-gray-300 rounded-md"
-              />
-              {errors.username && (
-                <p className="text-red-500">{errors.username.message}</p>
-              )}
-            </div>
-            <div className="mb-4">
-              <label className="block font-bold mb-2.5 text-sm">Password</label>
-              <input
-                type="password"
-                {...register("password")}
-                className="w-[90%] p-2 border border-gray-300 rounded-md"
-              />
-              {errors.password && (
-                <p className="text-red-500">{errors.password.message}</p>
-              )}
-            </div>
-            <div className="mb-4">
-              <label className="block font-bold mb-2.5 text-sm">
-                Security type
-              </label>
-              <select
-                className="w-[90%] p-2 border border-gray-300 rounded-md"
-                {...register("securityType")}
-              >
-                <option value=""></option>
-                <option value="SSL">SSL</option>
-                <option value="TLS">TLS</option>
-              </select>
-              {errors.securityType && (
-                <p className="text-red-500">{errors.securityType.message}</p>
-              )}
-            </div>
-            <div className="mb-4">
-              <label className="block font-bold mb-2.5 text-sm">
-                Send test email
-              </label>
-              <input
-                type="email"
-                {...register("testEmail")}
-                placeholder="test@acme.com"
-                className="w-[90%] p-2 border border-gray-300 rounded-md"
-              />
-              {errors.testEmail && (
-                <p className="text-red-500">{errors.testEmail.message}</p>
-              )}
-              <button
-                type="button"
-                onClick={handleSubmit(handleSendTestEmail)}
-                className={`mt-2.5 px-3 py-2 bg-blue-200 text-black font-bold rounded-md hover:bg-blue-300 ${isLoading || isTested ? "opacity-50 cursor-not-allowed" : ""}`}
-                disabled={isLoading || isTested}
-              >
-                {isLoading ? "Sending..." : "Send Test Email"}
-              </button>
-            </div>
+          {error && <p className="text-red-500">{error}</p>}{" "}
+          {/* Display error */}
+          {!loading ? ( // Wait until settings are loaded
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="mb-4">
+                <label className="block font-bold mb-2.5 text-sm">
+                  SMTP Configurations
+                </label>
+                <label className="block font-bold mb-2.5 text-sm">server</label>
+                <input
+                  type="text"
+                  {...register("server")}
+                  className="w-[90%] p-2 border border-gray-300 rounded-md"
+                  defaultValue={emailSettings?.server}
+                />
+                {errors.server && (
+                  <p className="text-red-500">{errors.server.message}</p>
+                )}
+              </div>
+              <div className="mb-4">
+                <label className="block font-bold mb-2.5 text-sm">
+                  Verified Sender Email
+                </label>
+                <input
+                  type="text"
+                  {...register("verified_sender_email")}
+                  className="w-[90%] p-2 border border-gray-300 rounded-md"
+                />
+                {errors.verified_sender_email && (
+                  <p className="text-red-500">
+                    {errors.verified_sender_email.message}
+                  </p>
+                )}
+              </div>
+              <div className="mb-4">
+                <label className="block font-bold mb-2.5 text-sm">Port</label>
+                <input
+                  type="text"
+                  {...register("port")}
+                  className="w-[90%] p-2 border border-gray-300 rounded-md"
+                />
+                {errors.port && (
+                  <p className="text-red-500">{errors.port.message}</p>
+                )}
+              </div>
+              <div className="mb-4">
+                <label className="block font-bold mb-2.5 text-sm">
+                  Username
+                </label>
+                <input
+                  type="text"
+                  {...register("username")}
+                  className="w-[90%] p-2 border border-gray-300 rounded-md"
+                />
+                {errors.username && (
+                  <p className="text-red-500">{errors.username.message}</p>
+                )}
+              </div>
+              <div className="mb-4">
+                <label className="block font-bold mb-2.5 text-sm">
+                  Password
+                </label>
+                <input
+                  type="password"
+                  {...register("password")}
+                  className="w-[90%] p-2 border border-gray-300 rounded-md"
+                />
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
+              </div>
+              <div className="mb-4">
+                <label className="block font-bold mb-2.5 text-sm">
+                  Security type
+                </label>
+                <select
+                  className="w-[90%] p-2 border border-gray-300 rounded-md"
+                  {...register("securityType")}
+                >
+                  <option value=""></option>
+                  <option value="SSL">SSL</option>
+                  <option value="TLS">TLS</option>
+                </select>
+                {errors.securityType && (
+                  <p className="text-red-500">{errors.securityType.message}</p>
+                )}
+              </div>
+              <div className="mb-4">
+                <label className="block font-bold mb-2.5 text-sm">
+                  Send test email
+                </label>
+                <input
+                  type="email"
+                  {...register("testEmail")}
+                  placeholder="test@acme.com"
+                  className="w-[90%] p-2 border border-gray-300 rounded-md"
+                />
+                {errors.testEmail && (
+                  <p className="text-red-500">{errors.testEmail.message}</p>
+                )}
+                <button
+                  type="button"
+                  onClick={handleSubmit(handleSendTestEmail)}
+                  className={`mt-2.5 px-3 py-2 bg-blue-200 text-black font-bold rounded-md hover:bg-blue-300 ${isLoading || isTested ? "opacity-50 cursor-not-allowed" : ""}`}
+                  disabled={isLoading || isTested}
+                >
+                  {isLoading ? "Sending..." : "Send Test Email"}
+                </button>
+              </div>
 
-            <div className="buttons flex justify-end mt-5 gap-2.5">
-              <button
-                type="button"
-                onClick={handleGoBack}
-                className="px-5 py-2 bg-gray-100 text-black font-bold border border-gray-300 rounded-lg hover:opacity-90"
-              >
-                Cancel
-              </button>
-              <button
-                type="submit"
-                className={`px-5 py-2 bg-blue-600 text-white font-bold rounded-lg hover:opacity-90 ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
-                disabled={isLoading || isSaved}
-              >
-                {isLoading ? "Saving..." : "Save"}
-              </button>
-            </div>
-          </form>
-
+              <div className="buttons flex justify-end mt-5 gap-2.5">
+                <button
+                  type="button"
+                  onClick={handleGoBack}
+                  className="px-5 py-2 bg-gray-100 text-black font-bold border border-gray-300 rounded-lg hover:opacity-90"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className={`px-5 py-2 bg-blue-600 text-white font-bold rounded-lg hover:opacity-90 ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
+                  disabled={isLoading}
+                >
+                  {isLoading ? "Saving..." : "Save"}
+                </button>
+              </div>
+            </form>
+          ) : (
+            <p>Loading email settings...</p> // Loading indicator
+          )}
           {successMessage && (
             <div className="success-message mt-5 p-2.5 border border-green-500 rounded-md bg-green-100">
               <p className="font-bold">Success</p>

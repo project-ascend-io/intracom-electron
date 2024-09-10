@@ -109,3 +109,35 @@ export const saveEmailSettings = async (
     throw error;
   }
 };
+
+/**
+ * Get the email settings for the given organization.
+ * @param {string} organization - The ID of the organization to get email settings for.
+ * @returns {Promise<any>} The response from the server.
+ */
+
+export const getEmailSettings = async (
+  organizationId: string,
+): Promise<any> => {
+  try {
+    const response = await fetch(
+      `${Base_URL}/organizations/${organizationId}/email-settings`,
+      {
+        credentials: "include",
+      },
+    );
+
+    if (!response.ok) {
+      throw new Error("Failed to get email settings");
+    }
+
+    const data = await response.json();
+    if (data.success) {
+      console.log("Valid email settings:", data.responseObject);
+    }
+    return data;
+  } catch (error) {
+    console.error("getEmailSettings error:", error);
+    throw error;
+  }
+};

@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth-context";
-import { organizationSchema } from "../../types/email-configuration";
+// import { organizationSchema } from "../../types/email-configuration";
 
 import "./settings.css";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../nav-bar/nav-bar";
 import LeftsideBar from "../leftside-bar/leftside-bar";
+import { set } from "@dotenvx/dotenvx";
+import { getEmailSettings } from "../../services/email-settings-service";
 
 const SettingsIndex: React.FC = () => {
   const navigate = useNavigate();
@@ -19,60 +21,13 @@ const SettingsIndex: React.FC = () => {
   useEffect(() => {
     console.log(user);
     setOrganizationName(user.organization.name);
+    setAdminEmail(user.email);
 
     const fetchEmailSettings = async () => {
       try {
-        const response = await fetch(
-          `${process.env.API_URL}/organizations/${organizationId}/email-settings`,
-          { credentials: "include" },
-        );
-        const data = await response.json();
-
-        if (data.success) {
-          console.log("Valid email settings:", data.responseObject);
-          setEmailSettings(data.responseObject);
-
-          // Fetch organization details using user ID
-          const fetchOrganizationDetails = async () => {
-            try {
-              const orgResponse = await fetch(
-                `${process.env.API_URL}/users/${userId}`,
-                {
-                  credentials: "include",
-                },
-              );
-              const orgData = await orgResponse.json();
-
-              if (orgData.success) {
-                const parsedOrganizationData = organizationSchema.safeParse(
-                  orgData.responseObject,
-                );
-                if (parsedOrganizationData.success) {
-                  console.log(
-                    "Organization details:",
-                    parsedOrganizationData.data,
-                  );
-                  setOrganizationName(
-                    parsedOrganizationData.data.organization.name,
-                  );
-                  setAdminEmail(parsedOrganizationData.data.email);
-                } else {
-                  console.error(
-                    "Invalid organization data:",
-                    parsedOrganizationData.error.errors,
-                  );
-                }
-              }
-            } catch (error) {
-              console.error("Error fetching organization details:", error);
-            }
-          };
-
-          fetchOrganizationDetails();
-        } else {
-          throw Error(data.message);
-        }
-      } catch (error) {
+        const data = await getEmailSettings(organizationId);
+        setEmailSettings(data.responseObject);
+      } catch (error: any) {
         console.error("Error fetching email settings:", error);
       }
     };
