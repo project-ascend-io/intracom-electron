@@ -36,13 +36,15 @@ const EmailConfiguration: React.FC = () => {
     reset, // Add reset function
   } = useForm<EmailSettingsFormValues>({
     resolver: zodResolver(emailSettingsSchema),
-    defaultValues: emailSettings || {}, // Set default values to an empty object initially
+    defaultValues: {}, // Set default values to an empty object initially
   });
 
   // Prepopulate the form when emailSettings are fetched
   useEffect(() => {
     if (emailSettings) {
       reset(emailSettings); // Reset the form with fetched data
+    } else {
+      reset({}); // Reset the form to empty if no emailSettings
     }
   }, [emailSettings, reset]);
 
@@ -121,7 +123,7 @@ const EmailConfiguration: React.FC = () => {
   };
 
   const handleGoBack = () => {
-    navigate("/setting-index");
+    navigate("/settings");
   };
 
   return (
@@ -139,8 +141,6 @@ const EmailConfiguration: React.FC = () => {
               <p>{errorMessage}</p>
             </div>
           )}
-          {error && <p className="text-red-500">{error}</p>}{" "}
-          {/* Display error */}
           {!loading ? ( // Wait until settings are loaded
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="mb-4">
@@ -166,6 +166,7 @@ const EmailConfiguration: React.FC = () => {
                   type="text"
                   {...register("verified_sender_email")}
                   className="w-[90%] p-2 border border-gray-300 rounded-md"
+                  defaultValue={emailSettings?.verified_sender_email}
                 />
                 {errors.verified_sender_email && (
                   <p className="text-red-500">
@@ -179,6 +180,7 @@ const EmailConfiguration: React.FC = () => {
                   type="text"
                   {...register("port")}
                   className="w-[90%] p-2 border border-gray-300 rounded-md"
+                  defaultValue={emailSettings?.port}
                 />
                 {errors.port && (
                   <p className="text-red-500">{errors.port.message}</p>
@@ -192,6 +194,7 @@ const EmailConfiguration: React.FC = () => {
                   type="text"
                   {...register("username")}
                   className="w-[90%] p-2 border border-gray-300 rounded-md"
+                  defaultValue={emailSettings?.username}
                 />
                 {errors.username && (
                   <p className="text-red-500">{errors.username.message}</p>
@@ -205,6 +208,7 @@ const EmailConfiguration: React.FC = () => {
                   type="password"
                   {...register("password")}
                   className="w-[90%] p-2 border border-gray-300 rounded-md"
+                  defaultValue={emailSettings?.password}
                 />
                 {errors.password && (
                   <p className="text-red-500">{errors.password.message}</p>
@@ -217,6 +221,7 @@ const EmailConfiguration: React.FC = () => {
                 <select
                   className="w-[90%] p-2 border border-gray-300 rounded-md"
                   {...register("securityType")}
+                  defaultValue={emailSettings?.securityType}
                 >
                   <option value=""></option>
                   <option value="SSL">SSL</option>
@@ -262,7 +267,7 @@ const EmailConfiguration: React.FC = () => {
                   className={`px-5 py-2 bg-blue-600 text-white font-bold rounded-lg hover:opacity-90 ${isLoading ? "opacity-50 cursor-not-allowed" : ""}`}
                   disabled={isLoading}
                 >
-                  {isLoading ? "Saving..." : "Save"}
+                  {isLoading ? "Save" : "Save"}
                 </button>
               </div>
             </form>

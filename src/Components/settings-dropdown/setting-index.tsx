@@ -69,13 +69,13 @@ const SettingsIndex: React.FC = () => {
                   <div className="text-base">
                     <p className="text-[#96ACC1]">Server:</p>
                     <span className="text-gray-700">
-                      {emailSettings.server}
+                      {emailSettings?.server}
                     </span>
                   </div>
                   <div className="text-base">
                     <p className="text-[#96ACC1]">Verified Sender Email:</p>
                     <span className="text-gray-700">
-                      {emailSettings.verified_sender_email}
+                      {emailSettings?.verified_sender_email}
                     </span>
                   </div>
                 </div>
@@ -83,13 +83,13 @@ const SettingsIndex: React.FC = () => {
                   <div className="text-base">
                     <p className="text-[#96ACC1]">Username:</p>
                     <span className="text-gray-700">
-                      {emailSettings.username}
+                      {emailSettings?.username}
                     </span>
                   </div>
                   <div className="text-base">
                     <p className="text-[#96ACC1]">Password:</p>
                     <span className="text-gray-700">
-                      {emailSettings.password ? "***********" : ""}
+                      {emailSettings?.password ? "***********" : ""}
                     </span>
                   </div>
                 </div>
@@ -97,12 +97,12 @@ const SettingsIndex: React.FC = () => {
                   <div className="text-base">
                     <p className="text-[#96ACC1]">Security Type:</p>
                     <span className="text-gray-700">
-                      {emailSettings.securityType}
+                      {emailSettings?.securityType}
                     </span>
                   </div>
                   <div className="text-base">
                     <p className="text-[#96ACC1]">Port:</p>
-                    <span className="text-gray-700">{emailSettings.port}</span>
+                    <span className="text-gray-700">{emailSettings?.port}</span>
                   </div>
                 </div>
               </div>

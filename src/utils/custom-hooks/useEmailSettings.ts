@@ -9,15 +9,12 @@ export const useEmailSettings = (organizationId: string) => {
   useEffect(() => {
     const fetchEmailSettings = async () => {
       try {
-        const response = await getEmailSettings(organizationId);
-        console.log(response);
-        if (response.success) {
-          setEmailSettings(response.responseObject); // Extract the email settings
-        } else {
-          setError(response.message || "Failed to fetch email settings");
-        }
-      } catch (err: any) {
-        setError(err.message || "Failed to fetch email settings");
+        const data = await getEmailSettings(organizationId);
+        setEmailSettings(data.responseObject || {});
+      } catch (error: any) {
+        console.error("getEmailSettings error:", error);
+        setEmailSettings({});
+        setError(null); // Do not set an error message
       } finally {
         setLoading(false);
       }

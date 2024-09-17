@@ -134,10 +134,12 @@ export const getEmailSettings = async (
     const data = await response.json();
     if (data.success) {
       console.log("Valid email settings:", data.responseObject);
+      return data; // Return email settings if successful
+    } else {
+      return null; // Return null if there are no email settings
     }
-    return data;
   } catch (error) {
     console.error("getEmailSettings error:", error);
-    throw error;
+    return null; // Return null if there is an error
   }
 };
