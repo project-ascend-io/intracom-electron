@@ -26,6 +26,7 @@ const EmailConfiguration: React.FC = () => {
   const [isTested, setIsTested] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [successMessage, setSuccessMessage] = useState<string>("");
+  const [isTesting, setIsTesting] = useState(false); // State to track if testing email
 
   // Use React Hook Form with Zod resolver
   const {
@@ -90,6 +91,7 @@ const EmailConfiguration: React.FC = () => {
     }
 
     setIsLoading(true);
+    setIsTesting(true);
     try {
       const testData = await testEmailSettings(
         organizationId,
@@ -120,6 +122,7 @@ const EmailConfiguration: React.FC = () => {
       setSuccessMessage("");
     }
     setIsLoading(false);
+    setIsTesting(false);
   };
 
   const handleGoBack = () => {
@@ -177,8 +180,8 @@ const EmailConfiguration: React.FC = () => {
               <div className="mb-4">
                 <label className="block font-bold mb-2.5 text-sm">Port</label>
                 <input
-                  type="text"
-                  {...register("port")}
+                  type="number"
+                  {...register("port", { valueAsNumber: true })} // Use valueAsNumber to ensure the value is treated as a number
                   className="w-[90%] p-2 border border-gray-300 rounded-md"
                   defaultValue={emailSettings?.port}
                 />
@@ -237,7 +240,7 @@ const EmailConfiguration: React.FC = () => {
                 </label>
                 <input
                   type="email"
-                  {...register("testEmail")}
+                  {...register("testEmail", { required: isTesting })} // Conditionally required
                   placeholder="test@acme.com"
                   className="w-[90%] p-2 border border-gray-300 rounded-md"
                 />
