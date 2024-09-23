@@ -19,11 +19,11 @@ const Navbar: React.FC = () => {
           New Chat
         </Link> */}
 
-        <Link to="/profile">
-          {/* We are using user-avatar for now until image handling configuration in electron app is done. */}
-          {/* @todo: replace the image with user profile picture once image handling is done. */}
-          <FaUser className="user-avatar" />
-        </Link>
+        {/* We are using user-avatar for now until image handling configuration in electron app is done. */}
+        {/* @todo: replace the image with user profile picture once image handling is done. */}
+        {/* <Link to="/profile"> */}
+        <FaUser className="user-avatar" />
+        {/* </Link> */}
       </div>
     </header>
   );
