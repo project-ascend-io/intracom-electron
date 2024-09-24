@@ -126,7 +126,7 @@ const EmailConfiguration: React.FC = () => {
   };
 
   const handleGoBack = () => {
-    navigate("/settings");
+    navigate("/setting-index");
   };
 
   return (

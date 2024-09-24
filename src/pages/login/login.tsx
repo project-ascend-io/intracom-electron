@@ -7,19 +7,23 @@ import { LoginFormType, loginSchema } from "../../types/login";
 import { loginUser } from "../../services/auth";
 import { useAuth } from "../../context/auth-context";
 import "./login.css";
+import { BeatLoader } from "react-spinners";
 
 const Login = () => {
   const [authError, setAuthError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const { setUser } = useAuth();
   const navigate = useNavigate();
   const onSubmit: SubmitHandler<LoginFormType> = async (data) => {
     setAuthError("");
+    setIsLoading(true);
     const userData = await loginUser(data);
 
     if (userData.success) {
       setUser(userData.responseObject);
       reset();
-      navigate("/");
+      setIsLoading(false);
+      navigate("/setting-index");
     } else {
       setAuthError(userData.message);
     }
@@ -56,7 +60,9 @@ const Login = () => {
           <Link className="link block my-4" to="">
             Forgot Password?
           </Link>
-          <button className="form-button block w-full">Login</button>
+          <button className="form-button block w-full">
+            {isLoading && <BeatLoader color="white" size={8} />}Login
+          </button>
         </form>
       </div>
     </section>
