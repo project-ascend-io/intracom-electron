@@ -8,7 +8,7 @@ import { MdNumbers, MdOutlineEmail } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../services/auth";
 const LeftsideBar: React.FC = () => {
-  const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [activeItem, setActiveItem] = useState<string>("settings");
   const [showSettingIndex, setShowSettingIndex] = useState<boolean>(false);
   const [showSettingsList, setShowSettingsList] = useState<boolean>(false); // New state to control visibility of the settings list
   const Navigate = useNavigate();
@@ -41,24 +41,25 @@ const LeftsideBar: React.FC = () => {
     <div className="sidebar-container flex">
       <div className="left-sidebar p-2.5 ml-4 bg-white h-screen min-w-[200px] max-w-[400px]">
         <ul>
-          <li
-            onClick={handleMessagesClick}
+          {/* TODO: Add Message and Channels once these are implemented */}
+          {/* <li */}
+          {/* onClick={handleMessagesClick}
             className={`cursor-pointer rounded-lg ${activeItem === "messages" ? "bg-gray-300" : ""}`}
-          >
-            {/* We are using react-icons for now until image handling configuration in electron app is done. */}
-            {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
-            <FaMessage className="icons ml-2" />
-            Messages
-          </li>
-          <li
+          > */}
+          {/* We are using react-icons for now until image handling configuration in electron app is done. */}
+          {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
+          {/* <FaMessage className="icons ml-2" />
+            Messages */}
+          {/* </li> */}
+          {/* <li
             onClick={handleChannelsClick}
             className={`cursor-pointer rounded-lg ${activeItem === "channels" ? "bg-gray-300" : ""}`}
-          >
-            {/* We are using react-icons for now until image handling configuration in electron app is done. */}
-            {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
-            <MdNumbers className="icons ml-2" />
+          > */}
+          {/* We are using react-icons for now until image handling configuration in electron app is done. */}
+          {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
+          {/* <MdNumbers className="icons ml-2" />
             Channels
-          </li>
+          </li> */}
 
           <div
             onClick={handleSettingsClick}

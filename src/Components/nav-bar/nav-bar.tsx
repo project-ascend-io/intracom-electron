@@ -1,8 +1,7 @@
 import React from "react";
 import "./nav-bar.css";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaFlag } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { FaFlag } from "react-icons/fa";
 
 const Navbar: React.FC = () => {
   return (
@@ -14,14 +13,17 @@ const Navbar: React.FC = () => {
         </Link>
       </div>
       <div className="navbar-right">
-        <Link to="/new-chat" className="new-chat-button">
+        <button className="new-chat-button">New Chat</button>
+        {/* TODO: replace with Link elem below after New Chat is implemented */}
+        {/* <Link to="/new-chat" className="new-chat-button">
           New Chat
-        </Link>
-        <Link to="/profile">
-          {/* We are using user-avatar for now until image handling configuration in electron app is done. */}
-          {/* @todo: replace the image with user profile picture once image handling is done. */}
-          <FaUser className="user-avatar" />
-        </Link>
+        </Link> */}
+
+        {/* We are using user-avatar for now until image handling configuration in electron app is done. */}
+        {/* @todo: replace the image with user profile picture once image handling is done. */}
+        {/* <Link to="/profile"> */}
+        <FaUser className="user-avatar" />
+        {/* </Link> */}
       </div>
     </header>
   );
