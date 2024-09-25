@@ -13,6 +13,7 @@ import { selectedFuseConfig } from "./fuse.config";
 
 const APP_ENV: EnvEnum = process.env.APP_ENV as EnvEnum;
 const API_URL: EnvEnum = process.env.API_URL as EnvEnum;
+const AUTH_TOKEN: string = process.env.AUTH_TOKEN as string;
 
 const csPolicyConfig: Record<EnvEnum, string> = {
   [EnvEnum.Development]: `default-src 'self' 'unsafe-inline' data:; script-src 'self' 'unsafe-eval' 'unsafe-inline' data:; connect-src 'self' ${API_URL}`,
@@ -29,8 +30,10 @@ const config: ForgeConfig = {
           owner: "project-ascend-io",
           name: "intracom-electron",
         },
+        authToken: AUTH_TOKEN,
         prerelease: APP_ENV !== EnvEnum.Production,
         draft: APP_ENV === EnvEnum.Development,
+        generateReleaseNotes: true,
       },
     },
   ],

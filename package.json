@@ -8,7 +8,8 @@
     "start": "dotenvx run -- electron-forge start",
     "package": "dotenvx run -- electron-forge package",
     "make": "dotenvx run -- electron-forge make",
-    "publish": "dotenvx run -- electron-forge publish",
+    "publish": "dotenvx run -f .env.production -- electron-forge publish",
+    "commit": "cz",
     "prepare": "husky",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
@@ -43,6 +44,7 @@
     "autoprefixer": "^10.4.20",
     "babel-jest": "^29.7.0",
     "css-loader": "^6.0.0",
+    "cz-conventional-changelog": "^3.3.0",
     "daisyui": "^4.12.10",
     "electron": "30.0.1",
     "eslint": "^8.57.0",
@@ -73,6 +75,7 @@
     "@hookform/resolvers": "^3.9.0",
     "@kayahr/jest-electron-runner": "^29.14.0",
     "commander": "^12.1.0",
+    "commitizen": "^4.3.0",
     "electron-squirrel-startup": "^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -81,5 +84,10 @@
     "react-router-dom": "^6.24.1",
     "react-spinners": "^0.14.1",
     "zod": "^3.23.8"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
   }
 }
