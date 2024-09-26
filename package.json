@@ -7,7 +7,7 @@
   "scripts": {
     "start": "dotenvx run -- electron-forge start",
     "package": "dotenvx run -- electron-forge package",
-    "make": "dotenvx run -- electron-forge make",
+    "make": "dotenvx run -f .env.production -- electron-forge make",
     "publish": "dotenvx run -f .env.production -- electron-forge publish",
     "commit": "cz",
     "prepare": "husky",
