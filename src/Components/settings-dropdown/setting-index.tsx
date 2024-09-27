@@ -1,34 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth-context";
-import "./settings.css";
 import { useNavigate } from "react-router-dom";
 import Navbar from "../nav-bar/nav-bar";
 import LeftsideBar from "../leftside-bar/leftside-bar";
 import { getEmailSettings } from "../../services/email-settings-service";
+import "./settings.css";
 
 const SettingsIndex: React.FC = () => {
   const navigate = useNavigate();
-  const { user } = useAuth();
-  const userId = user._id;
-  const organizationId = user.organization._id;
+  const { user } = useAuth(); // Access the user from auth context
   const [emailSettings, setEmailSettings] = useState<any>({});
   const [organizationName, setOrganizationName] = useState<string>("");
 
+  // Redirect to login if user is not authenticated
   useEffect(() => {
-    console.log(user);
-    setOrganizationName(user.organization.name);
+    if (!user) {
+      navigate("/login");
+    } else {
+      // Set the organization name
+      setOrganizationName(user.organization.name);
 
-    const fetchEmailSettings = async () => {
-      try {
-        const data = await getEmailSettings(organizationId);
-        setEmailSettings(data.responseObject);
-      } catch (error: any) {
-        console.error("Error fetching email settings:", error);
+      // If user is an admin, fetch email settings
+      if (user.role === "Admin") {
+        const fetchEmailSettings = async () => {
+          try {
+            const data = await getEmailSettings(user.organization._id);
+            setEmailSettings(data.responseObject);
+          } catch (error: any) {
+            console.error("Error fetching email settings:", error);
+          }
+        };
+        fetchEmailSettings();
       }
-    };
-
-    fetchEmailSettings();
-  }, [organizationId, userId]);
+    }
+  }, [user, navigate]);
 
   const handleEdit = () => {
     navigate("/email-configuration");
@@ -43,6 +48,8 @@ const SettingsIndex: React.FC = () => {
         <div className="flex-grow mx-auto align-middle text-left p-4 pr-8">
           <h2 className="text-2xl font-bold mb-2.5">Organization Settings</h2>
           <p className="text-gray-600 text-sm">View your current settings.</p>
+
+          {/* Show Organization Name */}
           <div className="flex flex-col mt-5">
             <h3 className="text-lg font-semibold">General</h3>
             <div className="flex flex-col gap-2.5 border-b py-2.5 border-gray-300 text-base">
@@ -51,7 +58,8 @@ const SettingsIndex: React.FC = () => {
             </div>
           </div>
 
-          {user.role === "Admin" && (
+          {/* Show additional settings if the user is an admin */}
+          {user?.role === "Admin" && (
             <div className="mt-8">
               <div className="flex justify-between">
                 <h3 className="text-lg font-semibold">Email Settings</h3>
