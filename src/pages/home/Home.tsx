@@ -1,6 +1,5 @@
 import Sidebar from "../../Components/sidebar/Sidebar";
 import { Header } from "../../Components/header/Header";
-import "./Home.css";
 import { ContextWindow } from "../../Components/contextWindow/ContextWindow";
 
 export const Home = () => {
