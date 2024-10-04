@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import Settings from "../../pages/settings/Settings";
+import Settings from "../../pages/settings/settings";
 import EmailConfiguration from "../../Components/settings-dropdown/email-configuration";
+import { DirectMessages } from "../../pages/directMessages/DirectMessages";
 
 export const ContextWindow = () => {
   return (
@@ -8,6 +9,7 @@ export const ContextWindow = () => {
       <Routes>
         <Route path="/settings" element={<Settings />} />
         <Route path="/email-configuration" element={<EmailConfiguration />} />
+        <Route path="/messages" element={<DirectMessages />} />
       </Routes>
     </main>
   );
