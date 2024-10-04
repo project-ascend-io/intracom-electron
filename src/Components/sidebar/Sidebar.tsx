@@ -25,7 +25,7 @@ const Sidebar: React.FC = () => {
   };
   const handleMessagesClick = (): void => {
     setActiveItem("messages");
-    Navigate("/");
+    Navigate("/messages");
   };
   const handleChannelsClick = (): void => {
     setActiveItem("channels");
