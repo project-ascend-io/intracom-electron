@@ -5,6 +5,7 @@ import "./app.css";
 import { HashRouter as Router, Link, Route, Routes } from "react-router-dom";
 import Settings from "./pages/settings/settings";
 import SettingsIndex from "./Components/settings-dropdown/setting-index";
+import Users from "./pages/users/users";
 import { AuthProvider } from "./context/auth-context";
 import Login from "./pages/login/login";
 import AuthRequired from "./Components/auth-required/auth-required";
@@ -39,6 +40,7 @@ const App = () => {
           <Route path="/setting-index" element={<SettingsIndex />} />
 
           <Route path="/email-configuration" element={<EmailConfiguration />} />
+          <Route path="/users" element={<Users />} />
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>

@@ -4,11 +4,14 @@ import SettingIndex from "../settings-dropdown/setting-index";
 import { FaMessage } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
+import { HiUsers } from "react-icons/hi2";
 import { MdNumbers, MdOutlineEmail } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../services/auth";
-const LeftsideBar: React.FC = () => {
-  const [activeItem, setActiveItem] = useState<string>("settings");
+import { LeftsideBarProps } from "../../types/leftside-bar";
+
+const LeftsideBar: React.FC<LeftsideBarProps> = ({ page = "settings" }) => {
+  const [activeItem, setActiveItem] = useState<string>(page);
   const [showSettingIndex, setShowSettingIndex] = useState<boolean>(false);
   const [showSettingsList, setShowSettingsList] = useState<boolean>(false); // New state to control visibility of the settings list
   const Navigate = useNavigate();
@@ -20,6 +23,7 @@ const LeftsideBar: React.FC = () => {
 
   const handleSettingsClick = (): void => {
     setActiveItem("settings");
+    Navigate("/setting-index");
     setShowSettingsList(!showSettingsList); // Toggle visibility of the settings list
   };
   const handleMessagesClick = (): void => {
@@ -28,7 +32,12 @@ const LeftsideBar: React.FC = () => {
   };
   const handleChannelsClick = (): void => {
     setActiveItem("channels");
-    Navigate("/");
+    // Navigate("/");
+  };
+
+  const handleUsersClick = (): void => {
+    setActiveItem("users");
+    Navigate("/users");
   };
 
   const handleLogoutClick = async (): Promise<void> => {
@@ -86,6 +95,14 @@ const LeftsideBar: React.FC = () => {
               </li>
             </ul>
           </div>
+
+          <li
+            className={`cursor-pointer rounded-lg ${activeItem === "users" ? "bg-gray-300" : ""}`}
+            onClick={handleUsersClick}
+          >
+            <HiUsers className="icons ml-2" />
+            Users
+          </li>
 
           <li
             onClick={handleLogoutClick}
