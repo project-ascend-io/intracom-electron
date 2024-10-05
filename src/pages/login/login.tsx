@@ -23,7 +23,7 @@ const Login = () => {
       setUser(userData.responseObject);
       reset();
       setIsLoading(false);
-      navigate("/setting-index");
+      navigate("/");
     } else {
       setAuthError(userData.message);
     }
