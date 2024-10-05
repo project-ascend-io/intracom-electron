@@ -1,3 +1,7 @@
+* {
+  scrollbar-color: unset !important;
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -45,6 +49,7 @@ body {
     width: 2px;
     height: 2px;
   }
+
   100% {
     transform: translate(-50%, -50%) translateZ(600px);
     width: 15px;
