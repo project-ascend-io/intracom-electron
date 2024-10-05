@@ -9,7 +9,7 @@ import { logoutUser } from "../../services/auth";
 import { useAuth } from "../../context/auth-context";
 
 const Sidebar: React.FC = () => {
-  const [activeItem, setActiveItem] = useState<string>("settings");
+  const [activeItem, setActiveItem] = useState<string>("messages");
   const [showSettingsList, setShowSettingsList] = useState<boolean>(false); // New state to control visibility of the settings list
   const Navigate = useNavigate();
   const { setUser } = useAuth();
