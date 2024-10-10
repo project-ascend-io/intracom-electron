@@ -1,6 +1,7 @@
 import Sidebar from "../../Components/sidebar/Sidebar";
 import { Header } from "../../Components/header/Header";
 import { ContextWindow } from "../../Components/contextWindow/ContextWindow";
+import { ConversationsProvider } from "../../context/conversationsContext";
 
 export const Home = () => {
   return (
@@ -8,7 +9,9 @@ export const Home = () => {
       <Header />
       <div className="flex flex-row h-7/8">
         <Sidebar />
-        <ContextWindow />
+        <ConversationsProvider>
+          <ContextWindow />
+        </ConversationsProvider>
       </div>
     </>
   );
