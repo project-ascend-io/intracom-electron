@@ -3,16 +3,23 @@ import { SearchBar } from "../../Components/searchBar/SearchBar";
 import { Conversations } from "../../Components/conversations/Conversations";
 import { useConversationsContext } from "../../context/conversationsContext";
 import { Chat } from "../..//Components/connection/Connection.types";
+
 export const DirectMessages = () => {
   const navigate = useNavigate();
-  const { conversations, setConversations } = useConversationsContext();
+  const { conversations, setFilteredConversations } = useConversationsContext();
 
   const handleButtonClick = () => {
     navigate("/new-direct-message");
   };
 
   const filterConversation = (conversation: Chat, searchText: string) => {
-    return conversation.users.some((user) => user.username === searchText);
+    return conversation.users.some((user) =>
+      user.username.toLowerCase().startsWith(searchText.toLowerCase()),
+    );
+  };
+
+  const handleConversationFilter = (filteredItems: Chat[]) => {
+    setFilteredConversations(filteredItems);
   };
 
   return (
@@ -33,7 +40,7 @@ export const DirectMessages = () => {
           }
           placeholderText={"Search DM's"}
           listOfItems={conversations}
-          onFilter={setConversations}
+          onFilter={handleConversationFilter}
           itemFilterFunction={filterConversation}
         />
       </section>
