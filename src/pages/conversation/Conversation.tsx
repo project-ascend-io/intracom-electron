@@ -2,15 +2,18 @@ import { useNavigate } from "react-router-dom";
 import { Avatar } from "../../Components/avatar/Avatar";
 import { ChatBox } from "../../Components/chatBox/ChatBox";
 import { ChatInput } from "../../Components/chatInput/ChatInput";
+import { useCurrentlySelectedChatContext } from "../../context/currentlySelectedChatContext";
 
 export const Conversation = () => {
   const navigate = useNavigate();
 
+  const { setCurrentlySelectedChat } = useCurrentlySelectedChatContext();
+
   const handleClosePage = () => {
+    setCurrentlySelectedChat(null);
     navigate("/messages");
   };
 
-  // TODO: Add loading state to this component
   return (
     <article className="w-full h-full">
       <header className="flex flex-col items-start py-3 px-2 h-[13%] w-full border-b-2 border-solid border-[#DCDADA]">
