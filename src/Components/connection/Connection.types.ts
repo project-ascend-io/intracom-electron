@@ -1,4 +1,6 @@
-type User = {
+import { Message } from "../message/Message";
+
+export type User = {
   _id: string;
   username: string;
 };
@@ -11,6 +13,6 @@ export type Chat = {
   chatAdmin?: User | null;
   createdAt?: string;
   updatedAt?: string;
-  lastMessage?: string;
+  lastMessage?: Message;
   __v?: number;
 };
