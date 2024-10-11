@@ -1,5 +1,6 @@
 import { Message } from "../message/Message";
 
+// TODO: Add loading state to this component
 export const ChatBox = () => {
   return (
     <section className="w-full h-[62%]">
