@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { useConversationsContext } from "../../context/conversationsContext";
 import { Connection } from "../connection/Connection";
 import { Chat } from "../connection/Connection.types";
+import { ConversationsLoader } from "./ConversationsLoader";
 
 export const Conversations = () => {
-  const { conversations } = useConversationsContext();
+  const { filteredConversations, conversations } = useConversationsContext();
 
-  // TODO: Add loading state to this component
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -16,16 +16,18 @@ export const Conversations = () => {
   }, [conversations]);
 
   if (loading) {
-    return <section>Loading...</section>;
+    return <ConversationsLoader />;
   }
 
+  const conversationsToDisplay =
+    filteredConversations === null ? conversations : filteredConversations;
+
   return (
-    <section className=" h-16/21 overflow-y-auto">
+    <section className="h-16/21 overflow-y-auto">
       <ul className="flex flex-col mt-4">
-        {conversations &&
-          conversations.map((conversation: Chat) => (
-            <Connection key={conversation._id} />
-          ))}
+        {conversationsToDisplay.map((conversation: Chat) => (
+          <Connection key={conversation._id} conversation={conversation} />
+        ))}
       </ul>
     </section>
   );
