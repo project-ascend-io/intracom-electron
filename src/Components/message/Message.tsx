@@ -1,33 +1,21 @@
 import { Avatar } from "../avatar/Avatar";
+import { formatTime } from "../../utils/formatDate";
+import { Message as MessageType } from "./Message.types";
 
-export type Message = {
-  _id?: string;
-  sender?: {
-    _id?: string;
-    username?: string;
-    profileImage?: string;
-  };
-  content?: string;
-  chat?: {
-    _id?: string;
-  };
-  createdAt?: string;
-  updatedAt?: string;
-  __v?: number;
-};
-
-export const Message: React.FC<Message> = (message) => {
+export const Message: React.FC<MessageType> = ({
+  sender,
+  updatedAt,
+  content,
+}) => {
   return (
-    <section className="pl-2 flex items-start mb-2">
+    <section className="pl-2 flex items-start mb-4">
       <Avatar style={"w-10 h-10 rounded-[50%] object-cover mr-4"} user={null} />
       <div className="flex flex-col flex-1 items-start">
         <span className="flex justify-start">
-          <h6 className="mr-4 font-medium text-xs">
-            {message.sender.username}
-          </h6>
-          <time className="text-xs">{message.createdAt}</time>
+          <h6 className="mr-4 font-medium text-xs">{sender.username}</h6>
+          <time className="text-xs">{formatTime(updatedAt)}</time>
         </span>
-        <p className="text-wrap text-xs mt-2">{message.content}</p>
+        <p className="text-wrap text-xs mt-2">{content}</p>
       </div>
     </section>
   );
