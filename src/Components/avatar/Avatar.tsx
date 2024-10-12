@@ -34,7 +34,11 @@ export const Avatar: React.FC<AvatarProps> = ({ user, style }) => {
 
   return (
     <figure className={style}>
-      <img src={imageSrc} alt={"Profile Avatar"} />
+      <img
+        src={imageSrc}
+        alt={"Profile Avatar"}
+        className="select-none pointer-events-none"
+      />
     </figure>
   );
 };
