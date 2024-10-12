@@ -1,4 +1,4 @@
-const formatDate = (dateString: string) => {
+export const formatDate = (dateString: string) => {
   const date = new Date(dateString);
   const now = new Date();
   const diffInMs = now.getTime() - date.getTime();
@@ -18,4 +18,11 @@ const formatDate = (dateString: string) => {
   }
 };
 
-export default formatDate;
+export const formatTime = (dateString: string): string => {
+  const date = new Date(dateString);
+  const hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const amOrPm = hours >= 12 ? "pm" : "am";
+  const twelveHourFormat = hours % 12 || 12;
+  return `${twelveHourFormat}:${minutes} ${amOrPm}`;
+};
