@@ -3,7 +3,7 @@ export const fetchConversations = async (userId: string) => {
     const res = await fetch(`${process.env.API_URL}/chats/${userId}`);
 
     if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
+      throw new Error(`Server error! status: ${res.status}`);
     }
 
     const data = await res.json();
