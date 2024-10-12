@@ -2,8 +2,9 @@ import { Avatar } from "../avatar/Avatar";
 import { useNavigate } from "react-router-dom";
 import { Chat, User } from "../connection/Connection.types";
 import { useAuth } from "../../context/auth-context";
-import formatDate from "../../utils/formatDate";
+import { formatDate } from "../../utils/formatDate";
 import { useCurrentlySelectedChatContext } from "../../context/currentlySelectedChatContext";
+import { useConversationsContext } from "../../context/conversationsContext";
 
 const cutMessageLength = (lastMessageText: string) => {
   const maxLength = 100;
@@ -25,9 +26,11 @@ export const Connection: React.FC<ConnectionProps> = ({ conversation }) => {
   const { user } = useAuth();
 
   const { setCurrentlySelectedChat } = useCurrentlySelectedChatContext();
+  const { conversations, setFilteredConversations } = useConversationsContext();
 
   const handleGoToConversation = () => {
     setCurrentlySelectedChat(conversation);
+    setFilteredConversations(conversations);
     navigate("/conversation");
   };
 
