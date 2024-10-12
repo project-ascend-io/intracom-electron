@@ -15,20 +15,22 @@ export const Conversations = () => {
     }
   }, [conversations]);
 
-  if (loading) {
-    return <ConversationsLoader />;
-  }
-
   const conversationsToDisplay =
     filteredConversations === null ? conversations : filteredConversations;
 
   return (
-    <section className="h-16/21 overflow-y-auto">
-      <ul className="flex flex-col mt-4">
-        {conversationsToDisplay.map((conversation: Chat) => (
-          <Connection key={conversation._id} conversation={conversation} />
-        ))}
-      </ul>
-    </section>
+    <>
+      {loading ? (
+        <ConversationsLoader />
+      ) : (
+        <section className="h-16/21 overflow-y-auto">
+          <ul className="flex flex-col mt-4">
+            {conversationsToDisplay.map((conversation: Chat) => (
+              <Connection key={conversation._id} conversation={conversation} />
+            ))}
+          </ul>
+        </section>
+      )}
+    </>
   );
 };
