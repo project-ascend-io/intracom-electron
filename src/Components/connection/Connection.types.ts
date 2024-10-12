@@ -1,8 +1,9 @@
-import { Message } from "../message/Message";
+import { Message } from "../message/Message.types";
 
 export type User = {
   _id: string;
   username: string;
+  profilePic?: string;
 };
 
 export type Chat = {
