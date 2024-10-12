@@ -9,6 +9,7 @@ interface ConversationsContextType {
   setConversations: React.Dispatch<React.SetStateAction<Chat[]>>;
   filteredConversations: Chat[];
   setFilteredConversations: React.Dispatch<React.SetStateAction<Chat[]>>;
+  checkCurrentConversations: (id: string) => boolean;
 }
 
 const ConversationsContext = createContext<
@@ -42,6 +43,12 @@ export const ConversationsProvider: FC<{ children: React.ReactNode }> = ({
     );
   }, []);
 
+  const checkCurrentConversations = (id: string): boolean => {
+    return conversations.some((conversation) =>
+      conversation.users.some((user) => user._id === id),
+    );
+  };
+
   return (
     <ConversationsContext.Provider
       value={{
@@ -49,6 +56,7 @@ export const ConversationsProvider: FC<{ children: React.ReactNode }> = ({
         setConversations,
         filteredConversations,
         setFilteredConversations,
+        checkCurrentConversations,
       }}
     >
       {children}
