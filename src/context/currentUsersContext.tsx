@@ -9,6 +9,7 @@ interface CurrentUsersContextType {
   setCurrentUsers: React.Dispatch<React.SetStateAction<User[]>>;
   filteredCurrentUsers: User[];
   setFilteredCurrentUsers: React.Dispatch<React.SetStateAction<User[]>>;
+  updateCurrentUsers: (user: User) => void;
 }
 
 const CurrentUsersContext = createContext<CurrentUsersContextType | undefined>(
@@ -42,6 +43,10 @@ export const CurrentUsersProvider: FC<{
     });
   }, []);
 
+  const updateCurrentUsers = (user: User) => {
+    console.log(user);
+  };
+
   return (
     <CurrentUsersContext.Provider
       value={{
@@ -49,6 +54,7 @@ export const CurrentUsersProvider: FC<{
         setCurrentUsers,
         filteredCurrentUsers,
         setFilteredCurrentUsers,
+        updateCurrentUsers,
       }}
     >
       {children}
