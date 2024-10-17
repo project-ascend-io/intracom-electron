@@ -9,8 +9,11 @@ interface CurrentlySelectedChatContextType {
   setCurrentlySelectedChat: React.Dispatch<React.SetStateAction<Chat>>;
   messages: Message[];
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
+  updateMessages: (message: Message) => void;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  userIsTypingInCurrentChat: boolean;
+  setUserIsTypingInCurrentChat: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CurrentlySelectedChatContext = createContext<
@@ -33,6 +36,8 @@ export const useCurrentlySelectedChatContext =
 export const CurrentlySelectedChatProvider: FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  const [userIsTypingInCurrentChat, setUserIsTypingInCurrentChat] =
+    useState<boolean>(false);
   const [currentlySelectedChat, setCurrentlySelectedChat] = useState<Chat>(
     () => {
       const savedChat = sessionStorage.getItem("currentlySelectedChat");
@@ -78,6 +83,10 @@ export const CurrentlySelectedChatProvider: FC<{
     }
   }, [messages]);
 
+  const updateMessages = (message: Message) => {
+    console.log(message);
+  };
+
   return (
     <CurrentlySelectedChatContext.Provider
       value={{
@@ -85,8 +94,11 @@ export const CurrentlySelectedChatProvider: FC<{
         setCurrentlySelectedChat,
         messages,
         setMessages,
+        updateMessages,
         loading,
         setLoading,
+        userIsTypingInCurrentChat,
+        setUserIsTypingInCurrentChat,
       }}
     >
       {children}
