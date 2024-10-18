@@ -24,7 +24,7 @@ export const Conversation = () => {
     <article className="w-full h-full relative">
       <header className="flex flex-col items-start py-3 px-2 h-fit w-full border-b-2 border-solid border-[#DCDADA]">
         <div className="flex justify-between w-full h-full">
-          <div className="flex flex-col">
+          <div className="flex flex-col select-none pointer-events-none">
             <h3
               className="font-bold text-2xl select-none"
               hidden={messages && messages.length !== 0}
