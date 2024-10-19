@@ -36,7 +36,7 @@ export const ChatInput: React.FC = () => {
           onChange={handleCharacterCount}
           name="message"
           id="message"
-          placeholder="Message Amy C."
+          placeholder={`Message ${currentlySelectedChat.users.filter((userObject) => userObject._id !== user._id)[0].username}`}
         />
         <span className="invisible absolute left-2 bottom-0">fadsfdsafds</span>
         <button
