@@ -6,6 +6,7 @@ import { useConversationsContext } from "../../context/conversationsContext";
 import { useCurrentlySelectedChatContext } from "../../context/currentlySelectedChatContext";
 import { createNewConversation } from "../../services/newMessageService";
 import { useAuth } from "../../context/auth-context";
+import { useSocketContext } from "../../context/socketContext";
 
 export const UserList: React.FC = () => {
   const navigate = useNavigate();
@@ -14,8 +15,10 @@ export const UserList: React.FC = () => {
     useCurrentUsersContext();
   const { checkCurrentConversations, conversations } =
     useConversationsContext();
-  const { setCurrentlySelectedChat } = useCurrentlySelectedChatContext();
+  const { setCurrentlySelectedChat, currentlySelectedChat } =
+    useCurrentlySelectedChatContext();
   const { user } = useAuth();
+  const { socket } = useSocketContext();
 
   const handleCreateConversation = async (
     event: React.MouseEvent<HTMLElement>,
@@ -29,6 +32,7 @@ export const UserList: React.FC = () => {
         )[0],
       );
       setFilteredCurrentUsers(currentUsers);
+      socket.emit("join room", currentlySelectedChat);
       navigate("/conversation");
     } else {
       await createNewConversation(target.id, user._id)
@@ -36,6 +40,7 @@ export const UserList: React.FC = () => {
           if (conversation) {
             setCurrentlySelectedChat(conversation);
             setFilteredCurrentUsers(currentUsers);
+            socket.emit("join room", conversation);
           }
         })
         .finally(() => navigate("/conversation"));

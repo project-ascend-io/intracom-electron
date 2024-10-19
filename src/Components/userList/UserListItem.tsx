@@ -19,7 +19,7 @@ export const UserListItem: React.FC<UserListItemProps> = ({
       <span className="flex flex-row items-center select-none pointer-events-none">
         <Avatar
           style={"w-8 h-8 rounded-[50%] mr-4 select-none pointer-events-none"}
-          user={null}
+          user={user}
         />
         <h6 className="font-semibold select-none pointer-events-none">
           {user.username}
