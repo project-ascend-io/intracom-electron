@@ -5,6 +5,7 @@ import { useAuth } from "../../context/auth-context";
 import { formatDate } from "../../utils/formatDate";
 import { useCurrentlySelectedChatContext } from "../../context/currentlySelectedChatContext";
 import { useConversationsContext } from "../../context/conversationsContext";
+import { useSocketContext } from "../../context/socketContext";
 
 const cutMessageLength = (lastMessageText: string) => {
   const maxLength = 100;
@@ -27,10 +28,12 @@ export const Connection: React.FC<ConnectionProps> = ({ conversation }) => {
 
   const { setCurrentlySelectedChat } = useCurrentlySelectedChatContext();
   const { conversations, setFilteredConversations } = useConversationsContext();
+  const { socket } = useSocketContext();
 
   const handleGoToConversation = () => {
     setCurrentlySelectedChat(conversation);
     setFilteredConversations(conversations);
+    socket.emit("join room", conversation);
     navigate("/conversation");
   };
 
