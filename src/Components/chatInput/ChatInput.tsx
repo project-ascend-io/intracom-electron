@@ -29,16 +29,18 @@ export const ChatInput: React.FC = () => {
         className="h-full w-full border-2 border-solid border-[#DCDADA] rounded relative"
         onSubmit={handleSubmit}
       >
-        <span className="invisible">fadsfdsafds</span>
+        <span className="invisible">Placeholder space for enhancements</span>
         <textarea
           className="w-full h-1/2 pl-2 focus:outline-none resize-none overflow-y-auto text-wrap text-xs items-center"
           value={text}
           onChange={handleCharacterCount}
           name="message"
           id="message"
-          placeholder={`Message ${currentlySelectedChat.users.filter((userObject) => userObject._id !== user._id)[0].username}`}
+          placeholder={`Message ${currentlySelectedChat?.users.filter((userObject) => userObject._id !== user._id)[0].username}`}
         />
-        <span className="invisible absolute left-2 bottom-0">fadsfdsafds</span>
+        <span className="invisible absolute left-2 bottom-0">
+          Placeeholder space for enhancements
+        </span>
         <button
           type="submit"
           className={`w-16 h-8 ml-2 mb-2 text-center text-sm text-white rounded-[8px] ${text.length > 0 ? "bg-[#C18119]" : "bg-[#B8B8B8]"}
