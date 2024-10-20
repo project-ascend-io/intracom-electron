@@ -11,8 +11,6 @@ interface CurrentlySelectedChatContextType {
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  userIsTypingInCurrentChat: boolean;
-  setUserIsTypingInCurrentChat: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const CurrentlySelectedChatContext = createContext<
@@ -41,8 +39,6 @@ export const CurrentlySelectedChatProvider: FC<{
       return chat ? JSON.parse(chat) : null;
     });
 
-  const [userIsTypingInCurrentChat, setUserIsTypingInCurrentChat] =
-    useState<boolean>(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -80,8 +76,6 @@ export const CurrentlySelectedChatProvider: FC<{
         setMessages,
         loading,
         setLoading,
-        userIsTypingInCurrentChat,
-        setUserIsTypingInCurrentChat,
       }}
     >
       {children}
