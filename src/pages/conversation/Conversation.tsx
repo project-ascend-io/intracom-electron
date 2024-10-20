@@ -5,14 +5,19 @@ import { ChatInput } from "../../Components/chatInput/ChatInput";
 import { useCurrentlySelectedChatContext } from "../../context/currentlySelectedChatContext";
 import { User } from "../../Components/connection/Connection.types";
 import { useAuth } from "../../context/auth-context";
+import { useSocketContext } from "../../context/socketContext";
 
 export const Conversation = () => {
   const navigate = useNavigate();
 
-  const { messages, currentlySelectedChat } = useCurrentlySelectedChatContext();
+  const { messages, currentlySelectedChat, setCurrentlySelectedChat } =
+    useCurrentlySelectedChatContext();
   const { user } = useAuth();
+  const { socket } = useSocketContext();
 
   const handleClosePage = () => {
+    socket.emit("leave room", currentlySelectedChat);
+    setCurrentlySelectedChat(null);
     navigate("/messages");
   };
 

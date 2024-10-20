@@ -6,10 +6,9 @@ import { fetchMessages } from "../services/messagesService";
 
 interface CurrentlySelectedChatContextType {
   currentlySelectedChat: Chat;
-  setCurrentlySelectedChat: React.Dispatch<React.SetStateAction<Chat>>;
+  setCurrentlySelectedChat: React.Dispatch<React.SetStateAction<Chat | null>>;
   messages: Message[];
   setMessages: React.Dispatch<React.SetStateAction<Message[]>>;
-  updateMessages: (message: Message) => void;
   loading: boolean;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
   userIsTypingInCurrentChat: boolean;
@@ -36,22 +35,18 @@ export const useCurrentlySelectedChatContext =
 export const CurrentlySelectedChatProvider: FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
+  const [currentlySelectedChat, setCurrentlySelectedChat] =
+    useState<Chat | null>(() => {
+      const chat = sessionStorage.getItem("currentlySelectedChat");
+      return chat ? JSON.parse(chat) : null;
+    });
+
   const [userIsTypingInCurrentChat, setUserIsTypingInCurrentChat] =
     useState<boolean>(false);
-  const [currentlySelectedChat, setCurrentlySelectedChat] = useState<Chat>(
-    () => {
-      const savedChat = sessionStorage.getItem("currentlySelectedChat");
-      return savedChat ? JSON.parse(savedChat) : null;
-    },
-  );
-
-  const [messages, setMessages] = useState<Message[]>(() => {
-    const savedMessages = sessionStorage.getItem("messages");
-    return savedMessages ? JSON.parse(savedMessages) : [];
-  });
-
+  const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
 
+  // Handles updating fetching messages for the current chat whenever a new conversation is selected
   useEffect(() => {
     if (currentlySelectedChat && currentlySelectedChat._id) {
       setLoading(true);
@@ -64,8 +59,9 @@ export const CurrentlySelectedChatProvider: FC<{
     }
   }, [currentlySelectedChat]);
 
+  // Stores the currentlySelectedChat in sessionStorage to handle app refreshes/reloads
   useEffect(() => {
-    if (currentlySelectedChat) {
+    if (currentlySelectedChat !== null) {
       sessionStorage.setItem(
         "currentlySelectedChat",
         JSON.stringify(currentlySelectedChat),
@@ -75,18 +71,6 @@ export const CurrentlySelectedChatProvider: FC<{
     }
   }, [currentlySelectedChat]);
 
-  useEffect(() => {
-    if (messages.length > 0) {
-      sessionStorage.setItem("messages", JSON.stringify(messages));
-    } else {
-      sessionStorage.removeItem("messages");
-    }
-  }, [messages]);
-
-  const updateMessages = (message: Message) => {
-    console.log(message);
-  };
-
   return (
     <CurrentlySelectedChatContext.Provider
       value={{
@@ -94,7 +78,6 @@ export const CurrentlySelectedChatProvider: FC<{
         setCurrentlySelectedChat,
         messages,
         setMessages,
-        updateMessages,
         loading,
         setLoading,
         userIsTypingInCurrentChat,

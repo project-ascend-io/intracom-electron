@@ -9,7 +9,6 @@ interface CurrentUsersContextType {
   setCurrentUsers: React.Dispatch<React.SetStateAction<User[]>>;
   filteredCurrentUsers: User[];
   setFilteredCurrentUsers: React.Dispatch<React.SetStateAction<User[]>>;
-  updateCurrentUsers: (user: User) => void;
 }
 
 const CurrentUsersContext = createContext<CurrentUsersContextType | undefined>(
@@ -37,15 +36,12 @@ export const CurrentUsersProvider: FC<{
 
   const { user } = useAuth();
 
+  // Fetches updates user list upon initial render
   useEffect(() => {
     fetchUsers(user).then((data) => {
       setCurrentUsers(data);
     });
   }, []);
-
-  const updateCurrentUsers = (user: User) => {
-    console.log(user);
-  };
 
   return (
     <CurrentUsersContext.Provider
@@ -54,7 +50,6 @@ export const CurrentUsersProvider: FC<{
         setCurrentUsers,
         filteredCurrentUsers,
         setFilteredCurrentUsers,
-        updateCurrentUsers,
       }}
     >
       {children}
