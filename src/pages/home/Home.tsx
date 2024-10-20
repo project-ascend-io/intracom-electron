@@ -4,6 +4,7 @@ import { ContextWindow } from "../../Components/contextWindow/ContextWindow";
 import { ConversationsProvider } from "../../context/conversationsContext";
 import { CurrentlySelectedChatProvider } from "../../context/currentlySelectedChatContext";
 import { CurrentUsersProvider } from "../../context/currentUsersContext";
+import { SocketProvider } from "../../context/socketContext";
 
 export const Home = () => {
   return (
@@ -14,7 +15,9 @@ export const Home = () => {
         <CurrentUsersProvider>
           <ConversationsProvider>
             <CurrentlySelectedChatProvider>
-              <ContextWindow />
+              <SocketProvider>
+                <ContextWindow />
+              </SocketProvider>
             </CurrentlySelectedChatProvider>
           </ConversationsProvider>
         </CurrentUsersProvider>
