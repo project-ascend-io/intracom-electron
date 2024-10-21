@@ -93,3 +93,6 @@ typings/
 out/
 
 .idea/
+
+# React Developer Tools
+reactDevTools/

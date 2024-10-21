@@ -1,8 +1,30 @@
-interface SearchBarProps {
+import { useState } from "react";
+
+interface SearchBarProps<T> {
   style: string;
-  text: string;
+  placeholderText: string;
+  listOfItems: T[];
+  onFilter: (filteredItems: T[]) => void;
+  itemFilterFunction: (item: T, searchText: string) => boolean;
 }
-export const SearchBar: React.FC<SearchBarProps> = ({ style, text }) => {
+export const SearchBar = <T,>({
+  style,
+  placeholderText,
+  listOfItems,
+  onFilter,
+  itemFilterFunction,
+}: SearchBarProps<T>) => {
+  const [searchText, setSearchText] = useState("");
+
+  const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+    setSearchText(value);
+    const filteredItems = listOfItems.filter((item) =>
+      itemFilterFunction(item, value),
+    );
+    onFilter(filteredItems);
+  };
+
   return (
     <form className={style} role="search">
       <svg
@@ -25,7 +47,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({ style, text }) => {
         type="search"
         name="search"
         id="search"
-        placeholder={text}
+        placeholder={placeholderText}
+        value={searchText}
+        onChange={handleSearch}
       />
     </form>
   );

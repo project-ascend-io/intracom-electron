@@ -6,6 +6,7 @@ import { AuthProvider } from "./context/auth-context";
 import Login from "./pages/login/login";
 import AuthRequired from "./Components/auth-required/auth-required";
 import { Home } from "./pages/home/Home";
+import { StrictMode } from "react";
 
 const App = () => {
   return (
@@ -21,7 +22,9 @@ const App = () => {
 };
 const root = createRoot(document.body);
 root.render(
-  <AuthProvider>
-    <App />
-  </AuthProvider>,
+  <StrictMode>
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  </StrictMode>,
 );

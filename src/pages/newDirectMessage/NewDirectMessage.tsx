@@ -1,16 +1,26 @@
 import { useNavigate } from "react-router-dom";
-import { Avatar } from "../../Components/avatar/Avatar";
 import "./NewDirectMessage.css";
+import { useCurrentUsersContext } from "../../context/currentUsersContext";
+import { UserList } from "../../Components/userList/UserList";
+import { useState } from "react";
 
 export const NewDirectMessage = () => {
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const { currentUsers, setFilteredCurrentUsers } = useCurrentUsersContext();
+
   const navigate = useNavigate();
 
   const handleClosePage = () => {
     navigate("/messages");
   };
 
-  const handleCreateConversation = () => {
-    navigate("/conversation");
+  const handleFilterUsers = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchTerm(event.target.value);
+    const filteredUsers = currentUsers.filter((user) =>
+      user.username.toLowerCase().startsWith(event.target.value.toLowerCase()),
+    );
+    setFilteredCurrentUsers(filteredUsers);
   };
 
   return (
@@ -31,8 +41,8 @@ export const NewDirectMessage = () => {
               x2="6"
               y2="18"
               stroke="#979797"
-              stroke-width="2"
-              stroke-linecap="round"
+              strokeWidth="2"
+              strokeLinecap="round"
             />
             <line
               x1="6"
@@ -40,8 +50,8 @@ export const NewDirectMessage = () => {
               x2="18"
               y2="18"
               stroke="#979797"
-              stroke-width="2"
-              stroke-linecap="round"
+              strokeWidth="2"
+              strokeLinecap="round"
             />
           </svg>
         </span>
@@ -57,87 +67,11 @@ export const NewDirectMessage = () => {
             name="search"
             id="search"
             placeholder="Search by username"
+            value={searchTerm}
+            onChange={handleFilterUsers}
           />
         </form>
-        <div
-          id="userList"
-          className="ml-16 mt-2 max-w-[89%] border border-solid border-[#979797] rounded-lg max-h-80 overflow-y-scroll"
-        >
-          <ul className="flex flex-col w-full">
-            <li
-              className="flex flex-row justify-between py-4 px-6 items-center hover:bg-[#D7E7EE] hover:cursor-pointer rounded-lg"
-              onClick={handleCreateConversation}
-            >
-              <span className="flex flex-row items-center select-none">
-                <Avatar style={"w-8 h-8 rounded-[50%] mr-4"} user={null} />
-                <h6 className="font-semibold">Amy C.</h6>
-              </span>
-            </li>
-            <li
-              className="flex flex-row justify-between py-4 px-6 items-center hover:bg-[#D7E7EE] hover:cursor-pointer rounded-lg"
-              onClick={handleCreateConversation}
-            >
-              <span className="flex flex-row items-center select-none">
-                <Avatar style={"w-8 h-8 rounded-[50%] mr-4"} user={null} />
-                <h6 className="font-semibold">Amy C.</h6>
-              </span>
-            </li>
-            <li
-              className="flex flex-row justify-between py-4 px-6 items-center hover:bg-[#D7E7EE] hover:cursor-pointer rounded-lg"
-              onClick={handleCreateConversation}
-            >
-              <span className="flex flex-row items-center select-none">
-                <Avatar style={"w-8 h-8 rounded-[50%] mr-4"} user={null} />
-                <h6 className="font-semibold">Amy C.</h6>
-              </span>
-            </li>
-            <li
-              className="flex flex-row justify-between py-4 px-6 items-center hover:bg-[#D7E7EE] hover:cursor-pointer rounded-lg"
-              onClick={handleCreateConversation}
-            >
-              <span className="flex flex-row items-center select-none">
-                <Avatar style={"w-8 h-8 rounded-[50%] mr-4"} user={null} />
-                <h6 className="font-semibold">Amy C.</h6>
-              </span>
-            </li>
-            <li
-              className="flex flex-row justify-between py-4 px-6 items-center hover:bg-[#D7E7EE] hover:cursor-pointer rounded-lg"
-              onClick={handleCreateConversation}
-            >
-              <span className="flex flex-row items-center select-none">
-                <Avatar style={"w-8 h-8 rounded-[50%] mr-4"} user={null} />
-                <h6 className="font-semibold">Amy C.</h6>
-              </span>
-            </li>
-            <li
-              className="flex flex-row justify-between py-4 px-6 items-center hover:bg-[#D7E7EE] hover:cursor-pointer rounded-lg"
-              onClick={handleCreateConversation}
-            >
-              <span className="flex flex-row items-center select-none">
-                <Avatar style={"w-8 h-8 rounded-[50%] mr-4"} user={null} />
-                <h6 className="font-semibold">Amy C.</h6>
-              </span>
-            </li>
-            <li
-              className="flex flex-row justify-between py-4 px-6 items-center hover:bg-[#D7E7EE] hover:cursor-pointer rounded-lg"
-              onClick={handleCreateConversation}
-            >
-              <span className="flex flex-row items-center select-none">
-                <Avatar style={"w-8 h-8 rounded-[50%] mr-4"} user={null} />
-                <h6 className="font-semibold">Amy C.</h6>
-              </span>
-            </li>
-            <li
-              className="flex flex-row justify-between py-4 px-6 items-center hover:bg-[#D7E7EE] hover:cursor-pointer rounded-lg"
-              onClick={handleCreateConversation}
-            >
-              <span className="flex flex-row items-center select-none">
-                <Avatar style={"w-8 h-8 rounded-[50%] mr-4"} user={null} />
-                <h6 className="font-semibold">Amy C.</h6>
-              </span>
-            </li>
-          </ul>
-        </div>
+        <UserList />
       </section>
     </article>
   );

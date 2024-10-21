@@ -1,11 +1,25 @@
 import { useNavigate } from "react-router-dom";
-import { Conversations } from "../../Components/conversations/Conversations";
 import { SearchBar } from "../../Components/searchBar/SearchBar";
+import { Conversations } from "../../Components/conversations/Conversations";
+import { useConversationsContext } from "../../context/conversationsContext";
+import { Chat } from "../..//Components/connection/Connection.types";
+
 export const DirectMessages = () => {
   const navigate = useNavigate();
+  const { conversations, setFilteredConversations } = useConversationsContext();
 
   const handleButtonClick = () => {
     navigate("/new-direct-message");
+  };
+
+  const filterConversation = (conversation: Chat, searchText: string) => {
+    return conversation.users.some((user) =>
+      user.username.toLowerCase().startsWith(searchText.toLowerCase()),
+    );
+  };
+
+  const handleConversationFilter = (filteredItems: Chat[]) => {
+    setFilteredConversations(filteredItems);
   };
 
   return (
@@ -24,7 +38,10 @@ export const DirectMessages = () => {
           style={
             "flex flex-start mx-6 h-1/5 items-center rounded border-solid border-2 border-[#D5D3D2]"
           }
-          text={"Search DM's"}
+          placeholderText={"Search DM's"}
+          listOfItems={conversations}
+          onFilter={handleConversationFilter}
+          itemFilterFunction={filterConversation}
         />
       </section>
       <Conversations />

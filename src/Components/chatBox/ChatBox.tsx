@@ -1,25 +1,58 @@
+import { useCurrentlySelectedChatContext } from "../../context/currentlySelectedChatContext";
 import { Message } from "../message/Message";
+import { ChatBoxLoader } from "./ChatBoxLoader";
+import preProcessMessages from "./ChatBoxUtil";
+import { useEffect, useRef } from "react";
+import "./ChatBox.css";
 
 export const ChatBox = () => {
+  const { messages, loading } = useCurrentlySelectedChatContext();
+
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages]);
+
+  const processedMessages = preProcessMessages(messages);
+
   return (
-    <section className="w-full h-[62%]">
-      <time className="w-full pt-2 flex justify-center text-[#777777] text-sm">
-        {"Thursday September 19th"}
-      </time>
-      <Message
-        content={
-          "Hi Amy, will you be attending the company wide offsite next month? I could use some help preparing the welcome presentation. If you can help please let me know and we can set up a meeting for next week. Thanks!"
-        }
-        createdAt={"10:23 am"}
-        sender={{ username: "Joe M." }}
-      />
-      <Message
-        content={
-          "Yes, I plan to be at the offsite, and I am happy to help you with the welcome presentation. I am available Tuesday and Thursday in the morning next week to sync up.  "
-        }
-        createdAt={"10:37 am"}
-        sender={{ username: "Amy C." }}
-      />
-    </section>
+    <>
+      {loading ? (
+        <ChatBoxLoader />
+      ) : (
+        <section
+          id="messageList"
+          ref={scrollRef}
+          className="w-full h-[62%] pb-[2%] overflow-auto"
+        >
+          {processedMessages &&
+            processedMessages.length > 0 &&
+            processedMessages.map((item) => {
+              if ("type" in item && item.type === "divider") {
+                return (
+                  <time
+                    key={`divider-${item.date}`}
+                    className="w-full pt-2 flex justify-center text-[#777777] text-sm"
+                  >
+                    {item.text}
+                  </time>
+                );
+              } else if ("_id" in item) {
+                return (
+                  <Message
+                    key={item._id}
+                    sender={item.sender}
+                    updatedAt={item.updatedAt}
+                    content={item.content}
+                  />
+                );
+              }
+            })}
+        </section>
+      )}
+    </>
   );
 };

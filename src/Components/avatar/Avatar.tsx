@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import defaultProfileImage from "../../assets/defaultProfileImage.png";
 
 interface AvatarProps {
-  user: {
-    _id?: string;
-    name?: string;
+  user?: {
+    _id: string;
+    username: string;
     profileImage?: string;
   };
   style: string;
 }
 
-export const Avatar: React.FC<AvatarProps | null> = ({ user, style }) => {
+export const Avatar: React.FC<AvatarProps> = ({ user, style }) => {
   const [imageSrc, setImageSrc] = useState<string>(defaultProfileImage);
 
   useEffect(() => {
@@ -34,7 +34,11 @@ export const Avatar: React.FC<AvatarProps | null> = ({ user, style }) => {
 
   return (
     <figure className={style}>
-      <img src={imageSrc} alt={"Profile Avatar"} />
+      <img
+        src={imageSrc}
+        alt={"Profile Avatar"}
+        className="select-none pointer-events-none"
+      />
     </figure>
   );
 };

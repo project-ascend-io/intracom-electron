@@ -1,0 +1,13 @@
+#messageList::-webkit-scrollbar {
+  width: 0.25rem;
+  margin-left: 1rem;
+}
+
+#messageList::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#messageList::-webkit-scrollbar-thumb {
+  background: #00000036;
+  border-radius: 10px;
+}
