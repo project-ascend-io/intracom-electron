@@ -1,21 +1,22 @@
 import React, { useState } from "react";
-import "./leftside-bar.css";
-import SettingIndex from "../settings-dropdown/setting-index";
+import "./Sidebar.css";
 import { FaMessage } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
 import { MdNumbers, MdOutlineEmail } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../services/auth";
-const LeftsideBar: React.FC = () => {
-  const [activeItem, setActiveItem] = useState<string>("settings");
-  const [showSettingIndex, setShowSettingIndex] = useState<boolean>(false);
+import { useAuth } from "../../context/auth-context";
+
+const Sidebar: React.FC = () => {
+  const [activeItem, setActiveItem] = useState<string>("messages");
   const [showSettingsList, setShowSettingsList] = useState<boolean>(false); // New state to control visibility of the settings list
   const Navigate = useNavigate();
+  const { setUser } = useAuth();
 
   const handleCurrentConfigClick = (): void => {
     setActiveItem("settings");
-    Navigate("/setting-index");
+    Navigate("/settings");
   };
 
   const handleSettingsClick = (): void => {
@@ -24,7 +25,7 @@ const LeftsideBar: React.FC = () => {
   };
   const handleMessagesClick = (): void => {
     setActiveItem("messages");
-    Navigate("/");
+    Navigate("/messages");
   };
   const handleChannelsClick = (): void => {
     setActiveItem("channels");
@@ -33,27 +34,25 @@ const LeftsideBar: React.FC = () => {
 
   const handleLogoutClick = async (): Promise<void> => {
     setActiveItem("logout");
-    await logoutUser();
-    Navigate("/login");
+    const res = await logoutUser();
+    if (res.success) setUser(null);
   };
 
   return (
-    <div className="sidebar-container flex">
-      <div className="left-sidebar p-2.5 ml-4 bg-white h-screen min-w-[200px] max-w-[400px]">
-        <ul>
-          {/* TODO: Add Message and Channels once these are implemented */}
-          {/* <li */}
-          {/* onClick={handleMessagesClick}
-            className={`cursor-pointer rounded-lg ${activeItem === "messages" ? "bg-gray-300" : ""}`}
-          > */}
-          {/* We are using react-icons for now until image handling configuration in electron app is done. */}
-          {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
-          {/* <FaMessage className="icons ml-2" />
-            Messages */}
-          {/* </li> */}
+    <aside className="bg-[#F7F4F2] w-1/6 min-w-52 h-full flex content-center border-solid border-r-2 border-[#DCDADA]">
+      <nav className="p-2.5 w-full">
+        <ul className="p-2.5">
+          {/* TODO: Add Channels once these are implemented */}
+          <li
+            onClick={handleMessagesClick}
+            className={`cursor-pointer rounded-lg flex flex-row items-center py-2.5 ${activeItem === "messages" ? "bg-[#D7E7EE]" : ""}`}
+          >
+            <FaMessage className="h-6 w-6 mr-2.5 ml-2" />
+            Messages
+          </li>
           {/* <li
             onClick={handleChannelsClick}
-            className={`cursor-pointer rounded-lg ${activeItem === "channels" ? "bg-gray-300" : ""}`}
+            className={`cursor-pointer rounded-lg flex flex-row items-center py-2.5 ${activeItem === "channels" ? "bg-gray-300" : ""}`}
           > */}
           {/* We are using react-icons for now until image handling configuration in electron app is done. */}
           {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
@@ -61,14 +60,14 @@ const LeftsideBar: React.FC = () => {
             Channels
           </li> */}
 
-          <div
+          <ul
             onClick={handleSettingsClick}
-            className={`cursor-pointer rounded-lg ${activeItem === "settings" ? "bg-gray-300" : ""}`}
+            className={`cursor-pointer rounded-lg ${activeItem === "settings" ? "bg-[#D7E7EE]" : ""}`}
           >
-            <li>
+            <li className="flex flex-row items-center py-2.5">
               {/* We are using react-icons for now until image handling configuration in electron app is done. */}
               {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
-              <IoSettingsOutline className="icons ml-2" />
+              <IoSettingsOutline className="h-6 w-6 mr-2.5 ml-2" />
               Settings
             </li>
             <ul
@@ -78,29 +77,31 @@ const LeftsideBar: React.FC = () => {
                 paddingLeft: "10px",
               }}
             >
-              <li className="nested" onClick={handleCurrentConfigClick}>
+              <li
+                className="flex flex-row items-center py-2.5"
+                onClick={handleCurrentConfigClick}
+              >
                 {/* We are using react-icons for now until image handling configuration in electron app is done. */}
                 {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
-                <MdOutlineEmail className="icons" />
+                <MdOutlineEmail className="h-6 w-6 mr-2.5 ml-4" />
                 Email Configuration
               </li>
             </ul>
-          </div>
+          </ul>
 
           <li
             onClick={handleLogoutClick}
-            className={`cursor-pointer rounded-lg ${activeItem === "logout" ? "bg-gray-300" : ""}`}
+            className={`cursor-pointer rounded-lg flex flex-row items-center py-2.5 ${activeItem === "logout" ? "bg-[#D7E7EE]" : ""}`}
           >
             {/* We are using react-icons for now until image handling configuration in electron app is done. */}
             {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
-            <FiLogOut className="icons ml-2" />
+            <FiLogOut className="h-6 w-6 mr-2.5 ml-2" />
             Logout
           </li>
         </ul>
-      </div>
-      {showSettingIndex && <SettingIndex />}
-    </div>
+      </nav>
+    </aside>
   );
 };
 
-export default LeftsideBar;
+export default Sidebar;
