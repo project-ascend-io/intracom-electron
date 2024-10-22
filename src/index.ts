@@ -28,7 +28,7 @@ const createWindow = (): void => {
 
 app.whenReady().then(() => {
   protocol.registerHttpProtocol("intracom", (request, callback) => {
-    const url = request.url.substring(11); // Remove 'intracom://'
+    const url = request.url.substring(11);
     const filePath = path.normalize(`${__dirname}/${url}`);
     callback({ path: filePath });
   });
@@ -39,15 +39,12 @@ app.whenReady().then(() => {
 
 app.on("ready", () => {
   createWindow();
-
-  // Use protocol.handle to register the custom protocol
   protocol.handle("intracom", (request: Request): Response => {
-    const url = request.url.substring(11); // Remove 'intracom://'
+    const url = request.url.substring(11);
     const filePath = path.join(__dirname, url);
 
     try {
       if (fs.existsSync(filePath)) {
-        // Return the file content as a Response
         const fileBuffer = fs.readFileSync(filePath);
         return new Response(fileBuffer, {
           status: 200,
@@ -55,7 +52,6 @@ app.on("ready", () => {
         });
       } else {
         console.error("File does not exist:", filePath);
-        // Return a 404 response
         return new Response("File Not Found", {
           status: 404,
           statusText: "File Not Found",
@@ -63,7 +59,6 @@ app.on("ready", () => {
       }
     } catch (error) {
       console.error("Error reading file:", error);
-      // Return a 500 response for internal errors
       return new Response("Internal Server Error", {
         status: 500,
         statusText: "Internal Server Error",
@@ -71,6 +66,9 @@ app.on("ready", () => {
     }
   });
 });
+// Quit when all windows are closed, except on macOS. There, it's common
+// for applications and their menu bar to stay active until the user quits
+// explicitly with Cmd + Q.
 
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
@@ -79,19 +77,19 @@ app.on("window-all-closed", () => {
 });
 
 app.on("activate", () => {
+  // On OS X it's common to re-create a window in the app when the
+  // dock icon is clicked and there are no other windows open.
   if (BrowserWindow.getAllWindows().length === 0) {
     createWindow();
   }
 });
 
-// Handle custom protocol event to open files on macOS
 app.on("open-url", (event, url) => {
   event.preventDefault();
   const filePath = url.replace("intracom://", "");
   const fullPath = path.join(__dirname, filePath);
 
   if (fs.existsSync(fullPath)) {
-    // console.log("Opening file:", fullPath);
     exec(`open "${fullPath}"`);
   } else {
     console.error("File does not exist:", fullPath);
