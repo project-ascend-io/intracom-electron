@@ -12,6 +12,8 @@ import AuthRequired from "./Components/auth-required/auth-required";
 import { useAuth } from "./context/auth-context";
 import { checkUser, logoutUser } from "./services/auth";
 import EmailConfiguration from "./Components/settings-dropdown/email-configuration";
+import AdminRequired from "./Components/route-guard/admin-required";
+import Anauthorized from "./Components/route-guard/anauthorized";
 
 const HomePage = () => {
   const { setUser } = useAuth();
@@ -35,10 +37,26 @@ const App = () => {
         <Route element={<AuthRequired />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/settings" element={<Settings />} />
+          <Route path="/anauthorized" element={<Anauthorized />} />
 
-          <Route path="/setting-index" element={<SettingsIndex />} />
-
-          <Route path="/email-configuration" element={<EmailConfiguration />} />
+          {/* Admin-Only Routes */}
+          <Route
+            path="/setting-index"
+            element={
+              <AdminRequired>
+                <SettingsIndex />
+              </AdminRequired>
+            }
+          />
+          <Route
+            path="/email-configuration"
+            element={
+              <AdminRequired>
+                <EmailConfiguration />
+              </AdminRequired>
+            }
+          />
+          {/* Admin-Only Routes ends here*/}
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>
