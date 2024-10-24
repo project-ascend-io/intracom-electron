@@ -11,6 +11,13 @@ export const ChatInput: React.FC = () => {
   const { user } = useAuth();
   const { currentlySelectedChat } = useCurrentlySelectedChatContext();
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+      handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
+    }
+  };
+
   const handleCharacterCount = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
@@ -34,6 +41,7 @@ export const ChatInput: React.FC = () => {
           className="w-full h-1/2 pl-2 focus:outline-none resize-none overflow-y-auto text-wrap text-xs items-center"
           value={text}
           onChange={handleCharacterCount}
+          onKeyDown={handleKeyDown}
           name="message"
           id="message"
           placeholder={`Message ${currentlySelectedChat?.users.filter((userObject) => userObject._id !== user._id)[0].username}`}
