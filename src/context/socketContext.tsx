@@ -52,7 +52,19 @@ export const SocketProvider: FC<{ children: React.ReactNode }> = ({
 
     socketInstance.on("chats change", (chat) => {
       setFilteredConversations(null);
-      setConversations((prevConversations) => [...prevConversations, chat]);
+      setConversations((prevConversations) => {
+        const chatIndex = prevConversations.findIndex(
+          (conv) => conv._id === chat._id,
+        );
+
+        if (chatIndex !== -1) {
+          const updatedConversations = [...prevConversations];
+          updatedConversations[chatIndex] = chat;
+          return updatedConversations;
+        } else {
+          return [...prevConversations, chat];
+        }
+      });
     });
 
     socketInstance.on("chats delete", (deletedChatId) => {
@@ -69,7 +81,19 @@ export const SocketProvider: FC<{ children: React.ReactNode }> = ({
     });
 
     socketInstance.on("users change", (user) =>
-      setCurrentUsers((prevUsers) => [...prevUsers, user]),
+      setCurrentUsers((prevUsers) => {
+        const userIndex = prevUsers.findIndex(
+          (currentUser) => currentUser._id === user._id,
+        );
+
+        if (userIndex !== -1) {
+          const updatedUsers = [...prevUsers];
+          updatedUsers[userIndex] = user;
+          return updatedUsers;
+        } else {
+          return [...prevUsers, user];
+        }
+      }),
     );
 
     socketInstance.on("users delete", (deletedUserId) => {
@@ -82,7 +106,19 @@ export const SocketProvider: FC<{ children: React.ReactNode }> = ({
     socketInstance.on("messages change", (message) => {
       const currentChatId = sessionStorage.getItem("currentlySelectedChat");
       if (JSON.parse(currentChatId)._id === message.chat) {
-        setMessages((prevMessages) => [...prevMessages, message]);
+        setMessages((prevMessages) => {
+          const messageIndex = prevMessages.findIndex(
+            (currentMessage) => currentMessage._id === message._id,
+          );
+
+          if (messageIndex !== -1) {
+            const updatedMessages = [...prevMessages];
+            updatedMessages[messageIndex] = message;
+            return updatedMessages;
+          } else {
+            return [...prevMessages, message];
+          }
+        });
       }
     });
 
