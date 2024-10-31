@@ -13,6 +13,6 @@
     "plugin:import/typescript"
   ],
 
-  "ignorePatterns": ["src/assets/tools/*"],
+  "ignorePatterns": ["src/assets/tools/**"],
   "parser": "@typescript-eslint/parser"
 }
