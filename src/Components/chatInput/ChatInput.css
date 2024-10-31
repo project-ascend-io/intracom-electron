@@ -1,0 +1,13 @@
+#message::-webkit-scrollbar {
+  width: 0.25rem;
+  margin-left: 1rem;
+}
+
+#message::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#message::-webkit-scrollbar-thumb {
+  background: #00000036;
+  border-radius: 10px;
+}

@@ -2,7 +2,13 @@
 module.exports = {
   content: ["./src/**/*.{html,js,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        "1/8": "12.5%",
+        "7/8": "87.5%",
+        "16/21": "76.19%",
+      },
+    },
   },
   plugins: [require("daisyui")],
   // daisyUI config (optional - here are the default values)
