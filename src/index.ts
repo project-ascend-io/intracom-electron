@@ -39,12 +39,12 @@ app.whenReady().then(() => {
     const url = request.url.substring(11);
     const filePath = path.normalize(`${__dirname}/${url}`);
     callback({ path: filePath });
-  });
-  // This method will be called when Electron has finished
-  // initialization and is ready to create browser windows.
-  // Some APIs can only be used after this event occurs.
-  // React Developer Tools are installed before the window is created.
-  app.on("ready", async () => {
+
+    // This method will be called when Electron has finished
+    // initialization and is ready to create browser windows.
+    // Some APIs can only be used after this event occurs.
+    // React Developer Tools are installed before the window is created.
+
     const reactDevToolsPath = path.join(
       __dirname,
       "..",
@@ -55,7 +55,7 @@ app.whenReady().then(() => {
       "reactDevTools",
     );
     try {
-      await session.defaultSession.loadExtension(reactDevToolsPath);
+      session.defaultSession.loadExtension(reactDevToolsPath);
       console.log("Added Extension: React Developer Tools");
       createWindow();
     } catch (err) {
