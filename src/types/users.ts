@@ -1,4 +1,4 @@
-import { string, z } from "zod";
+import { z } from "zod";
 
 export const userEmailsSchema = z.object({
   emails: z.array(z.string().email()).min(1, "At least one email is required."),
@@ -15,9 +15,9 @@ export const userEditParamsSchema = z.object({
     .optional(),
 });
 
-export const emailValuesParamsSchema = z.record(z.string());
+// export const emailValuesParamsSchema = z.record(z.string());
 
 export type UserEmailsType = z.infer<typeof userEmailsSchema>;
 export type UserEmailsValues = z.infer<typeof userEmailsSchema>;
 export type UserEditParamsType = z.infer<typeof userEditParamsSchema>;
-export type EmailValuesType = z.infer<typeof emailValuesParamsSchema>;
+export type EmailType = z.infer<typeof userEditParamsSchema.shape.email>;

@@ -2,7 +2,30 @@
 module.exports = {
   content: ["./src/**/*.{html,js,ts,tsx}"],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        "1/8": "12.5%",
+        "7/8": "87.5%",
+        "16/21": "76.19%",
+      },
+      colors: {
+        customRed: {
+          DEFAULT: "#BF1D1D",
+        },
+        customRed2: {
+          DEFAULT: "#B12525",
+        },
+        customBrown: {
+          DEFAULT: "#C18119",
+        },
+        customGrey: {
+          DEFAULT: "#B8B8B8",
+        },
+        customLightGrey: {
+          DEFAULT: "#F0F2F5",
+        },
+      },
+    },
   },
   plugins: [require("daisyui")],
   // daisyUI config (optional - here are the default values)
