@@ -3,6 +3,7 @@ import Settings from "../../pages/settings/settings";
 import { DirectMessages } from "../../pages/directMessages/DirectMessages";
 import { NewDirectMessage } from "../../pages/newDirectMessage/NewDirectMessage";
 import { Conversation } from "../../pages/conversation/Conversation";
+import Users from "../../pages/users/users";
 import EmailConfiguration from "../../pages/emailConfigurations/email-configuration";
 
 export const ContextWindow = () => {
@@ -13,6 +14,7 @@ export const ContextWindow = () => {
         <Route path="/messages" element={<DirectMessages />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/email-configuration" element={<EmailConfiguration />} />
+        <Route path="/Users" element={<Users />} />
         <Route path="/new-direct-message" element={<NewDirectMessage />} />
         <Route path="/conversation" element={<Conversation />} />
       </Routes>

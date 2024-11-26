@@ -8,6 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../services/auth";
 import { useAuth } from "../../context/auth-context";
 
+import { TbUsersPlus } from "react-icons/tb";
+
 const Sidebar: React.FC = () => {
   const [activeItem, setActiveItem] = useState<string>("messages");
   const [showSettingsList, setShowSettingsList] = useState<boolean>(false); // New state to control visibility of the settings list
@@ -36,6 +38,11 @@ const Sidebar: React.FC = () => {
     setActiveItem("logout");
     const res = await logoutUser();
     if (res.success) setUser(null);
+  };
+
+  const handleUsersClick = (): void => {
+    setActiveItem("users");
+    Navigate("/users");
   };
 
   return (
@@ -85,6 +92,14 @@ const Sidebar: React.FC = () => {
                 {/* @todo: replace the image with provided Ui-design image once image handling is done. */}
                 <MdOutlineEmail className="h-6 w-6 mr-2.5 ml-4" />
                 Email Configuration
+              </li>
+
+              <li
+                className="flex flex-row items-center py-2.5"
+                onClick={handleUsersClick}
+              >
+                <TbUsersPlus className="h-6 w-6 mr-2.5 ml-4" />
+                Manage Users
               </li>
             </ul>
           </ul>
