@@ -3,11 +3,11 @@ import "./Sidebar.css";
 import { FaMessage } from "react-icons/fa6";
 import { IoSettingsOutline } from "react-icons/io5";
 import { FiLogOut } from "react-icons/fi";
-import { HiUsers } from "react-icons/hi2";
-import { MdOutlineEmail } from "react-icons/md";
+import { MdNumbers, MdOutlineEmail } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../../services/auth";
 import { useAuth } from "../../context/auth-context";
+
 import { TbUsersPlus } from "react-icons/tb";
 
 const Sidebar: React.FC = () => {
@@ -23,7 +23,6 @@ const Sidebar: React.FC = () => {
 
   const handleSettingsClick = (): void => {
     setActiveItem("settings");
-    Navigate("/setting-index");
     setShowSettingsList(!showSettingsList); // Toggle visibility of the settings list
   };
   const handleMessagesClick = (): void => {
@@ -32,7 +31,7 @@ const Sidebar: React.FC = () => {
   };
   const handleChannelsClick = (): void => {
     setActiveItem("channels");
-    // Navigate("/");
+    Navigate("/");
   };
 
   const handleLogoutClick = async (): Promise<void> => {
@@ -104,14 +103,6 @@ const Sidebar: React.FC = () => {
               </li>
             </ul>
           </ul>
-
-          <li
-            className={`cursor-pointer rounded-lg ${activeItem === "users" ? "bg-gray-300" : ""}`}
-            onClick={handleUsersClick}
-          >
-            <HiUsers className="icons ml-2" />
-            Users
-          </li>
 
           <li
             onClick={handleLogoutClick}
