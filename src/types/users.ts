@@ -15,8 +15,6 @@ export const userEditParamsSchema = z.object({
     .optional(),
 });
 
-// export const emailValuesParamsSchema = z.record(z.string());
-
 export type UserEmailsType = z.infer<typeof userEmailsSchema>;
 export type UserEmailsValues = z.infer<typeof userEmailsSchema>;
 export type UserEditParamsType = z.infer<typeof userEditParamsSchema>;

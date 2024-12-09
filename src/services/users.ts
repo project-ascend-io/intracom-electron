@@ -50,7 +50,6 @@ export const updateInviteState = async (
     if (data.success) {
       return data;
     } else {
-      //return error msg
       return data;
     }
   } catch (err) {

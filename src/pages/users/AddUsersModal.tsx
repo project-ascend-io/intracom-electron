@@ -80,9 +80,7 @@ const UsersModal: React.FC<UsersModalProps> = ({
         setInviteSuccessful(false);
       }
     } catch (err) {
-      //to check
       setInfoMessage([err]);
-      console.log("Error sending user invites", err);
     }
     setInputValue("");
     setEmailsList([]);
@@ -148,8 +146,8 @@ const UsersModal: React.FC<UsersModalProps> = ({
             width: "400px",
             height: "100px",
             paddingLeft: "10px",
-            resize: "none", // If you want to prevent manual resizing by the user
-            overflow: "auto", // Allows scrolling if needed
+            resize: "none",
+            overflow: "auto",
           }}
         />
         {error && <div className="text-customRed">{error}</div>}

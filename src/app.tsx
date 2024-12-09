@@ -28,30 +28,3 @@ root.render(
     </AuthProvider>
   </StrictMode>,
 );
-
-// const App = () => {
-//   return (
-//     <Router>
-//       <Routes>
-//         <Route element={<AuthRequired />}>
-//           <Route path="/" element={<Home />} />
-//           <Route path="/settings" element={<Settings />} />
-
-//           <Route path="/setting-index" element={<SettingsIndex />} />
-
-//           <Route path="/email-configuration" element={<EmailConfiguration />} />
-//           <Route path="/users" element={<Users />} />
-//         </Route>
-//         <Route path="/login" element={<Login />} />
-//       </Routes>
-//     </Router>
-//   );
-// };
-// const root = createRoot(document.body);
-// root.render(
-//   <StrictMode>
-//     <AuthProvider>
-//       <App />
-//     </AuthProvider>
-//   </StrictMode>,
-// );
