@@ -14,7 +14,7 @@ export const ContextWindow = () => {
         <Route path="/messages" element={<DirectMessages />} />
         <Route path="/settings" element={<Settings />} />
         <Route path="/email-configuration" element={<EmailConfiguration />} />
-        <Route path="/Users" element={<Users />} />
+        <Route path="/users" element={<Users />} />
         <Route path="/new-direct-message" element={<NewDirectMessage />} />
         <Route path="/conversation" element={<Conversation />} />
       </Routes>
