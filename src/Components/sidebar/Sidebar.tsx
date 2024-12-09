@@ -15,6 +15,7 @@ const Sidebar: React.FC = () => {
   const [showSettingsList, setShowSettingsList] = useState<boolean>(false); // New state to control visibility of the settings list
   const Navigate = useNavigate();
   const { setUser } = useAuth();
+  const { user } = useAuth();
 
   const handleCurrentConfigClick = (): void => {
     setActiveItem("settings");
@@ -94,13 +95,15 @@ const Sidebar: React.FC = () => {
                 Email Configuration
               </li>
 
-              <li
-                className="flex flex-row items-center py-2.5"
-                onClick={handleUsersClick}
-              >
-                <TbUsersPlus className="h-6 w-6 mr-2.5 ml-4" />
-                Manage Users
-              </li>
+              {user && user.role == "Admin" && (
+                <li
+                  className="flex flex-row items-center py-2.5"
+                  onClick={handleUsersClick}
+                >
+                  <TbUsersPlus className="h-6 w-6 mr-2.5 ml-4" />
+                  Manage Users
+                </li>
+              )}
             </ul>
           </ul>
 

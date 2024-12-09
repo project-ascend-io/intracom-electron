@@ -111,6 +111,19 @@ const UsersModal: React.FC<UsersModalProps> = ({
             width: "700px",
             height: "400px",
             margin: "auto",
+            border: "1px solid #ccc",
+            borderRadius: "10px",
+            boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+            background: "#fff",
+            overflow: "hidden",
+          },
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.4)",
+            backdropFilter: "blur(8px)",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1010,
           },
         }}
       >
@@ -159,9 +172,10 @@ const UsersModal: React.FC<UsersModalProps> = ({
         </div>
       </ReactModal>
       <InfoModal
-        onOpen={isInfoModalOpen}
+        onInfoModalOpen={isInfoModalOpen}
         onInfoModalClose={() => setInfoModalOpen(false)}
-        isInviteSuccessful={isInviteSuccessful}
+        isInviteModal={true}
+        isSuccessful={isInviteSuccessful}
         message={infoMessage}
         onInviteMoreUsers={onAddMoreUsers}
       ></InfoModal>
