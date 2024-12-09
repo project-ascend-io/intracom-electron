@@ -6,7 +6,6 @@ import Login from "./pages/login/login";
 import AuthRequired from "./Components/auth-required/auth-required";
 import { Home } from "./pages/home/Home";
 import { StrictMode } from "react";
-// import Users from "./pages/users/users";
 
 const App = () => {
   return (

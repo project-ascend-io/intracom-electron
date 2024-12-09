@@ -384,7 +384,7 @@ const Users = () => {
         onInfoModalClose={() => setInfoModalOpen(false)}
         isSuccessful={!isError}
         isInviteModal={false}
-        message={!isError ? [successMsg] : [errorMsg]}
+        message={isError ? [errorMsg] : [successMsg]}
       ></InfoModal>
     </div>
   );

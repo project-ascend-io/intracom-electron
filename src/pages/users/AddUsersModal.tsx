@@ -63,7 +63,6 @@ const UsersModal: React.FC<UsersModalProps> = ({
 
     try {
       const data = await postUserInvites(emailsList, organizationId);
-      console.log(JSON.stringify(data));
       if (data.success) {
         setInfoMessage(emailsList);
         setInviteSuccessful(true);
