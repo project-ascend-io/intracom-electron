@@ -1,4 +1,4 @@
-* {
+/* * {
   scrollbar-color: unset !important;
 }
 
@@ -43,8 +43,6 @@ body {
   animation: animateStar 50s linear infinite;
 }
 
-/* test */
-
 @keyframes animateStar {
   0% {
     transform: translate(-50%, -50%);
@@ -58,4 +56,4 @@ body {
     height: 15px;
     opacity: 0;
   }
-}
+} */
