@@ -14,7 +14,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          # Make sure the actual branch is checked out when running on pull requests
+          token: ${{ secrets.GH_TOKEN }}
           ref: ${{ github.head_ref }}
 
       - name: Prettify code
