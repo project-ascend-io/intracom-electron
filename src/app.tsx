@@ -1,6 +1,5 @@
 import { createRoot } from "react-dom/client";
 import "./app.css";
-
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
 import { AuthProvider } from "./context/auth-context";
 import Login from "./pages/login/login";

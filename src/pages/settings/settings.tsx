@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAuth } from "../../context/auth-context";
+
 import "./settings.css";
 import { useNavigate } from "react-router-dom";
 import { getEmailSettings } from "../../services/email-settings-service";
