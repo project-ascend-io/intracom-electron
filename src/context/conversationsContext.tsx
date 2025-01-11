@@ -37,12 +37,18 @@ export const ConversationsProvider: FC<{ children: React.ReactNode }> = ({
 
   const { user } = useAuth();
 
+  // Handles fetching conversations for the current users upon initial render
   useEffect(() => {
     fetchConversations(user._id).then((data) =>
       setConversations(data.responseObject),
     );
   }, []);
 
+  /*
+   * Helper function to check if the conversation already exists so a new one does not get created
+   * Checks if a conversation with the given user id already exists in the list of conversations
+   * Returns a boolean indicating whether the conversation already exists
+   */
   const checkCurrentConversations = (id: string): boolean => {
     return conversations.some((conversation) =>
       conversation.users.some((user) => user._id === id),

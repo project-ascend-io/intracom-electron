@@ -5,14 +5,19 @@ import { ChatInput } from "../../Components/chatInput/ChatInput";
 import { useCurrentlySelectedChatContext } from "../../context/currentlySelectedChatContext";
 import { User } from "../../Components/connection/Connection.types";
 import { useAuth } from "../../context/auth-context";
+import { useSocketContext } from "../../context/socketContext";
 
 export const Conversation = () => {
   const navigate = useNavigate();
 
-  const { messages, currentlySelectedChat } = useCurrentlySelectedChatContext();
+  const { messages, currentlySelectedChat, setCurrentlySelectedChat } =
+    useCurrentlySelectedChatContext();
   const { user } = useAuth();
+  const { socket } = useSocketContext();
 
   const handleClosePage = () => {
+    socket.emit("leave room", currentlySelectedChat);
+    setCurrentlySelectedChat(null);
     navigate("/messages");
   };
 
@@ -24,7 +29,7 @@ export const Conversation = () => {
     <article className="w-full h-full relative">
       <header className="flex flex-col items-start py-3 px-2 h-fit w-full border-b-2 border-solid border-[#DCDADA]">
         <div className="flex justify-between w-full h-full">
-          <div className="flex flex-col">
+          <div className="flex flex-col select-none pointer-events-none">
             <h3
               className="font-bold text-2xl select-none"
               hidden={messages && messages.length !== 0}

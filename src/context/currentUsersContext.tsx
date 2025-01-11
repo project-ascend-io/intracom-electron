@@ -36,6 +36,7 @@ export const CurrentUsersProvider: FC<{
 
   const { user } = useAuth();
 
+  // Fetches updates user list upon initial render
   useEffect(() => {
     fetchUsers(user).then((data) => {
       setCurrentUsers(data);
